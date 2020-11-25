@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.Print = new System.Windows.Forms.Button();
             this.Grid = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel13 = new System.Windows.Forms.TableLayoutPanel();
@@ -66,12 +67,15 @@
             this.Model2Users = new System.Windows.Forms.Label();
             this.tableLayoutPanel14 = new System.Windows.Forms.TableLayoutPanel();
             this.TourNum = new System.Windows.Forms.Label();
+            this.TimerLabel = new System.Windows.Forms.Label();
+            this.TimerNameLabel = new System.Windows.Forms.Label();
             this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
             this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
             this.numericUpDown4 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown5 = new System.Windows.Forms.NumericUpDown();
             this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
             this.numericUpDown6 = new System.Windows.Forms.NumericUpDown();
+            this.Timer = new System.Windows.Forms.Timer(this.components);
             this.Grid.SuspendLayout();
             this.tableLayoutPanel13.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -132,6 +136,8 @@
             this.Grid.Controls.Add(this.tableLayoutPanel12, 2, 1);
             this.Grid.Controls.Add(this.tableLayoutPanel14, 0, 2);
             this.Grid.Controls.Add(this.TourNum, 0, 1);
+            this.Grid.Controls.Add(this.TimerLabel, 1, 5);
+            this.Grid.Controls.Add(this.TimerNameLabel, 0, 5);
             this.Grid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Grid.Location = new System.Drawing.Point(10, 10);
             this.Grid.Margin = new System.Windows.Forms.Padding(0);
@@ -187,7 +193,6 @@
             this.Model3Users.Name = "Model3Users";
             this.Model3Users.Size = new System.Drawing.Size(224, 37);
             this.Model3Users.TabIndex = 1;
-            this.Model3Users.Text = "label40";
             this.Model3Users.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tableLayoutPanel5
@@ -291,6 +296,7 @@
             this.Start.TabIndex = 0;
             this.Start.Text = "Старт";
             this.Start.UseVisualStyleBackColor = true;
+            this.Start.Click += new System.EventHandler(this.Start_Click);
             // 
             // Stop
             // 
@@ -303,6 +309,7 @@
             this.Stop.TabIndex = 0;
             this.Stop.Text = "Стоп";
             this.Stop.UseVisualStyleBackColor = true;
+            this.Stop.Click += new System.EventHandler(this.Stop_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -333,6 +340,7 @@
             this.Reset.TabIndex = 0;
             this.Reset.Text = "Сброс";
             this.Reset.UseVisualStyleBackColor = true;
+            this.Reset.Click += new System.EventHandler(this.Reset_Click);
             // 
             // TimeLabel
             // 
@@ -490,7 +498,6 @@
             this.Result.Name = "Result";
             this.Result.Size = new System.Drawing.Size(205, 34);
             this.Result.TabIndex = 1;
-            this.Result.Text = "label4";
             this.Result.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tableLayoutPanel7
@@ -537,7 +544,6 @@
             this.Result2.Name = "Result2";
             this.Result2.Size = new System.Drawing.Size(205, 34);
             this.Result2.TabIndex = 1;
-            this.Result2.Text = "label21";
             this.Result2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tableLayoutPanel10
@@ -584,7 +590,6 @@
             this.Result3.Name = "Result3";
             this.Result3.Size = new System.Drawing.Size(208, 34);
             this.Result3.TabIndex = 1;
-            this.Result3.Text = "label24";
             this.Result3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // FinishTime
@@ -599,7 +604,6 @@
             this.FinishTime.Name = "FinishTime";
             this.FinishTime.Size = new System.Drawing.Size(283, 36);
             this.FinishTime.TabIndex = 1;
-            this.FinishTime.Text = "label25";
             this.FinishTime.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // FinishTime2
@@ -614,7 +618,6 @@
             this.FinishTime2.Name = "FinishTime2";
             this.FinishTime2.Size = new System.Drawing.Size(283, 36);
             this.FinishTime2.TabIndex = 1;
-            this.FinishTime2.Text = "label26";
             this.FinishTime2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // FinishTime3
@@ -629,7 +632,6 @@
             this.FinishTime3.Name = "FinishTime3";
             this.FinishTime3.Size = new System.Drawing.Size(286, 36);
             this.FinishTime3.TabIndex = 1;
-            this.FinishTime3.Text = "label37";
             this.FinishTime3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tableLayoutPanel11
@@ -672,7 +674,6 @@
             this.Model1Users.Name = "Model1Users";
             this.Model1Users.Size = new System.Drawing.Size(221, 37);
             this.Model1Users.TabIndex = 1;
-            this.Model1Users.Text = "label38";
             this.Model1Users.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tableLayoutPanel12
@@ -715,7 +716,6 @@
             this.Model2Users.Name = "Model2Users";
             this.Model2Users.Size = new System.Drawing.Size(221, 37);
             this.Model2Users.TabIndex = 1;
-            this.Model2Users.Text = "label39";
             this.Model2Users.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tableLayoutPanel14
@@ -769,6 +769,30 @@
             this.TourNum.TabIndex = 5;
             this.TourNum.Text = "Тур: 0";
             this.TourNum.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // TimerLabel
+            // 
+            this.TimerLabel.AutoSize = true;
+            this.TimerLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TimerLabel.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.TimerLabel.Location = new System.Drawing.Point(99, 532);
+            this.TimerLabel.Name = "TimerLabel";
+            this.TimerLabel.Size = new System.Drawing.Size(283, 38);
+            this.TimerLabel.TabIndex = 6;
+            this.TimerLabel.Text = "Остановлено";
+            this.TimerLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // TimerNameLabel
+            // 
+            this.TimerNameLabel.AutoSize = true;
+            this.TimerNameLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TimerNameLabel.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.TimerNameLabel.Location = new System.Drawing.Point(3, 532);
+            this.TimerNameLabel.Name = "TimerNameLabel";
+            this.TimerNameLabel.Size = new System.Drawing.Size(90, 38);
+            this.TimerNameLabel.TabIndex = 7;
+            this.TimerNameLabel.Text = "Время:";
+            this.TimerNameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // numericUpDown3
             // 
@@ -834,6 +858,10 @@
             this.numericUpDown6.Name = "numericUpDown6";
             this.numericUpDown6.Size = new System.Drawing.Size(120, 23);
             this.numericUpDown6.TabIndex = 0;
+            // 
+            // Timer
+            // 
+            this.Timer.Tick += new System.EventHandler(this.Timer_Tick);
             // 
             // MainForm
             // 
@@ -918,6 +946,9 @@
         private System.Windows.Forms.Label Model3Users;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel14;
         private System.Windows.Forms.Label TourNum;
+        private System.Windows.Forms.Timer Timer;
+        private System.Windows.Forms.Label TimerLabel;
+        private System.Windows.Forms.Label TimerNameLabel;
     }
 }
 

@@ -16,5 +16,30 @@ namespace TimerModel
         {
             InitializeComponent();
         }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            TimeSpan Time = DateTime.Now - TimerData.StartTime;
+            TimerLabel.Text = Time.ToString();
+        }
+
+        private void Start_Click(object sender, EventArgs e)
+        {
+            //Start.Text = "Пауза";
+            TimerData.SetStart();
+            Timer.Start();
+        }
+
+        private void Stop_Click(object sender, EventArgs e)
+        {
+            Timer.Stop();
+        }
+
+        private void Reset_Click(object sender, EventArgs e)
+        {
+            Timer.Stop();
+            TimerData.Clear();
+            TimerLabel.Text = "Остановлено";
+        }
     }
 }

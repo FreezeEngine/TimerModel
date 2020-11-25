@@ -32,8 +32,8 @@
             this.Print = new System.Windows.Forms.Button();
             this.Grid = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel13 = new System.Windows.Forms.TableLayoutPanel();
-            this.button3 = new System.Windows.Forms.Button();
-            this.Model3Users = new System.Windows.Forms.Label();
+            this.ChoosePilotsM3 = new System.Windows.Forms.Button();
+            this.Model3Pilots = new System.Windows.Forms.Label();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
@@ -60,11 +60,11 @@
             this.FinishTime2 = new System.Windows.Forms.Label();
             this.FinishTime3 = new System.Windows.Forms.Label();
             this.tableLayoutPanel11 = new System.Windows.Forms.TableLayoutPanel();
-            this.button1 = new System.Windows.Forms.Button();
-            this.Model1Users = new System.Windows.Forms.Label();
+            this.ChoosePilotsM1 = new System.Windows.Forms.Button();
+            this.Model1Pilots = new System.Windows.Forms.Label();
             this.tableLayoutPanel12 = new System.Windows.Forms.TableLayoutPanel();
-            this.button2 = new System.Windows.Forms.Button();
-            this.Model2Users = new System.Windows.Forms.Label();
+            this.ChoosePilotsM2 = new System.Windows.Forms.Button();
+            this.Model2Pilots = new System.Windows.Forms.Label();
             this.tableLayoutPanel14 = new System.Windows.Forms.TableLayoutPanel();
             this.TourNum = new System.Windows.Forms.Label();
             this.TimerLabel = new System.Windows.Forms.Label();
@@ -163,8 +163,8 @@
             this.tableLayoutPanel13.ColumnCount = 2;
             this.tableLayoutPanel13.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 19.08127F));
             this.tableLayoutPanel13.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80.91873F));
-            this.tableLayoutPanel13.Controls.Add(this.button3, 0, 0);
-            this.tableLayoutPanel13.Controls.Add(this.Model3Users, 1, 0);
+            this.tableLayoutPanel13.Controls.Add(this.ChoosePilotsM3, 0, 0);
+            this.tableLayoutPanel13.Controls.Add(this.Model3Pilots, 1, 0);
             this.tableLayoutPanel13.Location = new System.Drawing.Point(677, 33);
             this.tableLayoutPanel13.Name = "tableLayoutPanel13";
             this.tableLayoutPanel13.RowCount = 1;
@@ -172,28 +172,28 @@
             this.tableLayoutPanel13.Size = new System.Drawing.Size(286, 39);
             this.tableLayoutPanel13.TabIndex = 4;
             // 
-            // button3
+            // ChoosePilotsM3
             // 
-            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.ChoosePilotsM3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.button3.Location = new System.Drawing.Point(4, 4);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(47, 31);
-            this.button3.TabIndex = 0;
-            this.button3.UseVisualStyleBackColor = true;
+            this.ChoosePilotsM3.Location = new System.Drawing.Point(4, 4);
+            this.ChoosePilotsM3.Name = "ChoosePilotsM3";
+            this.ChoosePilotsM3.Size = new System.Drawing.Size(47, 31);
+            this.ChoosePilotsM3.TabIndex = 0;
+            this.ChoosePilotsM3.UseVisualStyleBackColor = true;
             // 
-            // Model3Users
+            // Model3Pilots
             // 
-            this.Model3Users.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.Model3Pilots.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.Model3Users.AutoSize = true;
-            this.Model3Users.Location = new System.Drawing.Point(58, 1);
-            this.Model3Users.Name = "Model3Users";
-            this.Model3Users.Size = new System.Drawing.Size(224, 37);
-            this.Model3Users.TabIndex = 1;
-            this.Model3Users.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Model3Pilots.AutoSize = true;
+            this.Model3Pilots.Location = new System.Drawing.Point(58, 1);
+            this.Model3Pilots.Name = "Model3Pilots";
+            this.Model3Pilots.Size = new System.Drawing.Size(224, 37);
+            this.Model3Pilots.TabIndex = 1;
+            this.Model3Pilots.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tableLayoutPanel5
             // 
@@ -644,8 +644,8 @@
             this.tableLayoutPanel11.ColumnCount = 2;
             this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 19.08127F));
             this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80.91873F));
-            this.tableLayoutPanel11.Controls.Add(this.button1, 0, 0);
-            this.tableLayoutPanel11.Controls.Add(this.Model1Users, 1, 0);
+            this.tableLayoutPanel11.Controls.Add(this.ChoosePilotsM1, 0, 0);
+            this.tableLayoutPanel11.Controls.Add(this.Model1Pilots, 1, 0);
             this.tableLayoutPanel11.Location = new System.Drawing.Point(99, 33);
             this.tableLayoutPanel11.Name = "tableLayoutPanel11";
             this.tableLayoutPanel11.RowCount = 1;
@@ -653,28 +653,28 @@
             this.tableLayoutPanel11.Size = new System.Drawing.Size(283, 39);
             this.tableLayoutPanel11.TabIndex = 4;
             // 
-            // button1
+            // ChoosePilotsM1
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.ChoosePilotsM1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(4, 4);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(47, 31);
-            this.button1.TabIndex = 0;
-            this.button1.UseVisualStyleBackColor = true;
+            this.ChoosePilotsM1.Location = new System.Drawing.Point(4, 4);
+            this.ChoosePilotsM1.Name = "ChoosePilotsM1";
+            this.ChoosePilotsM1.Size = new System.Drawing.Size(47, 31);
+            this.ChoosePilotsM1.TabIndex = 0;
+            this.ChoosePilotsM1.UseVisualStyleBackColor = true;
             // 
-            // Model1Users
+            // Model1Pilots
             // 
-            this.Model1Users.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.Model1Pilots.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.Model1Users.AutoSize = true;
-            this.Model1Users.Location = new System.Drawing.Point(58, 1);
-            this.Model1Users.Name = "Model1Users";
-            this.Model1Users.Size = new System.Drawing.Size(221, 37);
-            this.Model1Users.TabIndex = 1;
-            this.Model1Users.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Model1Pilots.AutoSize = true;
+            this.Model1Pilots.Location = new System.Drawing.Point(58, 1);
+            this.Model1Pilots.Name = "Model1Pilots";
+            this.Model1Pilots.Size = new System.Drawing.Size(221, 37);
+            this.Model1Pilots.TabIndex = 1;
+            this.Model1Pilots.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tableLayoutPanel12
             // 
@@ -686,8 +686,8 @@
             this.tableLayoutPanel12.ColumnCount = 2;
             this.tableLayoutPanel12.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 19.08127F));
             this.tableLayoutPanel12.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80.91873F));
-            this.tableLayoutPanel12.Controls.Add(this.button2, 0, 0);
-            this.tableLayoutPanel12.Controls.Add(this.Model2Users, 1, 0);
+            this.tableLayoutPanel12.Controls.Add(this.ChoosePilotsM2, 0, 0);
+            this.tableLayoutPanel12.Controls.Add(this.Model2Pilots, 1, 0);
             this.tableLayoutPanel12.Location = new System.Drawing.Point(388, 33);
             this.tableLayoutPanel12.Name = "tableLayoutPanel12";
             this.tableLayoutPanel12.RowCount = 1;
@@ -695,28 +695,28 @@
             this.tableLayoutPanel12.Size = new System.Drawing.Size(283, 39);
             this.tableLayoutPanel12.TabIndex = 4;
             // 
-            // button2
+            // ChoosePilotsM2
             // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.ChoosePilotsM2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(4, 4);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(47, 31);
-            this.button2.TabIndex = 0;
-            this.button2.UseVisualStyleBackColor = true;
+            this.ChoosePilotsM2.Location = new System.Drawing.Point(4, 4);
+            this.ChoosePilotsM2.Name = "ChoosePilotsM2";
+            this.ChoosePilotsM2.Size = new System.Drawing.Size(47, 31);
+            this.ChoosePilotsM2.TabIndex = 0;
+            this.ChoosePilotsM2.UseVisualStyleBackColor = true;
             // 
-            // Model2Users
+            // Model2Pilots
             // 
-            this.Model2Users.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.Model2Pilots.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.Model2Users.AutoSize = true;
-            this.Model2Users.Location = new System.Drawing.Point(58, 1);
-            this.Model2Users.Name = "Model2Users";
-            this.Model2Users.Size = new System.Drawing.Size(221, 37);
-            this.Model2Users.TabIndex = 1;
-            this.Model2Users.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Model2Pilots.AutoSize = true;
+            this.Model2Pilots.Location = new System.Drawing.Point(58, 1);
+            this.Model2Pilots.Name = "Model2Pilots";
+            this.Model2Pilots.Size = new System.Drawing.Size(221, 37);
+            this.Model2Pilots.TabIndex = 1;
+            this.Model2Pilots.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tableLayoutPanel14
             // 
@@ -936,14 +936,14 @@
         private System.Windows.Forms.Label FinishTime2;
         private System.Windows.Forms.Label FinishTime3;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel11;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label Model1Users;
+        private System.Windows.Forms.Button ChoosePilotsM1;
+        private System.Windows.Forms.Label Model1Pilots;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel12;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Label Model2Users;
+        private System.Windows.Forms.Button ChoosePilotsM2;
+        private System.Windows.Forms.Label Model2Pilots;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel13;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Label Model3Users;
+        private System.Windows.Forms.Button ChoosePilotsM3;
+        private System.Windows.Forms.Label Model3Pilots;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel14;
         private System.Windows.Forms.Label TourNum;
         private System.Windows.Forms.Timer Timer;

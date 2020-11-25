@@ -4,22 +4,19 @@ using System.Text;
 
 namespace TimerModel
 {
-    class TimerData
+    class Stopwatch
     {
         public static DateTime StartTime { get; set; }
-        public static double Time { get; set; }
 
-        public static void Clear()
-        {
-            Time = 0;
-        }
-        public static void SetStart()
+        public static void Start()
         {
             StartTime = DateTime.Now;
         }
-        public static void GetTime()
+        public static string GetSubTime()
         {
-            StartTime = DateTime.Now;
+            TimeSpan SubstractedTime = DateTime.Now - StartTime;
+            
+            return SubstractedTime.ToString();
         }
 
     }

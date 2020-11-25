@@ -19,14 +19,12 @@ namespace TimerModel
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            TimeSpan Time = DateTime.Now - TimerData.StartTime;
-            TimerLabel.Text = Time.ToString();
+            TimerLabel.Text = Stopwatch.GetSubTime();
         }
 
         private void Start_Click(object sender, EventArgs e)
         {
-            //Start.Text = "Пауза";
-            TimerData.SetStart();
+            Stopwatch.Start();
             Timer.Start();
         }
 
@@ -38,7 +36,6 @@ namespace TimerModel
         private void Reset_Click(object sender, EventArgs e)
         {
             Timer.Stop();
-            TimerData.Clear();
             TimerLabel.Text = "Остановлено";
         }
     }

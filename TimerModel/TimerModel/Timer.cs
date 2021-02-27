@@ -6,18 +6,16 @@ namespace TimerModel
 {
     class Stopwatch
     {
-        public static DateTime StartTime { get; set; }
-
+        public static DateTime StartTime { get; private set; }
+        public static bool Started = false;
         public static void Start()
         {
             StartTime = DateTime.Now;
         }
-        public static string GetSubTime()
+        public static TimeSpan GetTime()
         {
-            TimeSpan SubstractedTime = DateTime.Now - StartTime;
-            
-            return SubstractedTime.ToString();
+            return DateTime.Now - StartTime;
         }
-
+       
     }
 }

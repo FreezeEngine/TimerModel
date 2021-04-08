@@ -43,7 +43,7 @@
             this.TimeLabel = new System.Windows.Forms.Label();
             this.MissFlyLabel = new System.Windows.Forms.Label();
             this.TimeSpanTable3 = new System.Windows.Forms.TableLayoutPanel();
-            this.Model4Label = new System.Windows.Forms.Label();
+            this.Model1Label = new System.Windows.Forms.Label();
             this.Model2Label = new System.Windows.Forms.Label();
             this.Model3Label = new System.Windows.Forms.Label();
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
@@ -64,7 +64,7 @@
             this.tableLayoutPanel12 = new System.Windows.Forms.TableLayoutPanel();
             this.ChoosePilotsM2 = new System.Windows.Forms.Button();
             this.Model2Pilots = new System.Windows.Forms.Label();
-            this.tableLayoutPanel14 = new System.Windows.Forms.TableLayoutPanel();
+            this.LapTable = new System.Windows.Forms.TableLayoutPanel();
             this.TourNum = new System.Windows.Forms.Label();
             this.TimerLabel = new System.Windows.Forms.Label();
             this.TimerNameLabel = new System.Windows.Forms.Label();
@@ -110,7 +110,7 @@
             this.Grid.Controls.Add(this.TimeLabel, 0, 3);
             this.Grid.Controls.Add(this.MissFlyLabel, 0, 4);
             this.Grid.Controls.Add(this.TimeSpanTable3, 2, 2);
-            this.Grid.Controls.Add(this.Model4Label, 1, 0);
+            this.Grid.Controls.Add(this.Model1Label, 1, 0);
             this.Grid.Controls.Add(this.Model2Label, 2, 0);
             this.Grid.Controls.Add(this.Model3Label, 3, 0);
             this.Grid.Controls.Add(this.tableLayoutPanel6, 1, 4);
@@ -121,7 +121,7 @@
             this.Grid.Controls.Add(this.FinishTime3, 3, 3);
             this.Grid.Controls.Add(this.tableLayoutPanel11, 1, 1);
             this.Grid.Controls.Add(this.tableLayoutPanel12, 2, 1);
-            this.Grid.Controls.Add(this.tableLayoutPanel14, 0, 2);
+            this.Grid.Controls.Add(this.LapTable, 0, 2);
             this.Grid.Controls.Add(this.TourNum, 0, 1);
             this.Grid.Controls.Add(this.TimerLabel, 1, 5);
             this.Grid.Controls.Add(this.TimerNameLabel, 0, 5);
@@ -169,6 +169,7 @@
             this.ChoosePilotsM3.Size = new System.Drawing.Size(47, 31);
             this.ChoosePilotsM3.TabIndex = 0;
             this.ChoosePilotsM3.UseVisualStyleBackColor = true;
+            this.ChoosePilotsM3.Click += new System.EventHandler(this.ChoosePilotsM3_Click);
             // 
             // Model3Pilots
             // 
@@ -194,27 +195,18 @@
             this.TimeSpanTable2.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.FixedSize;
             this.TimeSpanTable2.Location = new System.Drawing.Point(388, 78);
             this.TimeSpanTable2.Name = "TimeSpanTable2";
-            this.TimeSpanTable2.RowCount = 10;
-            this.TimeSpanTable2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.TimeSpanTable2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.TimeSpanTable2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.TimeSpanTable2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.TimeSpanTable2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.TimeSpanTable2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.TimeSpanTable2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.TimeSpanTable2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.TimeSpanTable2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.TimeSpanTable2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.TimeSpanTable2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.TimeSpanTable2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.TimeSpanTable2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.TimeSpanTable2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.TimeSpanTable2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.TimeSpanTable2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.TimeSpanTable2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.TimeSpanTable2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.TimeSpanTable2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.TimeSpanTable2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.TimeSpanTable2.RowCount = 11;
+            this.TimeSpanTable2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.920547F));
+            this.TimeSpanTable2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.007946F));
+            this.TimeSpanTable2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.007946F));
+            this.TimeSpanTable2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.007946F));
+            this.TimeSpanTable2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.007946F));
+            this.TimeSpanTable2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.007946F));
+            this.TimeSpanTable2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.007946F));
+            this.TimeSpanTable2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.007946F));
+            this.TimeSpanTable2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.007946F));
+            this.TimeSpanTable2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.007946F));
+            this.TimeSpanTable2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.007946F));
             this.TimeSpanTable2.Size = new System.Drawing.Size(283, 373);
             this.TimeSpanTable2.TabIndex = 2;
             // 
@@ -230,27 +222,18 @@
             this.TimeSpanTable1.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.FixedSize;
             this.TimeSpanTable1.Location = new System.Drawing.Point(99, 78);
             this.TimeSpanTable1.Name = "TimeSpanTable1";
-            this.TimeSpanTable1.RowCount = 10;
-            this.TimeSpanTable1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.TimeSpanTable1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.TimeSpanTable1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.TimeSpanTable1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.TimeSpanTable1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.TimeSpanTable1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.TimeSpanTable1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.TimeSpanTable1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.TimeSpanTable1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.TimeSpanTable1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.TimeSpanTable1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.TimeSpanTable1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.TimeSpanTable1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.TimeSpanTable1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.TimeSpanTable1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.TimeSpanTable1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.TimeSpanTable1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.TimeSpanTable1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.TimeSpanTable1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.TimeSpanTable1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.TimeSpanTable1.RowCount = 11;
+            this.TimeSpanTable1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.922441F));
+            this.TimeSpanTable1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.007756F));
+            this.TimeSpanTable1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.007756F));
+            this.TimeSpanTable1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.007756F));
+            this.TimeSpanTable1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.007756F));
+            this.TimeSpanTable1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.007756F));
+            this.TimeSpanTable1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.007756F));
+            this.TimeSpanTable1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.007756F));
+            this.TimeSpanTable1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.007756F));
+            this.TimeSpanTable1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.007756F));
+            this.TimeSpanTable1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.007756F));
             this.TimeSpanTable1.Size = new System.Drawing.Size(283, 373);
             this.TimeSpanTable1.TabIndex = 2;
             // 
@@ -330,6 +313,7 @@
             this.Print.TabIndex = 0;
             this.Print.Text = "Печать";
             this.Print.UseVisualStyleBackColor = true;
+            this.Print.Click += new System.EventHandler(this.Print_Click);
             // 
             // TimeLabel
             // 
@@ -377,43 +361,34 @@
             this.TimeSpanTable3.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.FixedSize;
             this.TimeSpanTable3.Location = new System.Drawing.Point(677, 78);
             this.TimeSpanTable3.Name = "TimeSpanTable3";
-            this.TimeSpanTable3.RowCount = 10;
-            this.TimeSpanTable3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.TimeSpanTable3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.TimeSpanTable3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.TimeSpanTable3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.TimeSpanTable3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.TimeSpanTable3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.TimeSpanTable3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.TimeSpanTable3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.TimeSpanTable3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.TimeSpanTable3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.TimeSpanTable3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.TimeSpanTable3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.TimeSpanTable3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.TimeSpanTable3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.TimeSpanTable3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.TimeSpanTable3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.TimeSpanTable3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.TimeSpanTable3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.TimeSpanTable3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.TimeSpanTable3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.TimeSpanTable3.RowCount = 11;
+            this.TimeSpanTable3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.919215F));
+            this.TimeSpanTable3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.00808F));
+            this.TimeSpanTable3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.00808F));
+            this.TimeSpanTable3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.00808F));
+            this.TimeSpanTable3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.00808F));
+            this.TimeSpanTable3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.00808F));
+            this.TimeSpanTable3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.00808F));
+            this.TimeSpanTable3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.00808F));
+            this.TimeSpanTable3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.00808F));
+            this.TimeSpanTable3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.00808F));
+            this.TimeSpanTable3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.00808F));
             this.TimeSpanTable3.Size = new System.Drawing.Size(286, 373);
             this.TimeSpanTable3.TabIndex = 2;
             // 
-            // Model4Label
+            // Model1Label
             // 
-            this.Model4Label.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.Model1Label.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.Model4Label.AutoSize = true;
-            this.Model4Label.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.Model4Label.Location = new System.Drawing.Point(99, 0);
-            this.Model4Label.Name = "Model4Label";
-            this.Model4Label.Size = new System.Drawing.Size(283, 30);
-            this.Model4Label.TabIndex = 0;
-            this.Model4Label.Text = "Модель 1";
-            this.Model4Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.Model1Label.AutoSize = true;
+            this.Model1Label.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.Model1Label.Location = new System.Drawing.Point(99, 0);
+            this.Model1Label.Name = "Model1Label";
+            this.Model1Label.Size = new System.Drawing.Size(283, 30);
+            this.Model1Label.TabIndex = 0;
+            this.Model1Label.Text = "Модель 1";
+            this.Model1Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Model2Label
             // 
@@ -656,6 +631,7 @@
             this.ChoosePilotsM1.Size = new System.Drawing.Size(47, 31);
             this.ChoosePilotsM1.TabIndex = 0;
             this.ChoosePilotsM1.UseVisualStyleBackColor = true;
+            this.ChoosePilotsM1.Click += new System.EventHandler(this.ChoosePilotsM1_Click);
             // 
             // Model1Pilots
             // 
@@ -698,6 +674,7 @@
             this.ChoosePilotsM2.Size = new System.Drawing.Size(47, 31);
             this.ChoosePilotsM2.TabIndex = 0;
             this.ChoosePilotsM2.UseVisualStyleBackColor = true;
+            this.ChoosePilotsM2.Click += new System.EventHandler(this.ChoosePilotsM2_Click);
             // 
             // Model2Pilots
             // 
@@ -711,41 +688,32 @@
             this.Model2Pilots.TabIndex = 1;
             this.Model2Pilots.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // tableLayoutPanel14
+            // LapTable
             // 
-            this.tableLayoutPanel14.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.LapTable.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel14.BackColor = System.Drawing.SystemColors.Control;
-            this.tableLayoutPanel14.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
-            this.tableLayoutPanel14.ColumnCount = 1;
-            this.tableLayoutPanel14.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel14.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.FixedSize;
-            this.tableLayoutPanel14.Location = new System.Drawing.Point(3, 78);
-            this.tableLayoutPanel14.Name = "tableLayoutPanel14";
-            this.tableLayoutPanel14.RowCount = 10;
-            this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel14.Size = new System.Drawing.Size(90, 373);
-            this.tableLayoutPanel14.TabIndex = 2;
+            this.LapTable.BackColor = System.Drawing.SystemColors.Control;
+            this.LapTable.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
+            this.LapTable.ColumnCount = 1;
+            this.LapTable.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.LapTable.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.FixedSize;
+            this.LapTable.Location = new System.Drawing.Point(3, 78);
+            this.LapTable.Name = "LapTable";
+            this.LapTable.RowCount = 11;
+            this.LapTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.919133F));
+            this.LapTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.008087F));
+            this.LapTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.008087F));
+            this.LapTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.008087F));
+            this.LapTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.008087F));
+            this.LapTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.008087F));
+            this.LapTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.008087F));
+            this.LapTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.008087F));
+            this.LapTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.008087F));
+            this.LapTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.008087F));
+            this.LapTable.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 9.008087F));
+            this.LapTable.Size = new System.Drawing.Size(90, 373);
+            this.LapTable.TabIndex = 2;
             // 
             // TourNum
             // 
@@ -760,7 +728,7 @@
             this.TourNum.Name = "TourNum";
             this.TourNum.Size = new System.Drawing.Size(90, 45);
             this.TourNum.TabIndex = 5;
-            this.TourNum.Text = "Тур: 0";
+            this.TourNum.Text = "Тур: 1";
             this.TourNum.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // TimerLabel
@@ -908,7 +876,7 @@
         private System.Windows.Forms.Label TimeLabel;
         private System.Windows.Forms.Label MissFlyLabel;
         private System.Windows.Forms.TableLayoutPanel TimeSpanTable1;
-        private System.Windows.Forms.Label Model4Label;
+        private System.Windows.Forms.Label Model1Label;
         private System.Windows.Forms.TableLayoutPanel TimeSpanTable2;
         private System.Windows.Forms.Label Model2Label;
         private System.Windows.Forms.TableLayoutPanel TimeSpanTable3;
@@ -935,7 +903,7 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel13;
         private System.Windows.Forms.Button ChoosePilotsM3;
         private System.Windows.Forms.Label Model3Pilots;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel14;
+        private System.Windows.Forms.TableLayoutPanel LapTable;
         private System.Windows.Forms.Label TourNum;
         private System.Windows.Forms.Timer Timer;
         private System.Windows.Forms.Label TimerLabel;

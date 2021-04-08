@@ -7,7 +7,7 @@ namespace TimerModel
     class Rules
     {
         public static int MaxRounds = 16;
-        public static int MinRounds = 0;
+        public static int MinRounds = 1;
 
         public static int MaxLaps = 10;
         public static int MinLaps = 7;

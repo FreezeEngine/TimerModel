@@ -13,14 +13,15 @@ namespace TimerModel
         public DateTime LocalStart;
 
         private DateTime PrewTime;
-        public string Name { get; set; }
-        public string Pilots { get; set; }
+
+        public Team Team;
 
         public bool Finished = false;
+        public bool Enabled;
 
-        public string[] LapTimes = new string[10];
+        public string[] LapTimes = new string[11];
 
-        private Label[] TimeSpanLabels = new Label[10];
+        private Label[] TimeSpanLabels = new Label[11];
         public double TotalPoints { get; set; }
         public double Points { get; set; }
         public byte FlyMisses { get; set; }

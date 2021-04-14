@@ -52,13 +52,13 @@ namespace TimerModel
             this.HandMode.Name = "HandMode";
             this.HandMode.Size = new System.Drawing.Size(75, 19);
             this.HandMode.TabIndex = 1;
-            this.HandMode.TabStop = true;
             this.HandMode.Text = "Вручную";
             this.HandMode.UseVisualStyleBackColor = true;
             // 
             // AutomaticMode
             // 
             this.AutomaticMode.AutoSize = true;
+            this.AutomaticMode.Checked = true;
             this.AutomaticMode.Location = new System.Drawing.Point(32, 60);
             this.AutomaticMode.Name = "AutomaticMode";
             this.AutomaticMode.Size = new System.Drawing.Size(110, 19);

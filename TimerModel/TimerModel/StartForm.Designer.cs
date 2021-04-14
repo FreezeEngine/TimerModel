@@ -67,7 +67,7 @@ namespace TimerModel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(304, 89);
+            this.ClientSize = new System.Drawing.Size(304, 88);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.CreateList);
             this.Controls.Add(this.OpenFile);

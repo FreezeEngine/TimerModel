@@ -9,14 +9,28 @@ namespace TimerModel
     public partial class CreateListForm : Form
     {
         bool ChoseMode;
-        public CreateListForm(bool ChoseMode = false)
+        public List<Team> Team;
+        public CreateListForm(bool ChoseMode = false, List<Team> Team = null)
         {
+            this.Team = Team;
             this.ChoseMode = ChoseMode;
             InitializeComponent();
-
+            if (Team != null)
+            {
+                foreach(Team T in Team)
+                {
+                    ListOfTeams.Items.Add(T);
+                }
+            }
             if (ChoseMode)
             {
-                CreateAndUse.Enabled = false;
+                CreateAndUse.Visible = false;
+                Choose.Visible = true;
+                //CreateExcelFile.Enabled = false;
+            }
+            else
+            {
+                Choose.Visible = false;
             }
         }
 
@@ -102,18 +116,25 @@ namespace TimerModel
 
             if (SaveFile.ShowDialog() == DialogResult.OK)
             {
-                if ((Stream = SaveFile.OpenFile()) != null)
+                try
                 {
-                    //List<Team> TeamsList = new List<Team>();
-                    //foreach (Team t in ListOfTeams.Items)
+                    if ((Stream = SaveFile.OpenFile()) != null)
                     {
-                        //    TeamsList.Add(t);
-                        //}
-                        //ListOfTeams TeamsR = new ListOfTeams();
-                        Stream.Write(new TourReport().Generate());
-                        Stream.Close();
-                        return;
+                        //List<Team> TeamsList = new List<Team>();
+                        //foreach (Team t in ListOfTeams.Items)
+                        {
+                            //    TeamsList.Add(t);
+                            //}
+                            //ListOfTeams TeamsR = new ListOfTeams();
+                            Stream.Write(new RoundReport().Generate());
+                            Stream.Close();
+                            return;
+                        }
                     }
+                }
+                catch(Exception e)
+                {
+                    MessageBox.Show("Невозможно получть доступ к файлу, возможно он занят другим приложением. Ошибка: "+e.Message+" Стек вызовов: "+e.StackTrace);
                 }
                 return;
             }
@@ -142,6 +163,20 @@ namespace TimerModel
             {
                 SaveList1();
             }
+        private Team Choosen_Team;
+        private void Choose_Click(object sender, EventArgs e)
+        {
+            //ListOfTeams.Items
+            List<Team> Team = new List<Team>();
+            //List<Team> Teams = (Team)ListOfTeams.Items;
+            foreach(Team T in ListOfTeams.Items)
+            {
+                Team.Add(T);
+            }
+            //MainForm MF = new MainForm(Team, false);
+            //MF.Closed += (s, a) => Close();
+            //MF.Show();
         }
+    }
     }
 

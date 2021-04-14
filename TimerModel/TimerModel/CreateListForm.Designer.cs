@@ -36,6 +36,7 @@ namespace TimerModel
             this.CreateAndUse = new System.Windows.Forms.Button();
             this.Edit = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.Choose = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // ListOfTeams
@@ -107,11 +108,23 @@ namespace TimerModel
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // Choose
+            // 
+            this.Choose.Location = new System.Drawing.Point(465, 415);
+            this.Choose.Name = "Choose";
+            this.Choose.Size = new System.Drawing.Size(121, 51);
+            this.Choose.TabIndex = 7;
+            this.Choose.Text = "Выбрать";
+            this.Choose.UseVisualStyleBackColor = true;
+            this.Choose.Visible = false;
+            this.Choose.Click += new System.EventHandler(this.Choose_Click);
+            // 
             // CreateListForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(597, 478);
+            this.Controls.Add(this.Choose);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.Edit);
             this.Controls.Add(this.CreateAndUse);
@@ -135,5 +148,6 @@ namespace TimerModel
         private System.Windows.Forms.Button CreateAndUse;
         private System.Windows.Forms.Button Edit;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button Choose;
     }
 }

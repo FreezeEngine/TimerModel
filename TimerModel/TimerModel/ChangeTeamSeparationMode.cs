@@ -13,13 +13,14 @@ namespace TimerModel
         List<Team> Teams;
         public ChangeTeamSeparationMode(List<Team> Teams)
         {
-            this.Teams = Teams;
             InitializeComponent();
+            this.Teams = Teams;
         }
 
         private void Continue_Click(object sender, EventArgs e)
         {
             //byte mode = 
+            Hide();
             MainForm MF = new MainForm(Teams, AutomaticMode.Checked);
             MF.Closed += (s, a) => Close();
             MF.Show();

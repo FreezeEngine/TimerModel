@@ -36,10 +36,11 @@
             this.TimeSpanTable2 = new System.Windows.Forms.TableLayoutPanel();
             this.TimeSpanTable1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.Start = new System.Windows.Forms.Button();
             this.Stop = new System.Windows.Forms.Button();
+            this.Start = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.Print = new System.Windows.Forms.Button();
+            this.Reset = new System.Windows.Forms.Button();
             this.TimeLabel = new System.Windows.Forms.Label();
             this.MissFlyLabel = new System.Windows.Forms.Label();
             this.TimeSpanTable3 = new System.Windows.Forms.TableLayoutPanel();
@@ -65,7 +66,7 @@
             this.ChoosePilotsM2 = new System.Windows.Forms.Button();
             this.Model2Pilots = new System.Windows.Forms.Label();
             this.LapTable = new System.Windows.Forms.TableLayoutPanel();
-            this.TourNum = new System.Windows.Forms.Label();
+            this.RoundNum = new System.Windows.Forms.Label();
             this.TimerLabel = new System.Windows.Forms.Label();
             this.TimerNameLabel = new System.Windows.Forms.Label();
             this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
@@ -122,7 +123,7 @@
             this.Grid.Controls.Add(this.tableLayoutPanel11, 1, 1);
             this.Grid.Controls.Add(this.tableLayoutPanel12, 2, 1);
             this.Grid.Controls.Add(this.LapTable, 0, 2);
-            this.Grid.Controls.Add(this.TourNum, 0, 1);
+            this.Grid.Controls.Add(this.RoundNum, 0, 1);
             this.Grid.Controls.Add(this.TimerLabel, 1, 5);
             this.Grid.Controls.Add(this.TimerNameLabel, 0, 5);
             this.Grid.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -246,14 +247,29 @@
             this.tableLayoutPanel2.ColumnCount = 2;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Controls.Add(this.Start, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.Stop, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.Start, 0, 0);
             this.tableLayoutPanel2.Location = new System.Drawing.Point(388, 535);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(283, 32);
             this.tableLayoutPanel2.TabIndex = 0;
+            // 
+            // Stop
+            // 
+            this.Stop.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Stop.Enabled = false;
+            this.Stop.Location = new System.Drawing.Point(141, 0);
+            this.Stop.Margin = new System.Windows.Forms.Padding(0);
+            this.Stop.Name = "Stop";
+            this.Stop.Size = new System.Drawing.Size(142, 32);
+            this.Stop.TabIndex = 1;
+            this.Stop.Text = "Стоп";
+            this.Stop.UseVisualStyleBackColor = true;
+            this.Stop.Click += new System.EventHandler(this.Stop_Click_1);
             // 
             // Start
             // 
@@ -269,31 +285,17 @@
             this.Start.UseVisualStyleBackColor = true;
             this.Start.Click += new System.EventHandler(this.Start_Click);
             // 
-            // Stop
-            // 
-            this.Stop.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Stop.Enabled = false;
-            this.Stop.Location = new System.Drawing.Point(141, 0);
-            this.Stop.Margin = new System.Windows.Forms.Padding(0);
-            this.Stop.Name = "Stop";
-            this.Stop.Size = new System.Drawing.Size(142, 32);
-            this.Stop.TabIndex = 0;
-            this.Stop.Text = "Сброс";
-            this.Stop.UseVisualStyleBackColor = true;
-            this.Stop.Click += new System.EventHandler(this.Stop_Click);
-            // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.AutoSize = true;
-            this.tableLayoutPanel1.ColumnCount = 1;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Controls.Add(this.Print, 0, 0);
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.Print, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.Reset, 0, 0);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(677, 535);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
@@ -306,14 +308,29 @@
             this.Print.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.Print.Location = new System.Drawing.Point(0, 0);
+            this.Print.Location = new System.Drawing.Point(143, 0);
             this.Print.Margin = new System.Windows.Forms.Padding(0);
             this.Print.Name = "Print";
-            this.Print.Size = new System.Drawing.Size(286, 32);
+            this.Print.Size = new System.Drawing.Size(143, 32);
             this.Print.TabIndex = 0;
             this.Print.Text = "Печать";
             this.Print.UseVisualStyleBackColor = true;
             this.Print.Click += new System.EventHandler(this.Print_Click);
+            // 
+            // Reset
+            // 
+            this.Reset.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Reset.Enabled = false;
+            this.Reset.Location = new System.Drawing.Point(0, 0);
+            this.Reset.Margin = new System.Windows.Forms.Padding(0);
+            this.Reset.Name = "Reset";
+            this.Reset.Size = new System.Drawing.Size(143, 32);
+            this.Reset.TabIndex = 0;
+            this.Reset.Text = "Сброс";
+            this.Reset.UseVisualStyleBackColor = true;
+            this.Reset.Click += new System.EventHandler(this.Stop_Click);
             // 
             // TimeLabel
             // 
@@ -459,6 +476,7 @@
             0,
             0});
             this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.ReadOnly = true;
             this.numericUpDown1.Size = new System.Drawing.Size(76, 23);
             this.numericUpDown1.TabIndex = 2;
             this.numericUpDown1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -507,6 +525,7 @@
             0,
             0});
             this.numericUpDown2.Name = "numericUpDown2";
+            this.numericUpDown2.ReadOnly = true;
             this.numericUpDown2.Size = new System.Drawing.Size(76, 23);
             this.numericUpDown2.TabIndex = 2;
             this.numericUpDown2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -555,6 +574,7 @@
             0,
             0});
             this.numericUpDown7.Name = "numericUpDown7";
+            this.numericUpDown7.ReadOnly = true;
             this.numericUpDown7.Size = new System.Drawing.Size(76, 23);
             this.numericUpDown7.TabIndex = 2;
             this.numericUpDown7.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -715,21 +735,21 @@
             this.LapTable.Size = new System.Drawing.Size(90, 373);
             this.LapTable.TabIndex = 2;
             // 
-            // TourNum
+            // RoundNum
             // 
-            this.TourNum.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.RoundNum.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.TourNum.AutoSize = true;
-            this.TourNum.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.TourNum.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.TourNum.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.TourNum.Location = new System.Drawing.Point(3, 30);
-            this.TourNum.Name = "TourNum";
-            this.TourNum.Size = new System.Drawing.Size(90, 45);
-            this.TourNum.TabIndex = 5;
-            this.TourNum.Text = "Тур: 1";
-            this.TourNum.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.RoundNum.AutoSize = true;
+            this.RoundNum.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.RoundNum.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.RoundNum.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.RoundNum.Location = new System.Drawing.Point(3, 30);
+            this.RoundNum.Name = "RoundNum";
+            this.RoundNum.Size = new System.Drawing.Size(90, 45);
+            this.RoundNum.TabIndex = 5;
+            this.RoundNum.Text = "Тур: 1";
+            this.RoundNum.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // TimerLabel
             // 
@@ -870,7 +890,7 @@
         #endregion
         private System.Windows.Forms.TableLayoutPanel Grid;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Button Stop;
+        private System.Windows.Forms.Button Reset;
         private System.Windows.Forms.Button Start;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Label TimeLabel;
@@ -904,7 +924,7 @@
         private System.Windows.Forms.Button ChoosePilotsM3;
         private System.Windows.Forms.Label Model3Pilots;
         private System.Windows.Forms.TableLayoutPanel LapTable;
-        private System.Windows.Forms.Label TourNum;
+        private System.Windows.Forms.Label RoundNum;
         private System.Windows.Forms.Timer Timer;
         private System.Windows.Forms.Label TimerLabel;
         private System.Windows.Forms.Label TimerNameLabel;
@@ -915,6 +935,7 @@
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.NumericUpDown numericUpDown2;
         private System.Windows.Forms.NumericUpDown numericUpDown7;
+        private System.Windows.Forms.Button Stop;
     }
 }
 

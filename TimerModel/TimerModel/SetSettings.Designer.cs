@@ -31,10 +31,10 @@ namespace TimerModel
         {
             this.label1 = new System.Windows.Forms.Label();
             this.Continue = new System.Windows.Forms.Button();
-            this.TourNum = new System.Windows.Forms.NumericUpDown();
+            this.RoundNum = new System.Windows.Forms.NumericUpDown();
             this.LapAmount = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.TourNum)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RoundNum)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.LapAmount)).BeginInit();
             this.SuspendLayout();
             // 
@@ -57,13 +57,13 @@ namespace TimerModel
             this.Continue.UseVisualStyleBackColor = true;
             this.Continue.Click += new System.EventHandler(this.Continue_Click);
             // 
-            // TourNum
+            // RoundNum
             // 
-            this.TourNum.Location = new System.Drawing.Point(144, 13);
-            this.TourNum.Name = "TourNum";
-            this.TourNum.Size = new System.Drawing.Size(45, 23);
-            this.TourNum.TabIndex = 2;
-            this.TourNum.ValueChanged += new System.EventHandler(this.TourNum_ValueChanged);
+            this.RoundNum.Location = new System.Drawing.Point(144, 13);
+            this.RoundNum.Name = "RoundNum";
+            this.RoundNum.Size = new System.Drawing.Size(45, 23);
+            this.RoundNum.TabIndex = 2;
+            this.RoundNum.ValueChanged += new System.EventHandler(this.RoundNum_ValueChanged);
             // 
             // LapAmount
             // 
@@ -89,13 +89,13 @@ namespace TimerModel
             this.ClientSize = new System.Drawing.Size(209, 124);
             this.Controls.Add(this.LapAmount);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.TourNum);
+            this.Controls.Add(this.RoundNum);
             this.Controls.Add(this.Continue);
             this.Controls.Add(this.label1);
             this.Name = "SetSettings";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Настройка";
-            ((System.ComponentModel.ISupportInitialize)(this.TourNum)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RoundNum)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.LapAmount)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -106,7 +106,7 @@ namespace TimerModel
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button Continue;
-        private System.Windows.Forms.NumericUpDown TourNum;
+        private System.Windows.Forms.NumericUpDown RoundNum;
         private System.Windows.Forms.NumericUpDown LapAmount;
         private System.Windows.Forms.Label label2;
     }

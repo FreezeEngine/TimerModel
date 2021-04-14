@@ -15,13 +15,13 @@ namespace TimerModel
         {
             InitializeComponent();
 
-            TourNum.Maximum = Rules.MaxRounds;
+            RoundNum.Maximum = Rules.MaxRounds;
             LapAmount.Maximum = Rules.MaxLaps;
 
-            TourNum.Minimum = Rules.MinRounds;
+            RoundNum.Minimum = Rules.MinRounds;
             LapAmount.Minimum = Rules.MinLaps;
 
-            TourNum.Value = TimerSettings.TourCount;
+            RoundNum.Value = TimerSettings.RoundCount;
             LapAmount.Value = TimerSettings.LapCount;
             this.Team = Team;
         }
@@ -37,9 +37,9 @@ namespace TimerModel
             //MF.Show();
         }
 
-        private void TourNum_ValueChanged(object sender, EventArgs e)
+        private void RoundNum_ValueChanged(object sender, EventArgs e)
         {
-            TimerSettings.TourCount = (byte)TourNum.Value;
+            TimerSettings.RoundCount = (byte)RoundNum.Value;
         }
 
         private void LapAmount_ValueChanged(object sender, EventArgs e)

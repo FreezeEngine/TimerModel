@@ -8,24 +8,22 @@ namespace TimerModel
 {
     class FlyModel
     {
-        public int CurrentPointer = 0;
-
-        public DateTime LocalStart;
-
-        private DateTime PrewTime;
-
-        public Team Team;
-
-        public bool Finished = false;
-        public bool Enabled;
-
-        public string[] LapTimes = new string[11];
-
-        private Label[] TimeSpanLabels = new Label[11];
+        private byte _CurrentPointer;
+        public byte CurrentPointer
+        {
+            get { return _CurrentPointer; }
+            set { if (_CurrentPointer >= 0 && _CurrentPointer < Rules.MaxLaps+1) { _CurrentPointer = value; } }
+        }
+        private DateTime LocalStart { get; set; }
+        private DateTime PrewTime { get; set; }
+        public Team Team { get; set; }
+        public bool Finished { get; set; }
+        public bool Enabled { get; set; }
+        public string[] LapTimes { get; set; }
+        private Label[] TimeSpanLabels { get; set; }
         public double TotalPoints { get; set; }
         public double Points { get; set; }
         public byte FlyMisses { get; set; }
-
         public bool CooldownIsUP(DateTime Now)
         {
             if (CurrentPointer == 0)
@@ -53,7 +51,6 @@ namespace TimerModel
             PrewTime = DateTime.Now;
             return TimeStr;
         }
-
         public TimeSpan GetOverAllTime(DateTime Time)
         {
             return Time - LocalStart;

@@ -3,6 +3,7 @@ using OfficeOpenXml.Style;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows.Forms;
 
 namespace TimerModel
 {
@@ -38,7 +39,7 @@ namespace TimerModel
         }
     }*/
 
-    class TourReport
+    class RoundReport
     {
         public string MainReferee  { get; set; }
         public string HeadOfAStart { get; set; }
@@ -47,14 +48,35 @@ namespace TimerModel
         public byte[] Generate()
         {
             //List<FlyModel> List
+
             var Package = new ExcelPackage();
-            var Sheet = Package.Workbook.Worksheets
-        .Add("Отчёт");
-            //int i = 1;
-            Sheet.Column(1).Width = 2.7;
-            Sheet.Column(2).Width = 5;
-            Sheet.Column(3).Width = 22;
-            Sheet.Column(4).Width = 16;
+            var Sheet = Package.Workbook.Worksheets.Add("Отчёт");
+
+            Sheet.PrinterSettings.Orientation = eOrientation.Landscape;
+
+            Sheet.PrinterSettings.LeftMargin = 0.39370078740157483M;
+            Sheet.PrinterSettings.RightMargin = 0.39370078740157483M;
+
+            Sheet.PrinterSettings.TopMargin = 0.98425196850393704M;
+            Sheet.PrinterSettings.BottomMargin = 0.98425196850393704M;
+            Sheet.PrinterSettings.HeaderMargin = 0.51181102362204722M;
+            Sheet.PrinterSettings.FooterMargin = 0.51181102362204722M;
+
+            Sheet.PrinterSettings.FitToHeight = 1;
+            Sheet.PrinterSettings.FitToWidth = 1;
+
+            Sheet.PrinterSettings.FitToPage = true;
+
+            Sheet.PrinterSettings.PaperSize = ePaperSize.A4;
+
+            Sheet.PrinterSettings.HorizontalCentered = true;
+            Sheet.PrinterSettings.VerticalCentered = true;
+
+            int tableShift = 1;
+
+            Sheet.Column(tableShift).Width = 5;
+            Sheet.Column(tableShift+1).Width = 22;
+            Sheet.Column(tableShift+2).Width = 16;
 
             Sheet.Row(1).Height = 27.75;
             Sheet.Row(2).Height = 42;
@@ -66,105 +88,116 @@ namespace TimerModel
             Sheet.Row(8).Height = 18.75;
             Sheet.Row(9).Height = 15.75;
             
-            //Sheet.Row(8).Height = 18.75;
-            //Sheet.Column(5).Width = 16;
-            int s = 5;
+            int s = tableShift+3;
             int teamsCount = 6;
             int i = 0;
             int b = 0;
+            int TableStartPoint = 8;
+            int TableBorder;
+            int t = 10;
+
             for (; i < 6; i++)
             {
+                TableBorder = s + i; //up to sum
                 Sheet.Column(s+i).Width = 8;
                 Sheet.Column(s+1+i).Width = 4;
-                Sheet.Cells[9, s + i, 9, s + 1 + i].Merge = true;
+                Sheet.Cells[TableStartPoint + 1, TableBorder, TableStartPoint + 1, s + 1 + i].Merge = true;
                 for(int c = 0; c < teamsCount; c++)
                 {
-                    Sheet.Cells[9 + c + c + 2, s + i, 9 + c + c + 2, s + 1 + i].Merge = true;
+                    Sheet.Cells[9 + c + c + 2, TableBorder, 9 + c + c + 2, s + 1 + i].Merge = true;
+                    //Sheet.Cells[9 + c + c + 2, TableBorder, 9 + c + c + 2, s + 1 + i].Value = new Random().Next(16, 200);
                 }
-                Sheet.Cells[9, s + i].Value = i + 1;
+                Sheet.Cells[9, TableBorder].Value = i + 1;
 
-                Sheet.Cells[9, s + i].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-                Sheet.Cells[9, s + i].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+                Sheet.Cells[9, TableBorder].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                Sheet.Cells[9, TableBorder].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
 
                 s++;
             }
-            int t = 10;
+
+            int SUMCol = s + i;
+
+            TableBorder = SUMCol + 1; //up to place
+
+            int TeamsEndRow = t + ((teamsCount * 2) - 1);
+
             for (; b < teamsCount; b++)
             {
-                //1 - 10 cell
-                //Sheet.Column(s + i).Width = 8;
-                //Sheet.Column(s + 1 + i).Width = 4;
-               // Sheet.Cells[9, s + i, 9, s + 1 + i].Merge = true;
-                //Sheet.Cells[9, s + i].Value = i + 1;
-                //s++;
+                int TeamRowStart = t + b*2;
 
-                Sheet.Cells[t+b, 2, t+b+1, 2].Merge = true;
+                Sheet.Cells[TeamRowStart, tableShift, TeamRowStart + 1, tableShift].Merge = true;
 
-                Sheet.Cells[t + b, 4, t + b + 1, 4].Merge = true;
+                Sheet.Cells[TeamRowStart, tableShift + 2, TeamRowStart + 1, tableShift + 2].Merge = true;
 
-                Sheet.Cells[t + b, 4, t + b + 1, 4].Merge = true;
+                Sheet.Cells[TeamRowStart, tableShift + 2, TeamRowStart + 1, tableShift + 2].Merge = true;
 
-                Sheet.Cells[t + b, 2, t + b + 1, 2].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
-                Sheet.Cells[t + b, 2, t + b + 1, 2].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                Sheet.Cells[TeamRowStart, tableShift, TeamRowStart + 1, tableShift].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+                Sheet.Cells[TeamRowStart, tableShift, TeamRowStart + 1, tableShift].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
 
-                Sheet.Cells[t + b, 2].Value = b + 1;
+                Sheet.Cells[TeamRowStart, tableShift].Value = b + 1;
 
-                Sheet.Cells[t + b, s+i, t + b + 1, s+i].Merge = true;
-                Sheet.Cells[t + b, s + i+1, t + b + 1, s + i+1].Merge = true;
+                Sheet.Cells[TeamRowStart, s+i, TeamRowStart + 1, s+i].Merge = true;
+                var FROM = Sheet.Cells[TeamRowStart + 1, tableShift + 3].Address;
+                var TO = Sheet.Cells[TeamRowStart + 1, TableBorder - 2].Address;
+                Sheet.Cells[TeamRowStart, SUMCol].Formula = "SUM(" + FROM + ":" + TO + ")-LARGE(" + FROM + ":" + TO + ",1)";
 
-                t++;
+                var CurrentPlace = Sheet.Cells[TeamRowStart, SUMCol].Address;
+                FROM = Sheet.Cells[t, SUMCol].Address;
+                TO = Sheet.Cells[TeamsEndRow, SUMCol].Address;
+                Sheet.Cells[TeamRowStart, TableBorder].Formula = "RANK(" + CurrentPlace + "," + FROM + ":" + TO + ",1)";
+
+                Sheet.Cells[TeamRowStart, TableBorder, TeamRowStart + 1, TableBorder].Merge = true;
             }
-            var Table = Sheet.Cells[8,2, t+b-1 , s+i+1];
+            var Table = Sheet.Cells[TableStartPoint, tableShift, TeamsEndRow, TableBorder];
             Table.Style.Border.Top.Style = ExcelBorderStyle.Thin;
             Table.Style.Border.Left.Style = ExcelBorderStyle.Thin;
             Table.Style.Border.Right.Style = ExcelBorderStyle.Thin;
             Table.Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
 
-            Sheet.Cells[8, 4, t + b - 1, s + i + 1].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
-            Sheet.Cells[8, 4, t + b - 1, s + i + 1].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-            //Sheet.Cells[8, 2, t+b-1, s+i+1].Style.Border.BorderAround(ExcelBorderStyle.Thin);
+            Sheet.Cells[TableStartPoint, tableShift + 2, TeamsEndRow, TableBorder].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+            Sheet.Cells[TableStartPoint, tableShift + 2, TeamsEndRow, TableBorder].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
 
-            Sheet.Column(s+i).Width = 15.57;
-            Sheet.Column(s+i+1).Width = 24.14;
-            Sheet.Cells[1, 2, 1, 8].Merge = true;
+            Sheet.Column(SUMCol).Width = 15.57;
+            Sheet.Column(TableBorder).Width = 24.14;
+            Sheet.Cells[1, tableShift, 1, 8].Merge = true;
 
-            Sheet.Cells[1, 2].Value = "Главный судья: ";
+            Sheet.Cells[1, tableShift].Value = "Главный судья: ";
 
-            Sheet.Cells[3, 2, 3, s + i + 1].Merge = true;//ПРОТОКОЛ...
-            Sheet.Cells[3, 2, 6, s + i + 1].Style.Font.Size = 20;
-            Sheet.Cells[3, 2].Value = "ПРОТОКОЛ";
-            Sheet.Cells[4, 2].Value = "соревнований по авиамодельному спорту";
+            Sheet.Cells[3, tableShift, 3, TableBorder].Merge = true; //ПРОТОКОЛ...
+            Sheet.Cells[3, tableShift, 6, TableBorder].Style.Font.Size = 20;
+            Sheet.Cells[3, tableShift].Value = "ПРОТОКОЛ";
+            Sheet.Cells[4, tableShift].Value = "соревнований по авиамодельному спорту";
 
-            Sheet.Cells[8, 5].Value = "Туры";
-            Sheet.Cells[8, 2].Value = "№";
-            Sheet.Cells[8, 3].Value = "Экипаж";
-            Sheet.Cells[8, 4].Value = "Команда";
+            Sheet.Cells[TableStartPoint, tableShift+3].Value = "Туры";
+            Sheet.Cells[TableStartPoint, tableShift].Value = "№";
+            Sheet.Cells[TableStartPoint, tableShift+1].Value = "Экипаж";
+            Sheet.Cells[TableStartPoint, tableShift+2].Value = "Команда";
 
-            Sheet.Cells[8, s + i].Value = "Сумма";
-            Sheet.Cells[8, s + i + 1].Value = "Место";
+            Sheet.Cells[TableStartPoint, TableBorder-1].Value = "Сумма";
+            Sheet.Cells[TableStartPoint, TableBorder].Value = "Место";
 
-            Sheet.Cells[4, 2, 4, s + i + 1].Merge = true;
-            Sheet.Cells[5, 2, 5, s + i + 1].Merge = true;
-            Sheet.Cells[6, 2, 6, s + i + 1].Merge = true;
+            Sheet.Cells[4, tableShift, 4, TableBorder].Merge = true;
+            Sheet.Cells[5, tableShift, 5, TableBorder].Merge = true;
+            Sheet.Cells[6, tableShift, 6, TableBorder].Merge = true;
 
-            Sheet.Cells[4, 2, 6, s + i + 1].Style.Font.Size = 14;
+            Sheet.Cells[4, tableShift, 6, TableBorder].Style.Font.Size = 14;
 
-            Sheet.Cells[3, 2, 9, s + i + 1].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
-            Sheet.Cells[3, 2, 9, s + i + 1].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+            Sheet.Cells[3, tableShift, 9, TableBorder].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+            Sheet.Cells[3, tableShift, 9, TableBorder].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
 
-            Sheet.Cells[8, 5, 8, s + i - 1].Merge = true;
+            Sheet.Cells[TableStartPoint, tableShift+3, TableStartPoint, TableBorder - 2].Merge = true;
 
-            Sheet.Cells[8, s + i, 9, s + i].Merge = true;
-            Sheet.Cells[8, s + i + 1, 9, s + i + 1].Merge = true;
+            Sheet.Cells[TableStartPoint, TableBorder-1, 9, TableBorder-1].Merge = true;
+            Sheet.Cells[TableStartPoint, TableBorder, 9, TableBorder].Merge = true;
 
 
-            Sheet.Cells[8, 2, 9, 2].Merge = true;
-            Sheet.Cells[8, 3, 9, 3].Merge = true;
-            Sheet.Cells[8, 4, 9, 4].Merge = true;
+            Sheet.Cells[TableStartPoint, tableShift, 9, tableShift].Merge = true;
+            Sheet.Cells[TableStartPoint, tableShift+1, 9, tableShift+1].Merge = true;
+            Sheet.Cells[TableStartPoint, tableShift+2, 9, tableShift+2].Merge = true;
             //foreach (FlyModel Model in List)
             //{
             //Sheet.Cells[i, 1].Value = Model.Pilot;
-            //Sheet.Cells[i, 2].Value = Model.Mechanic;
+            //Sheet.Cells[i, tableShift].Value = Model.Mechanic;
             //Sheet.Cells[i, 3].Value = Model.ModelName;
             //i++;
             //}
@@ -172,18 +205,14 @@ namespace TimerModel
         }
     }
 
-    //public class ListOfTeams {
-    //
-    //}
-
     public class ListOfTeams
     {
         public byte[] Generate(List<Team> List)
         {
             var Package = new ExcelPackage();
-            var Sheet = Package.Workbook.Worksheets
-        .Add("Команды");
+            var Sheet = Package.Workbook.Worksheets.Add("Команды");
             int i = 1;
+
             foreach(Team team in List)
             {
                 Sheet.Cells[i, 1].Value = team.Pilot;
@@ -191,11 +220,8 @@ namespace TimerModel
                 Sheet.Cells[i, 3].Value = team.ModelName;
                 i++;
             }
+
             return Package.GetAsByteArray();
         }
-        //public void SaveFile()
-        //{
-
-        //}
     }
 }

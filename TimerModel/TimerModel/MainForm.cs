@@ -13,6 +13,7 @@ namespace TimerModel
         List<Team> Teams;
 
         private bool Printed = false;
+        private bool AutoStart = true;
         //private bool First = false;
 
         private int RoundPointer = 1;
@@ -61,6 +62,10 @@ namespace TimerModel
             {
                 MessageBox.Show("Комады закончились!");
                 //Print final result
+                Hide();
+                CompetitionReport ReportForm = new CompetitionReport();
+                ReportForm.Show();
+                ReportForm.FormClosed += (s,a) => Show();
                 Close();
             }
             //MessageBox.Show(Competition.Teams.First.Enabled.ToString());
@@ -204,11 +209,15 @@ namespace TimerModel
                 }
                 if (Team.CurrentPointer < LC)
                 {
+                    if (Team.Finished)
+                    {
+                        return;
+                    }
                     DateTime Time = DateTime.Now;
                     if (Team.CooldownIsUP(Time) == true)
                     {
-                        
                         int Pointer = Team.CurrentPointer;
+                        
                         Label Label = Team.GetStopWatchLabel(Time, ModelNum);
                         if ((Pointer > ovPointer)&&ovPointer < LC)
                         {
@@ -269,8 +278,10 @@ namespace TimerModel
                     }
                 }
             }
-            if (!Stopwatch.Started && Printed)
+            if (!Stopwatch.Started && Printed | AutoStart)
             {
+                Printed = false;
+                AutoStart = true;
                 ClearTimer();
                 StopTimer();
                 //NewSetOfTeams();
@@ -280,6 +291,10 @@ namespace TimerModel
                 Reset.Enabled = true;
                 Stopwatch.Start();
                 Timer.Start();
+            }
+            else
+            {
+                AutoStart = false;
             }
             if(Stopwatch.Started)
             switch (e.KeyChar)
@@ -315,6 +330,7 @@ namespace TimerModel
         private void Start_Click(object sender, EventArgs e)
         {
             Stop.Enabled = true;
+            AutoStart = false;
             ClearTimer();
             Stopwatch.Started = true;
             Start.Enabled = false;
@@ -367,9 +383,9 @@ namespace TimerModel
             if ((T1.Enabled | T2.Enabled | T3.Enabled)&&!Stopwatch.Started&& (T1.Finished | T2.Finished | T3.Finished))
             {
                 //ADD PRINT ON 1,2,3 keys CUZ IT OVERRIDES
-                Printed = true;
                 MessageBox.Show("PRINTING");
-
+                Printed = true;
+                AutoStart = true;
                 NewSetOfTeams();
                 ClearTimer();
                 StopTimer();
@@ -409,6 +425,10 @@ namespace TimerModel
             var T3 = GetTeam(2);
 
             //ClearTimer();
+            T1.Finished = true;
+            T2.Finished = true;
+            T3.Finished = true;
+
             Stop.Enabled = false;
             StopTimer();
 
@@ -421,13 +441,13 @@ namespace TimerModel
             if (!T2.Finished && T2.Enabled)
             {
                 Competition.Teams.Second.TotalPoints = 200;
-                Result.Text = "200.00";
+                Result2.Text = "200.00";
                 FinishTime2.Text = "Недолёт";
             }
             if (!T3.Finished&&T3.Enabled)
             {
                 Competition.Teams.Third.TotalPoints = 200;
-                Result.Text = "200.00";
+                Result3.Text = "200.00";
                 FinishTime3.Text = "Недолёт";
             }
         }

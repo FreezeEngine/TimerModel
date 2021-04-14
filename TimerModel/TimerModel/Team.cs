@@ -11,12 +11,19 @@ namespace TimerModel
             get { return _CurrentPointer; }
             set { if (_CurrentPointer >= 0 && _CurrentPointer < Rules.MaxLaps + 1) { _CurrentPointer = value; } }
         }
+        private byte _RoundCounter;
+        public byte RoundCounter
+        {
+            get { if (_RoundCounter >= Rules.MinRounds && _RoundCounter < Rules.MaxRounds) { _RoundCounter = Rules.MinRounds; return _RoundCounter; } else { return _RoundCounter; }  }
+            set { if (_RoundCounter >= Rules.MinRounds && _RoundCounter < Rules.MaxRounds) { _RoundCounter = value; } }
+        }
         public string Pilot { get; set; }
         public string Mechanic { get; set; }
         public string ModelName { get; set; }
 
         public Team()
         {
+            RoundCounter = TimerSettings.RoundCount;
             Enabled = true;
         }
         //public bool Used { get; set; }

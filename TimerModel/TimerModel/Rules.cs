@@ -6,16 +6,16 @@ namespace TimerModel
 {
     class Rules
     {
-        public static int MaxRounds = 16;
-        public static int MinRounds = 1;
+        public static byte MaxRounds = 16;
+        public static byte MinRounds = 1;
 
-        public static int MaxLaps = 10;
-        public static int MinLaps = 7;
+        public static byte MaxLaps = 10;
+        public static byte MinLaps = 7;
 
-        public static int MaxFlyMisses = 16;
-        public static int MinFlyMisses = 0;
+        public static byte MaxFlyMisses = 16;
+        public static byte MinFlyMisses = 0;
 
-        public static int MaxModels = 3;
-        public static int MinModels = 1;
+        public static byte MaxModels = 3;
+        public static byte MinModels = 1;
     }
 }

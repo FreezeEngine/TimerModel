@@ -91,7 +91,14 @@ namespace TimerModel
             {
                 Third = new Team() { Enabled = false };
             }
-            Shift = Shift + 3;
+            if (!(Teams.Count > Shift) && !(Teams.Count > (Shift + 1)) && !(Teams.Count > (Shift + 2)))
+            {
+                Shift = 0;
+            }
+            else
+            {
+                Shift = Shift + 3;
+            }
         }
     }
     class Competition

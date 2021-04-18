@@ -7,10 +7,10 @@ namespace TimerModel
     class Rules
     {
         public static byte MaxRounds = 16;
-        public static byte MinRounds = 1;
+        public static byte MinRounds = 2;
 
         public static byte MaxLaps = 10;
-        public static byte MinLaps = 7;
+        public static byte MinLaps = 2;
 
         public static byte MaxFlyMisses = 16;
         public static byte MinFlyMisses = 0;

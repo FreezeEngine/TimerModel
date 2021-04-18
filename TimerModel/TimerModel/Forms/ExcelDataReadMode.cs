@@ -55,7 +55,8 @@ namespace TimerModel
                 var P = (Sheet.Cells[i, 1].Value != null) ? (Sheet.Cells[i, 1+ Shift].Value.ToString()) : (null);
                 var M = (Sheet.Cells[i, 2].Value != null) ? (Sheet.Cells[i, 2+ Shift].Value.ToString()) : (null);
                 var FM = (Sheet.Cells[i, 3].Value!=null)?(Sheet.Cells[i, 3+ Shift].Value.ToString()):(null);
-                Teams.Add(new Team() { Pilot = P, Mechanic = M, ModelName = FM });
+                var TN = (Sheet.Cells[i, 3].Value != null) ? (Sheet.Cells[i, 4 + Shift].Value.ToString()) : (null);
+                Teams.Add(new Team() { Pilot = P, Mechanic = M, ModelName = FM, TeamName = TN });
                 i++;
             }
             if (Teams.Count != 0)

@@ -45,7 +45,7 @@ namespace TimerModel
         public string HeadOfAStart { get; set; }
         public string Secretary { get; set; }
 
-        public byte[] Generate()
+        public byte[] Generate(Competition Competition)
         {
             //List<FlyModel> List
 
@@ -89,23 +89,29 @@ namespace TimerModel
             Sheet.Row(9).Height = 15.75;
             
             int s = tableShift+3;
-            int teamsCount = 6;
+            int teamsCount = Competition.Teams.Count;
             int i = 0;
             int b = 0;
             int TableStartPoint = 8;
             int TableBorder;
             int t = 10;
 
-            for (; i < 6; i++)
+            for (; i < TimerSettings.RoundCount; i++)
             {
                 TableBorder = s + i; //up to sum
                 Sheet.Column(s+i).Width = 8;
                 Sheet.Column(s+1+i).Width = 4;
                 Sheet.Cells[TableStartPoint + 1, TableBorder, TableStartPoint + 1, s + 1 + i].Merge = true;
-                for(int c = 0; c < teamsCount; c++)
+                Sheet.Cells[TableStartPoint + 1, TableBorder].Style.Font.Bold = true;
+                Sheet.Cells[TableStartPoint + 1, TableBorder].Style.Font.Size = 12;
+
+                for (int c = 0; c < teamsCount; c++)
                 {
                     Sheet.Cells[9 + c + c + 2, TableBorder, 9 + c + c + 2, s + 1 + i].Merge = true;
-                    //Sheet.Cells[9 + c + c + 2, TableBorder, 9 + c + c + 2, s + 1 + i].Value = new Random().Next(16, 200);
+                    Sheet.Cells[9 + c + c + 2, TableBorder].Value = Math.Round(Competition.Teams.GetTeams()[c].Rounds[i].TotalPoints, 2);
+
+                    Sheet.Cells[9 + c + c + 1, TableBorder].Value = (Competition.Teams.GetTeams()[c].Rounds[i].TotalPoints != 200)?(Competition.Teams.GetTeams()[c].Rounds[i].Time.ToString(@"mm\,ss\,ff")):("0");
+                    Sheet.Cells[9 + c + c + 1, TableBorder+1].Value = Competition.Teams.GetTeams()[c].Rounds[i].TotalFlyMisses();
                 }
                 Sheet.Cells[9, TableBorder].Value = i + 1;
 
@@ -123,7 +129,7 @@ namespace TimerModel
 
             for (; b < teamsCount; b++)
             {
-                int TeamRowStart = t + b*2;
+                int TeamRowStart = t + b * 2;
 
                 Sheet.Cells[TeamRowStart, tableShift, TeamRowStart + 1, tableShift].Merge = true;
 
@@ -135,16 +141,24 @@ namespace TimerModel
                 Sheet.Cells[TeamRowStart, tableShift, TeamRowStart + 1, tableShift].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
 
                 Sheet.Cells[TeamRowStart, tableShift].Value = b + 1;
+                Sheet.Cells[TeamRowStart, tableShift + 1].Value = Competition.Teams.GetTeams()[b].Pilot;
+                Sheet.Cells[TeamRowStart+1, tableShift + 1].Value = Competition.Teams.GetTeams()[b].Mechanic;
+                Sheet.Cells[TeamRowStart, tableShift + 2].Value = Competition.Teams.GetTeams()[b].TeamName;
+                Sheet.Cells[TeamRowStart, tableShift + 2].AutoFitColumns();
 
                 Sheet.Cells[TeamRowStart, s+i, TeamRowStart + 1, s+i].Merge = true;
                 var FROM = Sheet.Cells[TeamRowStart + 1, tableShift + 3].Address;
                 var TO = Sheet.Cells[TeamRowStart + 1, TableBorder - 2].Address;
                 Sheet.Cells[TeamRowStart, SUMCol].Formula = "SUM(" + FROM + ":" + TO + ")-LARGE(" + FROM + ":" + TO + ",1)";
+                Sheet.Cells[TeamRowStart, SUMCol].Style.Font.Size = 10;
+                Sheet.Cells[TeamRowStart, SUMCol].Style.Font.Bold = true;
 
                 var CurrentPlace = Sheet.Cells[TeamRowStart, SUMCol].Address;
                 FROM = Sheet.Cells[t, SUMCol].Address;
                 TO = Sheet.Cells[TeamsEndRow, SUMCol].Address;
                 Sheet.Cells[TeamRowStart, TableBorder].Formula = "RANK(" + CurrentPlace + "," + FROM + ":" + TO + ",1)";
+                Sheet.Cells[TeamRowStart, TableBorder].Style.Font.Bold = true;
+                Sheet.Cells[TeamRowStart, TableBorder].Style.Font.Size = 14;
 
                 Sheet.Cells[TeamRowStart, TableBorder, TeamRowStart + 1, TableBorder].Merge = true;
             }
@@ -165,16 +179,33 @@ namespace TimerModel
 
             Sheet.Cells[3, tableShift, 3, TableBorder].Merge = true; //ПРОТОКОЛ...
             Sheet.Cells[3, tableShift, 6, TableBorder].Style.Font.Size = 20;
+
             Sheet.Cells[3, tableShift].Value = "ПРОТОКОЛ";
             Sheet.Cells[4, tableShift].Value = "соревнований по авиамодельному спорту";
 
             Sheet.Cells[TableStartPoint, tableShift+3].Value = "Туры";
+            Sheet.Cells[TableStartPoint, tableShift + 3].Style.Font.Bold = true;
+            Sheet.Cells[TableStartPoint, tableShift + 3].Style.Font.Size = 14;
+
             Sheet.Cells[TableStartPoint, tableShift].Value = "№";
+            Sheet.Cells[TableStartPoint, tableShift].Style.Font.Bold = true;
+            Sheet.Cells[TableStartPoint, tableShift].Style.Font.Size = 14;
+
             Sheet.Cells[TableStartPoint, tableShift+1].Value = "Экипаж";
+            Sheet.Cells[TableStartPoint, tableShift + 1].Style.Font.Bold = true;
+            Sheet.Cells[TableStartPoint, tableShift + 1].Style.Font.Size = 14;
+
             Sheet.Cells[TableStartPoint, tableShift+2].Value = "Команда";
+            Sheet.Cells[TableStartPoint, tableShift + 2].Style.Font.Bold = true;
+            Sheet.Cells[TableStartPoint, tableShift + 2].Style.Font.Size = 14;
 
             Sheet.Cells[TableStartPoint, TableBorder-1].Value = "Сумма";
+            Sheet.Cells[TableStartPoint, TableBorder - 1].Style.Font.Bold = true;
+            Sheet.Cells[TableStartPoint, TableBorder - 1].Style.Font.Size = 14;
+
             Sheet.Cells[TableStartPoint, TableBorder].Value = "Место";
+            Sheet.Cells[TableStartPoint, TableBorder].Style.Font.Bold = true;
+            Sheet.Cells[TableStartPoint, TableBorder].Style.Font.Size = 14;
 
             Sheet.Cells[4, tableShift, 4, TableBorder].Merge = true;
             Sheet.Cells[5, tableShift, 5, TableBorder].Merge = true;

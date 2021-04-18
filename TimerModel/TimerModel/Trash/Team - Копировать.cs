@@ -3,8 +3,9 @@ using System.Drawing;
 using System.Windows.Forms;
 namespace TimerModel
 {
-    public class Team : IEquatable<Team>
+    public class Team1 : IEquatable<Team1>
     {
+        
         private byte _CurrentPointer;
         public byte CurrentPointer
         {
@@ -21,7 +22,7 @@ namespace TimerModel
         public string Mechanic { get; set; }
         public string ModelName { get; set; }
 
-        public Team()
+        public Team1()
         {
             RoundCounter = TimerSettings.RoundCount;
             Enabled = true;
@@ -49,7 +50,7 @@ namespace TimerModel
         public override bool Equals(object obj)
         {
             if (obj == null) return false;
-            Team objAsPart = obj as Team;
+            Team1 objAsPart = obj as Team1;
             if (objAsPart == null) return false;
             else return Equals(objAsPart);
         }
@@ -57,7 +58,7 @@ namespace TimerModel
         {
             return ToString().GetHashCode();
         }
-        public bool Equals(Team other)
+        public bool Equals(Team1 other)
         {
             if (other == null) return false;
             return (this.Pilot.Equals(other.Pilot));
@@ -106,7 +107,7 @@ namespace TimerModel
             {
                 TimeStr = PrewTime.ToString("HH:mm:ss:FFF") + " - " + Time.ToString().Remove(12);
             }
-            PrewTime = DateTime.Now;
+            PrewTime = Now;
             return TimeStr;
         }
         public TimeSpan GetOverAllTime(DateTime Time)

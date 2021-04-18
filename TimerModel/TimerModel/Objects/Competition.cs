@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows.Forms;
 
 namespace TimerModel
 {
     //class Team
     class TeamSet
     {
-        
-
         private List<Team> Teams { get; set; }
 
+        public delegate void RoundHandler();
+        public event RoundHandler onTeamNewCycle;
         public int Count { get { return Teams.Count; } private set {  } }
 
         private Team _First;
@@ -93,7 +94,14 @@ namespace TimerModel
             }
             if (!(Teams.Count > Shift) && !(Teams.Count > (Shift + 1)) && !(Teams.Count > (Shift + 2)))
             {
+                //MessageBox.Show("S1");
+                foreach(Team T in Teams)
+                {
+                    T.NextRound();
+                    T.Finished = false;
+                }
                 Shift = 0;
+                onTeamNewCycle();
             }
             else
             {
@@ -103,20 +111,31 @@ namespace TimerModel
     }
     class Competition
     {
-        private int _Round;
-        public int Round
-        {
-            get { return _Round; }
-            private set { _Round = value; }
-        }
+        public int Round { get; private set; }
+
         public static TeamSet Teams { get; set; }
         public Competition(List<Team> LTeams)
         {
             Teams = new TeamSet(LTeams);
+            Teams.onTeamNewCycle += () => {
+                Round = Round + 1; 
+            };
+            //Teams.First.Rounds[Round].onFinish += () => { Teams.First.Finished };
         }
-        public void NextRound()
+        public void Lap(int ModelNum)
         {
-
+            switch (ModelNum)
+            {
+                case 1:
+                    Teams.First.Rounds[Round].MakeLap();
+                    break;
+                case 2:
+                    Teams.Second.Rounds[Round].MakeLap();
+                    break;
+                case 3:
+                    Teams.Third.Rounds[Round].MakeLap();
+                    break;
+            }
         }
     }
 }

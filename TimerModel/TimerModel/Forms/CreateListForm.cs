@@ -99,46 +99,7 @@ namespace TimerModel
             }
             return null;
         }
-        private void SaveList1()
-        {
-            //if (ListOfTeams.Items.Count == 0)
-            //{
-                //MessageBox.Show("Нет данных для сохранения");
-            //    return;
-            //}
-            Stream Stream;
-            SaveFileDialog SaveFile = new SaveFileDialog();
-            SaveFile.Title = "Сохранить список команд";
-            SaveFile.InitialDirectory = @"C:\";
-            SaveFile.Filter = "Таблица Excel (*.xlsx)|*.xlsx";
-            SaveFile.FilterIndex = 0;
-            SaveFile.RestoreDirectory = true;
-
-            if (SaveFile.ShowDialog() == DialogResult.OK)
-            {
-                try
-                {
-                    if ((Stream = SaveFile.OpenFile()) != null)
-                    {
-                        //List<Team> TeamsList = new List<Team>();
-                        //foreach (Team t in ListOfTeams.Items)
-                        {
-                            //    TeamsList.Add(t);
-                            //}
-                            //ListOfTeams TeamsR = new ListOfTeams();
-                            Stream.Write(new RoundReport().Generate());
-                            Stream.Close();
-                            return;
-                        }
-                    }
-                }
-                catch(Exception e)
-                {
-                    MessageBox.Show("Невозможно получть доступ к файлу, возможно он занят другим приложением. Ошибка: "+e.Message+" Стек вызовов: "+e.StackTrace);
-                }
-                return;
-            }
-        }
+        
             private void CreateExcelFile_Click(object sender, EventArgs e)
             {
                 SaveList();
@@ -161,7 +122,7 @@ namespace TimerModel
 
             private void button1_Click(object sender, EventArgs e)
             {
-                SaveList1();
+                //SaveList1();
             }
         private Team Choosen_Team;
         private void Choose_Click(object sender, EventArgs e)

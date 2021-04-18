@@ -76,7 +76,7 @@ namespace TimerModel
 
             Sheet.Column(tableShift).Width = 5;
             Sheet.Column(tableShift+1).Width = 22;
-            Sheet.Column(tableShift+2).Width = 16;
+            Sheet.Column(tableShift+2).Width = 20;
 
             Sheet.Row(1).Height = 27.75;
             Sheet.Row(2).Height = 42;
@@ -144,7 +144,7 @@ namespace TimerModel
                 Sheet.Cells[TeamRowStart, tableShift + 1].Value = Competition.Teams.GetTeams()[b].Pilot;
                 Sheet.Cells[TeamRowStart+1, tableShift + 1].Value = Competition.Teams.GetTeams()[b].Mechanic;
                 Sheet.Cells[TeamRowStart, tableShift + 2].Value = Competition.Teams.GetTeams()[b].TeamName;
-                Sheet.Cells[TeamRowStart, tableShift + 2].AutoFitColumns();
+                //Sheet.Cells[TeamRowStart, tableShift + 2].AutoFitColumns();
 
                 Sheet.Cells[TeamRowStart, s+i, TeamRowStart + 1, s+i].Merge = true;
                 var FROM = Sheet.Cells[TeamRowStart + 1, tableShift + 3].Address;

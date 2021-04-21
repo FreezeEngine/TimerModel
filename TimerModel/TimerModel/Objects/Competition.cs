@@ -12,7 +12,8 @@ namespace TimerModel
 
         public delegate void RoundHandler();
         public event RoundHandler onTeamNewCycle;
-        public int Count { get { return Teams.Count; } private set {  } }
+        public event RoundHandler onTeamChanged;
+        public int Count { get { return Teams.Count; } private set { } }
 
         private Team _First;
         private Team _Second;
@@ -21,17 +22,17 @@ namespace TimerModel
         public Team First
         {
             get { return _First; }
-            private set { _First = value; }
+            set { _First = value; onTeamChanged(); }
         }
         public Team Second
         {
             get { return _Second; }
-            private set { _Second = value; }
+            private set { _Second = value; onTeamChanged(); }
         }
         public Team Third
         {
             get { return _Third; }
-            private set { _Third = value; }
+            private set { _Third = value; onTeamChanged(); }
         }
         private int _Shift { get; set; }
         public int Shift
@@ -95,7 +96,7 @@ namespace TimerModel
             if (!(Teams.Count > Shift) && !(Teams.Count > (Shift + 1)) && !(Teams.Count > (Shift + 2)))
             {
                 //MessageBox.Show("S1");
-                foreach(Team T in Teams)
+                foreach (Team T in Teams)
                 {
                     T.NextRound();
                     T.Finished = false;
@@ -117,8 +118,9 @@ namespace TimerModel
         public Competition(List<Team> LTeams)
         {
             Teams = new TeamSet(LTeams);
-            Teams.onTeamNewCycle += () => {
-                Round = Round + 1; 
+            Teams.onTeamNewCycle += () =>
+            {
+                Round = Round + 1;
             };
             //Teams.First.Rounds[Round].onFinish += () => { Teams.First.Finished };
         }

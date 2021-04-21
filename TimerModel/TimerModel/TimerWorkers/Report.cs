@@ -47,7 +47,6 @@ namespace TimerModel
 
         public byte[] Generate(Competition Competition)
         {
-            //List<FlyModel> List
 
             var Package = new ExcelPackage();
             var Sheet = Package.Workbook.Worksheets.Add("Отчёт");

@@ -25,7 +25,7 @@ namespace TimerModel
 
         private void AddItem_Click(object sender, EventArgs e)
         {
-            NewTeam = new Team() { Pilot = Pilot.Text, Mechanic = Mechanic.Text, ModelName = Model.Text };
+            NewTeam = new Team() { Pilot = Pilot.Text, Mechanic = Mechanic.Text, ModelName = Model.Text, TeamName = TeamName.Text };
             Close();
         }
     }

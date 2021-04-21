@@ -76,7 +76,7 @@ namespace TimerModel
             this.CreateExcelFile.TabIndex = 3;
             this.CreateExcelFile.Text = "Сохранить";
             this.CreateExcelFile.UseVisualStyleBackColor = true;
-            this.CreateExcelFile.Click += new System.EventHandler(this.CreateExcelFile_Click);
+            this.CreateExcelFile.Click += new System.EventHandler(this.CreateExcelFile_ClickAsync);
             // 
             // CreateAndUse
             // 
@@ -86,7 +86,7 @@ namespace TimerModel
             this.CreateAndUse.TabIndex = 4;
             this.CreateAndUse.Text = "Сохранить и использовать";
             this.CreateAndUse.UseVisualStyleBackColor = true;
-            this.CreateAndUse.Click += new System.EventHandler(this.CreateAndUse_Click);
+            this.CreateAndUse.Click += new System.EventHandler(this.CreateAndUse_ClickAsync);
             // 
             // Edit
             // 

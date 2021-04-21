@@ -36,6 +36,8 @@ namespace TimerModel
             this.AddItem = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.TeamName = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -70,7 +72,7 @@ namespace TimerModel
             // 
             // AddItem
             // 
-            this.AddItem.Location = new System.Drawing.Point(12, 101);
+            this.AddItem.Location = new System.Drawing.Point(16, 128);
             this.AddItem.Name = "AddItem";
             this.AddItem.Size = new System.Drawing.Size(282, 38);
             this.AddItem.TabIndex = 4;
@@ -96,11 +98,29 @@ namespace TimerModel
             this.label3.TabIndex = 6;
             this.label3.Text = "Модель:";
             // 
+            // TeamName
+            // 
+            this.TeamName.Location = new System.Drawing.Point(137, 99);
+            this.TeamName.Name = "TeamName";
+            this.TeamName.Size = new System.Drawing.Size(157, 23);
+            this.TeamName.TabIndex = 7;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(16, 103);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(115, 15);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "Название команды:";
+            // 
             // AddToListForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(306, 147);
+            this.ClientSize = new System.Drawing.Size(314, 179);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.TeamName);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.AddItem);
@@ -125,5 +145,7 @@ namespace TimerModel
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         protected System.Windows.Forms.Button AddItem;
+        private System.Windows.Forms.TextBox TeamName;
+        private System.Windows.Forms.Label label4;
     }
 }

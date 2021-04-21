@@ -407,7 +407,7 @@ namespace TimerModel
             Printed = false;
         }
 
-        private void Print_Click(object sender, EventArgs e)
+        private async void Print_Click(object sender, EventArgs e)
         {
             var T1 = GetTeam(0);
             var T2 = GetTeam(1);

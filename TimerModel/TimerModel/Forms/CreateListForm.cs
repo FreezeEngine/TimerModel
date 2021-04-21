@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace TimerModel
@@ -17,7 +19,7 @@ namespace TimerModel
             InitializeComponent();
             if (Team != null)
             {
-                foreach(Team T in Team)
+                foreach (Team T in Team)
                 {
                     ListOfTeams.Items.Add(T);
                 }
@@ -67,12 +69,12 @@ namespace TimerModel
             }
 
         }
-        private List<Team> SaveList()
+        private async Task SaveListAsync()
         {
             if (ListOfTeams.Items.Count == 0)
             {
                 MessageBox.Show("Нет данных для сохранения");
-                return null;
+                return;
             }
             Stream Stream;
             SaveFileDialog SaveFile = new SaveFileDialog();
@@ -92,52 +94,49 @@ namespace TimerModel
                         TeamsList.Add(t);
                     }
                     ListOfTeams TeamsR = new ListOfTeams();
-                    Stream.Write(TeamsR.Generate(TeamsList));
+                    await Stream.WriteAsync(TeamsR.Generate(TeamsList));
                     Stream.Close();
-                    return TeamsList;
+                    if (TeamsR != null)
+                    {
+                        Hide();
+                        SetSettings Settings = new SetSettings(TeamsList);
+                        Settings.Closed += (s, a) => Close();
+                        Settings.Show();
+                    }
+                    return;
                 }
             }
-            return null;
+            return;
         }
-        
-            private void CreateExcelFile_Click(object sender, EventArgs e)
-            {
-                SaveList();
-            }
 
-            private void CreateAndUse_Click(object sender, EventArgs e)
-            {
-                //SaveList();
-                var Teams = SaveList();
-                if (Teams != null) {
-                    Hide();
-                    ChangeTeamSeparationMode ChoseMode = new ChangeTeamSeparationMode(Teams);
-                ChoseMode.Closed += (s, a) => Close();
-                ChoseMode.Show();
-                //MainForm Timer = new MainForm(Teams);
-                //Timer.Closed += (s, a) => Close();
-                //Timer.Show();
-            }
-            }
+        private async void CreateExcelFile_ClickAsync(object sender, EventArgs e)
+        {
+            Hide();
+            await SaveListAsync();
+        }
 
-            private void button1_Click(object sender, EventArgs e)
-            {
-                //SaveList1();
-            }
-        private Team Choosen_Team;
+        private async void CreateAndUse_ClickAsync(object sender, EventArgs e)
+        {
+            Hide();
+            await SaveListAsync();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //SaveList1();
+        }
+        public Team Choosen_Team { get; private set; }
         private void Choose_Click(object sender, EventArgs e)
         {
-            //ListOfTeams.Items
             List<Team> Team = new List<Team>();
-            //List<Team> Teams = (Team)ListOfTeams.Items;
-            foreach(Team T in ListOfTeams.Items)
+
+            foreach (Team T in ListOfTeams.Items)
             {
                 Team.Add(T);
             }
-            //MainForm MF = new MainForm(Team, false);
-            //MF.Closed += (s, a) => Close();
-            //MF.Show();
+            Choosen_Team = (Team)ListOfTeams.SelectedItem;
+            Close();
         }
     }
-    }
+}
 

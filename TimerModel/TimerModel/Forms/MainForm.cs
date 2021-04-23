@@ -56,6 +56,9 @@ namespace TimerModel
             else
             {
                 Competition.Teams.onTeamChanged += NewSetOfTeams;
+                TimeSpanTable1.BackColor = SystemColors.GrayText;
+                TimeSpanTable2.BackColor = SystemColors.GrayText;
+                TimeSpanTable3.BackColor = SystemColors.GrayText;
             }
         }
         void PrintFinalReport()
@@ -96,17 +99,17 @@ namespace TimerModel
                 Competition.Teams.NextSetOfTeams();
             }
 
-            TimeSpanTable1.BackColor = (Competition.Teams.First != null) ? ((Competition.Teams.First.Enabled) ? (SystemColors.ButtonHighlight) : (SystemColors.GrayText)) : (SystemColors.GrayText);
-            TimeSpanTable2.BackColor = (Competition.Teams.Second != null) ? ((Competition.Teams.Second.Enabled) ? (SystemColors.ButtonHighlight) : (SystemColors.GrayText)) : (SystemColors.GrayText);
-            TimeSpanTable3.BackColor = (Competition.Teams.Third != null) ? ((Competition.Teams.Third.Enabled) ? (SystemColors.ButtonHighlight) : (SystemColors.GrayText)) : (SystemColors.GrayText);
+            TimeSpanTable1.BackColor = (Competition.Teams.First.Enabled) ? (SystemColors.ButtonHighlight) : (SystemColors.GrayText);
+            TimeSpanTable2.BackColor = (Competition.Teams.Second.Enabled) ? (SystemColors.ButtonHighlight) : (SystemColors.GrayText);
+            TimeSpanTable3.BackColor = (Competition.Teams.Third.Enabled) ? (SystemColors.ButtonHighlight) : (SystemColors.GrayText);
 
-            Model1Pilots.Text = (Competition.Teams.First != null) ? ((Competition.Teams.First.Enabled) ? (Competition.Teams.First.Pilot + "\r\n" + ((Competition.Teams.First.Mechanic != null) ? (Competition.Teams.First.Mechanic) : ("Без механика"))) : ("Без команды")) : ("");
-            Model2Pilots.Text = (Competition.Teams.Second != null) ? ((Competition.Teams.Second.Enabled) ? (Competition.Teams.Second.Pilot + "\r\n" + ((Competition.Teams.Second.Mechanic != null) ? (Competition.Teams.Second.Mechanic) : ("Без механика"))) : ("Без команды")) : ("");
-            Model3Pilots.Text = (Competition.Teams.Third != null) ? ((Competition.Teams.Third.Enabled) ? (Competition.Teams.Third.Pilot + "\r\n" + ((Competition.Teams.Third.Mechanic != null) ? (Competition.Teams.Third.Mechanic) : ("Без механика"))) : ("Без команды")) : ("");
+            Model1Pilots.Text = (Competition.Teams.First.Enabled) ? (Competition.Teams.First.Pilot + "\r\n" + ((Competition.Teams.First.Mechanic != null) ? (Competition.Teams.First.Mechanic) : ("Без механика"))) : ("Без команды");
+            Model2Pilots.Text = (Competition.Teams.Second.Enabled) ? (Competition.Teams.Second.Pilot + "\r\n" + ((Competition.Teams.Second.Mechanic != null) ? (Competition.Teams.Second.Mechanic) : ("Без механика"))) : ("Без команды");
+            Model3Pilots.Text = (Competition.Teams.Third.Enabled) ? (Competition.Teams.Third.Pilot + "\r\n" + ((Competition.Teams.Third.Mechanic != null) ? (Competition.Teams.Third.Mechanic) : ("Без механика"))) : ("Без команды");
 
-            Model1Label.Text = (Competition.Teams.First != null) ? ((Competition.Teams.First.Enabled) ? ((Competition.Teams.First.ModelName != null) ? (Competition.Teams.First.ModelName + " [1]") : ("Модель 1")) : ("Отсутсвует")) : ("");
-            Model2Label.Text = (Competition.Teams.First != null) ? ((Competition.Teams.First.Enabled) ? ((Competition.Teams.Second.ModelName != null) ? (Competition.Teams.First.ModelName + " [2]") : ("Модель 2")) : ("Отсутсвует")) : ("");
-            Model3Label.Text = (Competition.Teams.First != null) ? ((Competition.Teams.Third.Enabled) ? ((Competition.Teams.Third.ModelName != null) ? (Competition.Teams.Third.ModelName + " [3]") : ("Модель 3")) : ("Отсутсвует")) : ("");
+            Model1Label.Text = (Competition.Teams.First.Enabled) ? ((Competition.Teams.First.ModelName != null) ? (Competition.Teams.First.ModelName + " [1]") : ("Модель 1")) : ("Отсутсвует");
+            Model2Label.Text = (Competition.Teams.Second.Enabled) ? ((Competition.Teams.Second.ModelName != null) ? (Competition.Teams.First.ModelName + " [2]") : ("Модель 2")) : ("Отсутсвует");
+            Model3Label.Text = (Competition.Teams.Third.Enabled) ? ((Competition.Teams.Third.ModelName != null) ? (Competition.Teams.Third.ModelName + " [3]") : ("Модель 3")) : ("Отсутсвует");
         }
         private void FlyMiss1(object sender, EventArgs e)
         {
@@ -457,7 +460,24 @@ namespace TimerModel
         {
             //Hide();
             CreateListForm LF = new CreateListForm(true, Competition.Teams.GetTeams());
-            LF.Closing += (s, a) => { if (LF.Choosen_Team != null) { Competition.Teams.First = LF.Choosen_Team; } };
+            LF.Closing += (s, a) =>
+            {
+                if (LF.Choosen_Team != null)
+                {
+                    switch (ModelNum)
+                    {
+                        case 0:
+                            Competition.Teams.First = LF.Choosen_Team;
+                            break;
+                        case 1:
+                            Competition.Teams.Second = LF.Choosen_Team;
+                            break;
+                        case 2:
+                            Competition.Teams.Third = LF.Choosen_Team;
+                            break;
+                    }
+                }
+            };
             LF.Show();
         }
 

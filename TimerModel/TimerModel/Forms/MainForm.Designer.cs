@@ -404,7 +404,7 @@
             this.Model1Label.Name = "Model1Label";
             this.Model1Label.Size = new System.Drawing.Size(283, 30);
             this.Model1Label.TabIndex = 0;
-            this.Model1Label.Text = "Модель 1";
+            this.Model1Label.Text = "Отсутсвует";
             this.Model1Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Model2Label
@@ -418,7 +418,7 @@
             this.Model2Label.Name = "Model2Label";
             this.Model2Label.Size = new System.Drawing.Size(283, 30);
             this.Model2Label.TabIndex = 0;
-            this.Model2Label.Text = "Модель 2";
+            this.Model2Label.Text = "Отсутсвует";
             this.Model2Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Model3Label
@@ -432,7 +432,7 @@
             this.Model3Label.Name = "Model3Label";
             this.Model3Label.Size = new System.Drawing.Size(286, 30);
             this.Model3Label.TabIndex = 0;
-            this.Model3Label.Text = "Модель 3";
+            this.Model3Label.Text = "Отсутсвует";
             this.Model3Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tableLayoutPanel6

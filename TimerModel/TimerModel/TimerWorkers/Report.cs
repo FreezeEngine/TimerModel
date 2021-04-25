@@ -41,7 +41,7 @@ namespace TimerModel
 
     class RoundReport
     {
-        public string MainReferee  { get; set; }
+        public string MainReferee { get; set; }
         public string HeadOfAStart { get; set; }
         public string Secretary { get; set; }
 
@@ -74,8 +74,8 @@ namespace TimerModel
             int tableShift = 1;
 
             Sheet.Column(tableShift).Width = 5;
-            Sheet.Column(tableShift+1).Width = 22;
-            Sheet.Column(tableShift+2).Width = 20;
+            Sheet.Column(tableShift + 1).Width = 22;
+            Sheet.Column(tableShift + 2).Width = 20;
 
             Sheet.Row(1).Height = 27.75;
             Sheet.Row(2).Height = 42;
@@ -86,8 +86,8 @@ namespace TimerModel
             Sheet.Row(7).Height = 18.75;
             Sheet.Row(8).Height = 18.75;
             Sheet.Row(9).Height = 15.75;
-            
-            int s = tableShift+3;
+
+            int s = tableShift + 3;
             int teamsCount = Competition.Teams.Count;
             int i = 0;
             int b = 0;
@@ -98,8 +98,8 @@ namespace TimerModel
             for (; i < TimerSettings.RoundCount; i++)
             {
                 TableBorder = s + i; //up to sum
-                Sheet.Column(s+i).Width = 8;
-                Sheet.Column(s+1+i).Width = 4;
+                Sheet.Column(s + i).Width = 8;
+                Sheet.Column(s + 1 + i).Width = 4;
                 Sheet.Cells[TableStartPoint + 1, TableBorder, TableStartPoint + 1, s + 1 + i].Merge = true;
                 Sheet.Cells[TableStartPoint + 1, TableBorder].Style.Font.Bold = true;
                 Sheet.Cells[TableStartPoint + 1, TableBorder].Style.Font.Size = 12;
@@ -109,8 +109,18 @@ namespace TimerModel
                     Sheet.Cells[9 + c + c + 2, TableBorder, 9 + c + c + 2, s + 1 + i].Merge = true;
                     Sheet.Cells[9 + c + c + 2, TableBorder].Value = Math.Round(Competition.Teams.GetTeams()[c].Rounds[i].TotalPoints, 2);
 
-                    Sheet.Cells[9 + c + c + 1, TableBorder].Value = (Competition.Teams.GetTeams()[c].Rounds[i].TotalPoints != 200)?(Competition.Teams.GetTeams()[c].Rounds[i].Time.ToString(@"mm\,ss\,ff")):("0");
-                    Sheet.Cells[9 + c + c + 1, TableBorder+1].Value = Competition.Teams.GetTeams()[c].Rounds[i].TotalFlyMisses();
+                    Sheet.Cells[9 + c + c + 1, TableBorder].Value = (Competition.Teams.GetTeams()[c].Rounds[i].TotalPoints != 200) ? (Competition.Teams.GetTeams()[c].Rounds[i].Time.ToString(@"mm\,ss\,ff")) : ("0");
+                    byte T = Competition.Teams.GetTeams()[c].Rounds[i].TotalFlyMisses();
+                    string B;
+                    if (T == 0)
+                    {
+                        B = "";
+                    }
+                    else
+                    {
+                        B = T.ToString();
+                    }
+                    Sheet.Cells[9 + c + c + 1, TableBorder + 1].Value = B;
                 }
                 Sheet.Cells[9, TableBorder].Value = i + 1;
 
@@ -141,11 +151,11 @@ namespace TimerModel
 
                 Sheet.Cells[TeamRowStart, tableShift].Value = b + 1;
                 Sheet.Cells[TeamRowStart, tableShift + 1].Value = Competition.Teams.GetTeams()[b].Pilot;
-                Sheet.Cells[TeamRowStart+1, tableShift + 1].Value = Competition.Teams.GetTeams()[b].Mechanic;
+                Sheet.Cells[TeamRowStart + 1, tableShift + 1].Value = Competition.Teams.GetTeams()[b].Mechanic;
                 Sheet.Cells[TeamRowStart, tableShift + 2].Value = Competition.Teams.GetTeams()[b].TeamName;
                 //Sheet.Cells[TeamRowStart, tableShift + 2].AutoFitColumns();
 
-                Sheet.Cells[TeamRowStart, s+i, TeamRowStart + 1, s+i].Merge = true;
+                Sheet.Cells[TeamRowStart, s + i, TeamRowStart + 1, s + i].Merge = true;
                 var FROM = Sheet.Cells[TeamRowStart + 1, tableShift + 3].Address;
                 var TO = Sheet.Cells[TeamRowStart + 1, TableBorder - 2].Address;
                 Sheet.Cells[TeamRowStart, SUMCol].Formula = "SUM(" + FROM + ":" + TO + ")-LARGE(" + FROM + ":" + TO + ",1)";
@@ -174,15 +184,27 @@ namespace TimerModel
             Sheet.Column(TableBorder).Width = 24.14;
             Sheet.Cells[1, tableShift, 1, 8].Merge = true;
 
-            Sheet.Cells[1, tableShift].Value = "Главный судья: ";
+            Sheet.Cells[1, tableShift].Value = "Главный судья: " + Competition.MainJudge;
+            Sheet.Cells[1, tableShift].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+            Sheet.Cells[1, tableShift].Style.Font.Size = 14;
+            Sheet.Cells[1, tableShift].Style.Font.Bold = true;
+
+            Sheet.Cells[TeamsEndRow + 3, 1].Value = "Начальник старта: " + Competition.LaunchSupervisor + " Секретарь старта: " + Competition.Scorekeeper;
+            Sheet.Cells[TeamsEndRow + 3, 1].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+            Sheet.Cells[TeamsEndRow + 3, 1].Style.Font.Size = 14;
+            Sheet.Cells[TeamsEndRow + 3, 1].Style.Font.Bold = true;
+            Sheet.Cells[TeamsEndRow + 3, 3, TeamsEndRow + 3, 3].Merge = true;
+
 
             Sheet.Cells[3, tableShift, 3, TableBorder].Merge = true; //ПРОТОКОЛ...
             Sheet.Cells[3, tableShift, 6, TableBorder].Style.Font.Size = 20;
 
-            Sheet.Cells[3, tableShift].Value = "ПРОТОКОЛ";
-            Sheet.Cells[4, tableShift].Value = "соревнований по авиамодельному спорту";
+            Sheet.Cells[3, tableShift].Value = Competition.Lines[0];
+            Sheet.Cells[4, tableShift].Value = Competition.Lines[1];
+            Sheet.Cells[5, tableShift].Value = Competition.Lines[2];
+            Sheet.Cells[6, tableShift].Value = Competition.Lines[3];
 
-            Sheet.Cells[TableStartPoint, tableShift+3].Value = "Туры";
+            Sheet.Cells[TableStartPoint, tableShift + 3].Value = "Туры";
             Sheet.Cells[TableStartPoint, tableShift + 3].Style.Font.Bold = true;
             Sheet.Cells[TableStartPoint, tableShift + 3].Style.Font.Size = 14;
 
@@ -190,15 +212,15 @@ namespace TimerModel
             Sheet.Cells[TableStartPoint, tableShift].Style.Font.Bold = true;
             Sheet.Cells[TableStartPoint, tableShift].Style.Font.Size = 14;
 
-            Sheet.Cells[TableStartPoint, tableShift+1].Value = "Экипаж";
+            Sheet.Cells[TableStartPoint, tableShift + 1].Value = "Экипаж";
             Sheet.Cells[TableStartPoint, tableShift + 1].Style.Font.Bold = true;
             Sheet.Cells[TableStartPoint, tableShift + 1].Style.Font.Size = 14;
 
-            Sheet.Cells[TableStartPoint, tableShift+2].Value = "Команда";
+            Sheet.Cells[TableStartPoint, tableShift + 2].Value = "Команда";
             Sheet.Cells[TableStartPoint, tableShift + 2].Style.Font.Bold = true;
             Sheet.Cells[TableStartPoint, tableShift + 2].Style.Font.Size = 14;
 
-            Sheet.Cells[TableStartPoint, TableBorder-1].Value = "Сумма";
+            Sheet.Cells[TableStartPoint, TableBorder - 1].Value = "Сумма";
             Sheet.Cells[TableStartPoint, TableBorder - 1].Style.Font.Bold = true;
             Sheet.Cells[TableStartPoint, TableBorder - 1].Style.Font.Size = 14;
 
@@ -215,15 +237,15 @@ namespace TimerModel
             Sheet.Cells[3, tableShift, 9, TableBorder].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
             Sheet.Cells[3, tableShift, 9, TableBorder].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
 
-            Sheet.Cells[TableStartPoint, tableShift+3, TableStartPoint, TableBorder - 2].Merge = true;
+            Sheet.Cells[TableStartPoint, tableShift + 3, TableStartPoint, TableBorder - 2].Merge = true;
 
-            Sheet.Cells[TableStartPoint, TableBorder-1, 9, TableBorder-1].Merge = true;
+            Sheet.Cells[TableStartPoint, TableBorder - 1, 9, TableBorder - 1].Merge = true;
             Sheet.Cells[TableStartPoint, TableBorder, 9, TableBorder].Merge = true;
 
 
             Sheet.Cells[TableStartPoint, tableShift, 9, tableShift].Merge = true;
-            Sheet.Cells[TableStartPoint, tableShift+1, 9, tableShift+1].Merge = true;
-            Sheet.Cells[TableStartPoint, tableShift+2, 9, tableShift+2].Merge = true;
+            Sheet.Cells[TableStartPoint, tableShift + 1, 9, tableShift + 1].Merge = true;
+            Sheet.Cells[TableStartPoint, tableShift + 2, 9, tableShift + 2].Merge = true;
             //foreach (FlyModel Model in List)
             //{
             //Sheet.Cells[i, 1].Value = Model.Pilot;
@@ -243,7 +265,7 @@ namespace TimerModel
             var Sheet = Package.Workbook.Worksheets.Add("Команды");
             int i = 1;
 
-            foreach(Team team in List)
+            foreach (Team team in List)
             {
                 Sheet.Cells[i, 1].Value = team.Pilot;
                 Sheet.Cells[i, 2].Value = team.Mechanic;

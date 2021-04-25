@@ -132,6 +132,10 @@ namespace TimerModel
             this.Controls.Add(this.Remove);
             this.Controls.Add(this.Add);
             this.Controls.Add(this.ListOfTeams);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(613, 517);
+            this.MinimumSize = new System.Drawing.Size(613, 517);
             this.Name = "CreateListForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Редактировать список";

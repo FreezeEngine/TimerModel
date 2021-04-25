@@ -128,6 +128,10 @@ namespace TimerModel
             this.Controls.Add(this.Mechanic);
             this.Controls.Add(this.Pilot);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(330, 218);
+            this.MinimumSize = new System.Drawing.Size(330, 218);
             this.Name = "AddToListForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Добавить участника";

@@ -92,6 +92,10 @@ namespace TimerModel
             this.Controls.Add(this.RoundNum);
             this.Controls.Add(this.Continue);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(225, 163);
+            this.MinimumSize = new System.Drawing.Size(225, 163);
             this.Name = "SetSettings";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Настройка";

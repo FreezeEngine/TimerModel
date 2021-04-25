@@ -6,7 +6,11 @@ using System.Windows.Forms;
 namespace TimerModel
 {
     //class Team
-    class TeamSet
+    /*
+
+
+     * */
+    public class TeamSet
     {
         private List<Team> Teams { get; set; }
 
@@ -48,9 +52,25 @@ namespace TimerModel
         {
             return Teams;
         }
+        public void Reset()
+        {
+            First.Reset();
+            Second.Reset();
+            Third.Reset();
+        }
         public void UpdateTeams(List<Team> Teams)
         {
             this.Teams = Teams;
+        }
+        public void NextRound()
+        {
+            foreach (Team T in Teams)
+            {
+                T.NextRound();
+                T.Finished = false;
+            }
+            Shift = 0;
+            onTeamNewCycle();
         }
         public void NextSetOfTeams()
         {
@@ -95,13 +115,7 @@ namespace TimerModel
             }
             if (!(Teams.Count > Shift) && !(Teams.Count > (Shift + 1)) && !(Teams.Count > (Shift + 2)))
             {
-                foreach (Team T in Teams)
-                {
-                    T.NextRound();
-                    T.Finished = false;
-                }
-                Shift = 0;
-                onTeamNewCycle();
+                NextRound();
             }
             else
             {
@@ -109,9 +123,14 @@ namespace TimerModel
             }
         }
     }
-    class Competition
+    public class Competition
     {
-        public int Round { get; private set; }
+        public int Round { get; set; }
+        public string MainJudge { get; set; }
+        public string LaunchSupervisor { get; set; }
+        public string Scorekeeper { get; set; }
+
+        public string[] Lines = new string[4];
 
         public static TeamSet Teams { get; set; }
         public Competition(List<Team> LTeams)
@@ -127,13 +146,13 @@ namespace TimerModel
         {
             switch (ModelNum)
             {
-                case 1:
+                case 0:
                     Teams.First.Rounds[Round].MakeLap();
                     break;
-                case 2:
+                case 1:
                     Teams.Second.Rounds[Round].MakeLap();
                     break;
-                case 3:
+                case 2:
                     Teams.Third.Rounds[Round].MakeLap();
                     break;
             }

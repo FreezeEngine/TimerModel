@@ -17,80 +17,99 @@ namespace TimerModel
         bool Automatic;
         public MainForm(List<Team> Teams, bool automatic)
         {
+
             this.Automatic = automatic;
             Competition = new Competition(Teams);
+            //onNewRound
+            Competition.Teams.onTeamChanged += UpdateTeamsData;
 
+            InitializeComponent();
             Competition.Teams.onTeamNewCycle += () =>
             {
-                if (Competition.Round == TimerSettings.RoundCount)
+                if (Automatic)
                 {
-                    PrintFinalReport();
-                }
-                else
-                {
-                    RoundNum.Text = "Тур: " + (Competition.Round + 1).ToString();
-                    NewSetOfTeams();
+                    if (Competition.Round == TimerSettings.RoundCount)
+                    {
+                        ClearTimer();
+                        if (Automatic)
+                        {
+                            PrintFinalReport();
+                        }
+                    }
+                    else
+                    {
+                        RoundNum.Value = Competition.Round + 1;
+                        NewSetOfTeams();
+                    }
                 }
             };
-            InitializeComponent();
+
+            RoundNum.Maximum = TimerSettings.RoundCount;
 
             TimeSpanTable1.RowCount = LC;
-            TimeSpanTable2.RowCount = LC;
             TimeSpanTable3.RowCount = LC;
+            TimeSpanTable2.RowCount = LC;
             LapTable.RowCount = LC;
 
             for (int i = 0; i < LC; i++)
             {
                 TimeSpanTable1.RowStyles.Add(new RowStyle(SizeType.Percent, 100 / LC));
-                TimeSpanTable2.RowStyles.Add(new RowStyle(SizeType.Percent, 100 / LC));
                 TimeSpanTable3.RowStyles.Add(new RowStyle(SizeType.Percent, 100 / LC));
+                TimeSpanTable2.RowStyles.Add(new RowStyle(SizeType.Percent, 100 / LC));
                 LapTable.RowStyles.Add(new RowStyle(SizeType.Percent, 100 / LC));
             }
             if (Automatic)
             {
-                ChoosePilotsM1.Enabled = false;
-                ChoosePilotsM2.Enabled = false;
-                ChoosePilotsM3.Enabled = false;
+                ChoosePilots();
                 NewSetOfTeams();
             }
             else
             {
-                Competition.Teams.onTeamChanged += NewSetOfTeams;
+                Competition.Round = (int)RoundNum.Value - 1;
+                Start.Enabled = false;
+                RoundNum.Enabled = true;
                 TimeSpanTable1.BackColor = SystemColors.GrayText;
-                TimeSpanTable2.BackColor = SystemColors.GrayText;
                 TimeSpanTable3.BackColor = SystemColors.GrayText;
+                TimeSpanTable2.BackColor = SystemColors.GrayText;
             }
+        }
+        private bool FullScreen = false;
+        private void GoFullScreen(bool ScreenMode)
+        {
+            switch (ScreenMode)
+            {
+                case true:
+                    TopMost = true;
+                    FormBorderStyle = FormBorderStyle.None;
+                    WindowState = FormWindowState.Maximized;
+                    break;
+                case false:
+                    TopMost = false;
+                    FormBorderStyle = FormBorderStyle.Sizable;
+                    WindowState = FormWindowState.Normal;
+                    break;
+            }
+        }
+        void ResetFlyMissCounters()
+        {
+            FM1FlyMiss1Point.Value = 0;
+            FM1FlyMiss2Point.Value = 0;
+            FM1FlyMiss3Point.Value = 0;
+
+            FM2FlyMiss1Point.Value = 0;
+            FM2FlyMiss2Point.Value = 0;
+            FM2FlyMiss3Point.Value = 0;
+
+            FM3FlyMiss1Point.Value = 0;
+            FM3FlyMiss2Point.Value = 0;
+            FM3FlyMiss3Point.Value = 0;
         }
         void PrintFinalReport()
         {
-            //Add report settings
-            Stream Stream;
-            SaveFileDialog SaveFile = new SaveFileDialog();
-            SaveFile.Title = "Сохранить список команд";
-            SaveFile.InitialDirectory = @"C:\";
-            SaveFile.Filter = "Таблица Excel (*.xlsx)|*.xlsx";
-            SaveFile.FilterIndex = 0;
-            SaveFile.RestoreDirectory = true;
-
-            if (SaveFile.ShowDialog() == DialogResult.OK)
-            {
-                try
-                {
-                    if ((Stream = SaveFile.OpenFile()) != null)
-                    {
-                        {
-                            Stream.Write(new RoundReport().Generate(Competition));
-                            Stream.Close();
-                        }
-                    }
-                }
-                catch (Exception e)
-                {
-                    MessageBox.Show("Невозможно получть доступ к файлу, возможно он занят другим приложением. Ошибка: " + e.Message + " Стек вызовов: " + e.StackTrace);
-                }
-
-            }
-            Close();
+            Hide();
+            CompetitionReport CMPR = new CompetitionReport(Competition);
+            CMPR.FormClosed += (s, a) => { Close(); };
+            CMPR.Show();
         }
         private void NewSetOfTeams()
         {
@@ -98,30 +117,34 @@ namespace TimerModel
             {
                 Competition.Teams.NextSetOfTeams();
             }
+            UpdateTeamsData();
+        }
+        private void UpdateTeamsData()
+        {
 
             TimeSpanTable1.BackColor = (Competition.Teams.First.Enabled) ? (SystemColors.ButtonHighlight) : (SystemColors.GrayText);
-            TimeSpanTable2.BackColor = (Competition.Teams.Second.Enabled) ? (SystemColors.ButtonHighlight) : (SystemColors.GrayText);
-            TimeSpanTable3.BackColor = (Competition.Teams.Third.Enabled) ? (SystemColors.ButtonHighlight) : (SystemColors.GrayText);
+            TimeSpanTable3.BackColor = (Competition.Teams.Second.Enabled) ? (SystemColors.ButtonHighlight) : (SystemColors.GrayText);
+            TimeSpanTable2.BackColor = (Competition.Teams.Third.Enabled) ? (SystemColors.ButtonHighlight) : (SystemColors.GrayText);
 
             Model1Pilots.Text = (Competition.Teams.First.Enabled) ? (Competition.Teams.First.Pilot + "\r\n" + ((Competition.Teams.First.Mechanic != null) ? (Competition.Teams.First.Mechanic) : ("Без механика"))) : ("Без команды");
             Model2Pilots.Text = (Competition.Teams.Second.Enabled) ? (Competition.Teams.Second.Pilot + "\r\n" + ((Competition.Teams.Second.Mechanic != null) ? (Competition.Teams.Second.Mechanic) : ("Без механика"))) : ("Без команды");
             Model3Pilots.Text = (Competition.Teams.Third.Enabled) ? (Competition.Teams.Third.Pilot + "\r\n" + ((Competition.Teams.Third.Mechanic != null) ? (Competition.Teams.Third.Mechanic) : ("Без механика"))) : ("Без команды");
 
             Model1Label.Text = (Competition.Teams.First.Enabled) ? ((Competition.Teams.First.ModelName != null) ? (Competition.Teams.First.ModelName + " [1]") : ("Модель 1")) : ("Отсутсвует");
-            Model2Label.Text = (Competition.Teams.Second.Enabled) ? ((Competition.Teams.Second.ModelName != null) ? (Competition.Teams.First.ModelName + " [2]") : ("Модель 2")) : ("Отсутсвует");
+            Model2Label.Text = (Competition.Teams.Second.Enabled) ? ((Competition.Teams.Second.ModelName != null) ? (Competition.Teams.Second.ModelName + " [2]") : ("Модель 2")) : ("Отсутсвует");
             Model3Label.Text = (Competition.Teams.Third.Enabled) ? ((Competition.Teams.Third.ModelName != null) ? (Competition.Teams.Third.ModelName + " [3]") : ("Модель 3")) : ("Отсутсвует");
         }
         private void FlyMiss1(object sender, EventArgs e)
         {
-            FlyMissUpdate(0, 1);
+            FlyMissUpdate(0);
         }
         private void FlyMiss2(object sender, EventArgs e)
         {
-            FlyMissUpdate(1, 1);
+            FlyMissUpdate(1);
         }
         private void FlyMiss3(object sender, EventArgs e)
         {
-            FlyMissUpdate(2, 1);
+            FlyMissUpdate(2);
         }
         private Team GetTeam(int ModelNum)
         {
@@ -136,16 +159,15 @@ namespace TimerModel
                     Team = Competition.Teams.Second;
                     break;
                 case 2:
-
                     Team = Competition.Teams.Third;
                     break;
             }
             return Team;
         }
-        private void FlyMissUpdate(int ModelNum, byte Point)
+        private void FlyMissUpdate(int ModelNum)
         {
-            decimal Value = 0;
-            Team Team = new Team();
+            Team Team;
+            Round Round = new Round();
             switch (ModelNum)
             {
                 case 0:
@@ -154,6 +176,10 @@ namespace TimerModel
                         return;
                     }
                     Team = Competition.Teams.First;
+                    Round = Team.Rounds[Competition.Round];
+                    Round.FlyMisses[0] = (byte)FM1FlyMiss1Point.Value;
+                    Round.FlyMisses[1] = (byte)FM1FlyMiss2Point.Value;
+                    Round.FlyMisses[2] = (byte)FM1FlyMiss3Point.Value;
                     break;
                 case 1:
                     if (!Competition.Teams.Second.Finished)
@@ -161,6 +187,10 @@ namespace TimerModel
                         return;
                     }
                     Team = Competition.Teams.Second;
+                    Round = Team.Rounds[Competition.Round];
+                    Round.FlyMisses[0] = (byte)FM2FlyMiss1Point.Value;
+                    Round.FlyMisses[1] = (byte)FM2FlyMiss2Point.Value;
+                    Round.FlyMisses[2] = (byte)FM2FlyMiss3Point.Value;
                     break;
                 case 2:
                     if (!Competition.Teams.Third.Finished)
@@ -168,69 +198,73 @@ namespace TimerModel
                         return;
                     }
                     Team = Competition.Teams.Third;
+                    Round = Team.Rounds[Competition.Round];
+                    Round.FlyMisses[0] = (byte)FM3FlyMiss1Point.Value;
+                    Round.FlyMisses[1] = (byte)FM3FlyMiss2Point.Value;
+                    Round.FlyMisses[2] = (byte)FM3FlyMiss3Point.Value;
                     break;
             }
 
-            switch (ModelNum)
-            {
-                case 0:
-                    Value = numericUpDown1.Value;
-                    break;
-                case 1:
-                    Value = numericUpDown2.Value;
-                    break;
-                case 2:
-                    Value = numericUpDown7.Value;
-                    break;
-            }
-            //int 
+            byte Value = Round.TotalFlyMisses();
+
             if (Value == 1)
             {
-                Team.Rounds[Competition.Round].FlyMisses[Point] = (byte)Value;
-                Team.Rounds[Competition.Round].TotalPoints = Team.Rounds[Competition.Round].Points + (Team.Rounds[Competition.Round].Points * 0.10);
-
+                Round.TotalPoints = Round.Points + (Round.Points * 0.10);
             }
             else
             {
                 if (Value == 0)
                 {
-                    Team.Rounds[Competition.Round].FlyMisses[Point] = 0;
-                    Team.Rounds[Competition.Round].TotalPoints = Team.Rounds[Competition.Round].Points;
+                    Round.TotalPoints = Round.Points;
                 }
                 else
                 {
-                    Team.Rounds[Competition.Round].FlyMisses[Point] = (byte)Value;
-                    Team.Rounds[Competition.Round].TotalPoints = 200;
+                    Round.TotalPoints = 200;
                 }
             }
-            UpdatePoints(Team, ModelNum);
+            UpdatePoints(Round, ModelNum);
         }
-        private void UpdatePoints(Team Team, int ModelNum)
+        private void UpdatePoints(Round Round, int ModelNum)
         {
-            double Points = Team.Rounds[Competition.Round].TotalPoints;
-            string TotalTime = Points.ToString("0.00").Replace(",", ".");
+            if (Round.TotalPoints == 0.00)
+            {
+                return;
+            }
+            string TotalTime = Round.TotalPoints.ToString("0.00").Replace(",", ".");
+
             switch (ModelNum)
             {
                 case 0:
-                    Competition.Teams.First.Rounds[Competition.Round].TotalPoints = Team.Rounds[Competition.Round].TotalPoints;
                     Result.Text = TotalTime;
                     break;
                 case 1:
-                    Competition.Teams.Second.Rounds[Competition.Round].TotalPoints = Team.Rounds[Competition.Round].TotalPoints;
                     Result2.Text = TotalTime;
                     break;
                 case 2:
-                    Competition.Teams.Third.Rounds[Competition.Round].TotalPoints = Team.Rounds[Competition.Round].TotalPoints;
                     Result3.Text = TotalTime;
                     break;
             }
         }
         private int ovPointer = 0;
+        private void KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Escape:
+                    GoFullScreen(false);
+                    break;
+                case Keys.F11:
+                    FullScreen = !FullScreen;
+                    GoFullScreen(FullScreen);
+                    break;
+            }
+        }
         private void KeyPressed(object sender, KeyPressEventArgs e)
         {
             var T1 = GetTeam(0);
             var T2 = GetTeam(1);
             var T3 = GetTeam(2);
+
             void HandleButton(int ModelNum)
             {
                 Team Team = GetTeam(ModelNum);
@@ -238,17 +272,19 @@ namespace TimerModel
                 {
                     return;
                 }
-                //Sometimes crushes out of bounds 1 round instead of 2
-                if (Competition.Round == Team.Rounds.Count | Competition.Round > Team.Rounds.Count)
+                if (Automatic)
                 {
-                    return;
+                    if (Competition.Round >= Team.Rounds.Count)
+                    {
+                        return;
+                    }
                 }
                 if (Team.Rounds[Competition.Round].CooldownIsUP() == true)
                 {
                     int RLC = Team.Rounds[Competition.Round].Laps.Count;
                     if (RLC <= TimerSettings.LapCount)
                     {
-                        Competition.Lap(ModelNum + 1);
+                        Competition.Lap(ModelNum);
                         Team = GetTeam(ModelNum);
                     }
 
@@ -258,7 +294,7 @@ namespace TimerModel
                     }
                     if (RLC < LC)
                     {
-                        Team.Rounds[Competition.Round].onFinish += R;
+                        Team.Rounds[Competition.Round].onFinish += R; //REWORK
                         DateTime Time = DateTime.Now;
                         int Pointer = RLC;
 
@@ -324,19 +360,14 @@ namespace TimerModel
                     }
                 }
             }
-            if (!Stopwatch.Started && Printed | AutoStart)
+            if ((!Stopwatch.Started && Printed | AutoStart) && !(!T1.Enabled && !T2.Enabled && !T3.Enabled) && (e.KeyChar == '1' | e.KeyChar == '2' | e.KeyChar == '3'))
             {
-                Printed = false;
                 AutoStart = true;
+
                 ClearTimer();
                 StopTimer();
-                //NewSetOfTeams();
-                Stop.Enabled = true;
-                Stopwatch.Started = true;
-                Start.Enabled = false;
-                Reset.Enabled = true;
-                Stopwatch.Start();
-                Timer.Start();
+
+                StartTimer();
             }
             else
             {
@@ -372,16 +403,30 @@ namespace TimerModel
         {
             TimerLabel.Text = Stopwatch.GetTime().ToString();
         }
-
+        private void ChoosePilots(bool Enabled = false)
+        {
+            ChoosePilotsM1.Enabled = Enabled;
+            ChoosePilotsM2.Enabled = Enabled;
+            ChoosePilotsM3.Enabled = Enabled;
+        }
         private void Start_Click(object sender, EventArgs e)
         {
-            Stop.Enabled = true;
+            StartTimer();
+        }
+        private void StartTimer()
+        {
+            Printed = false;
             AutoStart = false;
-            ClearTimer();
-            Stopwatch.Started = true;
+            ChoosePilots();
             Start.Enabled = false;
             Reset.Enabled = true;
+            Print.Enabled = false;
+            Stop.Enabled = true;
+
+            ClearTimer();
+
             Stopwatch.Start();
+            Stopwatch.Started = true;
             Timer.Start();
         }
 
@@ -389,36 +434,50 @@ namespace TimerModel
         {
             ClearTimer();
             StopTimer();
+            AutoStart = true;
+            Start.Enabled = true;
+            Stop.Enabled = false;
+            Reset.Enabled = false;
             ResetTeamProgress();
 
         }
         public void ResetTeamProgress()
         {
             ovPointer = 0;
-            Competition.Teams.First.Reset();
-            Competition.Teams.Second.Reset();
-            Competition.Teams.Third.Reset();
+            Competition.Teams.Reset();
         }
         private void StopTimer()
         {
+
+            if (!Automatic)
+            {
+                ChoosePilots(true);
+            }
             Stop.Enabled = false;
+            Start.Enabled = false;
             Stopwatch.Started = false;
             Timer.Stop();
             TimerLabel.Text = "Остановлено";
-            Start.Enabled = true;
-            Reset.Enabled = false;
+            //Start.Enabled = true;
+            //Reset.Enabled = false;
+            Print.Enabled = true;
+
         }
         private void ClearTimer()
         {
+            Printed = false;
             ovPointer = 0;
+            if (!Automatic)
+            {
+                Competition.Teams.Reset();
+            }
             Result.Text = Result2.Text = Result3.Text = "";
             FinishTime.Text = FinishTime2.Text = FinishTime3.Text = "";
             TimeSpanTable1.Controls.Clear();
-            TimeSpanTable2.Controls.Clear();
             TimeSpanTable3.Controls.Clear();
+            TimeSpanTable2.Controls.Clear();
             LapTable.Controls.Clear();
-
-            Printed = false;
+            ResetFlyMissCounters();
         }
 
         private async void Print_Click(object sender, EventArgs e)
@@ -432,9 +491,13 @@ namespace TimerModel
                 MessageBox.Show("PRINTING");
                 Printed = true;
                 AutoStart = true;
-                NewSetOfTeams();
-                ClearTimer();
+                ChoosePilots(true);
+                if (Automatic)
+                {
+                    NewSetOfTeams();
+                }
                 StopTimer();
+                ClearTimer();
             }
             else
             {
@@ -459,11 +522,14 @@ namespace TimerModel
         private void ChangePilot(int ModelNum)
         {
             //Hide();
+            //Competition.Te
+
             CreateListForm LF = new CreateListForm(true, Competition.Teams.GetTeams());
             LF.Closing += (s, a) =>
             {
                 if (LF.Choosen_Team != null)
                 {
+                    Start.Enabled = true;
                     switch (ModelNum)
                     {
                         case 0:
@@ -492,27 +558,54 @@ namespace TimerModel
             T2.Finished = true;
             T3.Finished = true;
 
+
             Stop.Enabled = false;
             StopTimer();
+            Start.Enabled = false;
 
-            if (!T1.Finished && T1.Enabled)
+            if (T1.Rounds[Competition.Round].Laps.Count - 1 < TimerSettings.LapCount && T1.Enabled)
             {
                 Competition.Teams.First.Rounds[Competition.Round].TotalPoints = 200;
                 Result.Text = "200.00";
                 FinishTime.Text = "База не пройдена!";
             }
-            if (!T2.Finished && T2.Enabled)
+            if (T2.Rounds[Competition.Round].Laps.Count - 1 < TimerSettings.LapCount && T2.Enabled)
             {
                 Competition.Teams.Second.Rounds[Competition.Round].TotalPoints = 200;
                 Result2.Text = "200.00";
                 FinishTime2.Text = "База не пройдена!";
             }
-            if (!T3.Finished && T3.Enabled)
+            if (T3.Rounds[Competition.Round].Laps.Count - 1 < TimerSettings.LapCount && T3.Enabled)
             {
                 Competition.Teams.Third.Rounds[Competition.Round].TotalPoints = 200;
                 Result3.Text = "200.00";
                 FinishTime3.Text = "База не пройдена!";
             }
+        }
+
+        private void ForcedExit_Click(object sender, EventArgs e)
+        {
+            Environment.Exit(0);
+        }
+
+        private void RoundNum_ValueChanged(object sender, EventArgs e)
+        {
+            /*if (!Automatic) {
+                Competition.Round = (int)RoundNum.Value - 1;
+                if(Competition.Round != (int)RoundNum.Value)
+                {
+                    if(Competition.Round < (int)RoundNum.Value)
+                    {
+
+                    }
+                    while(Competition.Round != (int)RoundNum.Value)
+                    {
+                        Competition.Teams.NextRound();
+                    }
+                    StopTimer();
+                    Competition.Teams.Reset();
+                }
+            }*/
         }
     }
 }

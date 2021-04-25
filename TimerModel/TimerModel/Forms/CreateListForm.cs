@@ -94,7 +94,8 @@ namespace TimerModel
                         TeamsList.Add(t);
                     }
                     ListOfTeams TeamsR = new ListOfTeams();
-                    await Stream.WriteAsync(TeamsR.Generate(TeamsList));
+                    byte[] b = TeamsR.Generate(TeamsList);
+                    await Stream.WriteAsync(b);
                     Stream.Close();
                     if (TeamsR != null)
                     {

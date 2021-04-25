@@ -17,15 +17,21 @@ namespace TimerModel
         public string ModelName { get; set; }
 
         public List<Round> _Rounds;
-        public List<Round> Rounds { get {
+        public List<Round> Rounds
+        {
+            get
+            {
                 if (_Rounds == null)
                 {
                     _Rounds = new List<Round>();
                 }
                 return _Rounds;
-            } private set {
+            }
+            private set
+            {
                 _Rounds = value;
-            } }
+            }
+        }
 
         public bool Finished { get; set; }
         public bool Enabled { get; set; }
@@ -42,11 +48,13 @@ namespace TimerModel
         }
         public void Reset()
         {
-
+            Rounds = new List<Round>();
+            Rounds.Add(new Round());
+            Finished = false;
         }
         public override string ToString()
         {
-            return "П: " + Pilot + " М: " + Mechanic + " FM: "+ModelName;
+            return "П: " + Pilot + " М: " + Mechanic + " FM: " + ModelName + " T: " + TeamName;
         }
         public override bool Equals(object obj)
         {
@@ -62,7 +70,7 @@ namespace TimerModel
         public bool Equals(Team other)
         {
             if (other == null) return false;
-            return (this.Pilot.Equals(other.Pilot));
+            return (Pilot.Equals(other.Pilot));
         }
     }
 }

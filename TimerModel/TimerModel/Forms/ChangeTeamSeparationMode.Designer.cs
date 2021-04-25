@@ -38,6 +38,8 @@ namespace TimerModel
             // Continue
             // 
             this.Continue.Location = new System.Drawing.Point(12, 91);
+            this.Continue.MaximumSize = new System.Drawing.Size(265, 36);
+            this.Continue.MinimumSize = new System.Drawing.Size(265, 36);
             this.Continue.Name = "Continue";
             this.Continue.Size = new System.Drawing.Size(265, 36);
             this.Continue.TabIndex = 0;
@@ -85,6 +87,8 @@ namespace TimerModel
             this.Controls.Add(this.AutomaticMode);
             this.Controls.Add(this.HandMode);
             this.Controls.Add(this.Continue);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(305, 173);
             this.MinimumSize = new System.Drawing.Size(305, 173);
             this.Name = "ChangeTeamSeparationMode";

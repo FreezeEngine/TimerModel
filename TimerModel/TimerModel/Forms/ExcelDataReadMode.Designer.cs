@@ -86,6 +86,10 @@ namespace TimerModel
             this.Controls.Add(this.mode3);
             this.Controls.Add(this.mode2);
             this.Controls.Add(this.mode1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(320, 166);
+            this.MinimumSize = new System.Drawing.Size(320, 166);
             this.Name = "ExcelDataReadMode";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Выбор формата таблицы";

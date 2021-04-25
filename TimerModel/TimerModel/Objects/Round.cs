@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace TimerModel
 {
-    public class Round: IEquatable<Round>
+    public class Round : IEquatable<Round>
     {
         private DateTime RoundStart { get; set; }
         private DateTime CurrentTime { get; set; }
@@ -15,6 +15,8 @@ namespace TimerModel
 
         public delegate void Finishd();
         public event Finishd onFinish;
+        public delegate void MisedAPoint();
+        public event MisedAPoint onFlyMissChanged;
 
         private double _TotalPoints;
         public double TotalPoints { get { return _TotalPoints; } set { if (value >= 200) { _TotalPoints = 200; } else { _TotalPoints = value; } } }
@@ -27,7 +29,7 @@ namespace TimerModel
         {
             get
             {
-                if(_Laps == null)
+                if (_Laps == null)
                 {
                     _Laps = new List<Lap>();
                 }
@@ -38,14 +40,16 @@ namespace TimerModel
                 _Laps = value;
             }
         }
-        public byte[] FlyMisses = new byte[3];
-        public byte TotalFlyMisses() { 
-            return (byte)(FlyMisses[0]+FlyMisses[1]+FlyMisses[2]);
+        public byte[] _FlyMisses = new byte[3];
+        public byte[] FlyMisses { get { return _FlyMisses; } set { _FlyMisses = value; onFlyMissChanged(); } }
+        public byte TotalFlyMisses()
+        {
+            return (byte)(FlyMisses[0] + FlyMisses[1] + FlyMisses[2]);
         }
         public void MakeLap()
         {
             DateTime Now = DateTime.Now;
-            if(Laps.Count == 0)
+            if (Laps.Count == 0)
             {
                 RoundStart = Now;
                 PreviousTime = Now;
@@ -57,7 +61,7 @@ namespace TimerModel
                 Laps.Add(new Lap(Now, PreviousTime, false));
                 PreviousTime = Now;
             }
-            if (Laps.Count == TimerSettings.LapCount+1)
+            if (Laps.Count == TimerSettings.LapCount + 1)
             {
                 Finish();
                 return;
@@ -72,14 +76,14 @@ namespace TimerModel
             L.Location = new Point(5, 2);
             L.Name = "TimeSpanLabel" + Laps.Count.ToString();
             L.Size = new Size(273, 35);
-            L.Text = Laps[Laps.Count-1].ToString();
+            L.Text = Laps[Laps.Count - 1].ToString();
             L.TabIndex = 0;
             L.TextAlign = ContentAlignment.MiddleCenter;
             return L;
         }
         public bool CooldownIsUP()
         {
-            return true;
+            return true;//DELETE
             if (Laps.Count == 0)
             {
                 return true;

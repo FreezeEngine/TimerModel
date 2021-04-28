@@ -147,13 +147,22 @@ namespace TimerModel
             switch (ModelNum)
             {
                 case 0:
-                    Teams.First.Rounds[Round].MakeLap();
+                    if (Teams.First.Enabled)
+                    {
+                        Teams.First.Rounds[Round].MakeLap();
+                    }
                     break;
                 case 1:
-                    Teams.Second.Rounds[Round].MakeLap();
+                    if (Teams.Second.Enabled)
+                    {
+                        Teams.Second.Rounds[Round].MakeLap();
+                    }
                     break;
                 case 2:
-                    Teams.Third.Rounds[Round].MakeLap();
+                    if (Teams.Third.Enabled)
+                    {
+                        Teams.Third.Rounds[Round].MakeLap();
+                    }
                     break;
             }
         }

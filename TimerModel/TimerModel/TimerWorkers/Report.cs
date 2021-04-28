@@ -189,11 +189,15 @@ namespace TimerModel
             Sheet.Cells[1, tableShift].Style.Font.Size = 14;
             Sheet.Cells[1, tableShift].Style.Font.Bold = true;
 
-            Sheet.Cells[TeamsEndRow + 3, 1].Value = "Начальник старта: " + Competition.LaunchSupervisor + " Секретарь старта: " + Competition.Scorekeeper;
+            Sheet.Column(TeamsEndRow + 1).Width = 27;
+            Sheet.Column(TeamsEndRow + 2).Width = 40;
+            Sheet.Cells[TeamsEndRow + 3, 1, TeamsEndRow + 3, TableBorder].Merge = true;
+
+            Sheet.Cells[TeamsEndRow + 3, 1].Value = "Начальник старта: " + Competition.LaunchSupervisor + "                                             Секретарь старта: " + Competition.Scorekeeper;
             Sheet.Cells[TeamsEndRow + 3, 1].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
             Sheet.Cells[TeamsEndRow + 3, 1].Style.Font.Size = 14;
             Sheet.Cells[TeamsEndRow + 3, 1].Style.Font.Bold = true;
-            Sheet.Cells[TeamsEndRow + 3, 3, TeamsEndRow + 3, 3].Merge = true;
+            //1Sheet.Cells[TeamsEndRow + 3, 1, TeamsEndRow + 3, TableBorder + 1].Merge = true;
 
 
             Sheet.Cells[3, tableShift, 3, TableBorder].Merge = true; //ПРОТОКОЛ...

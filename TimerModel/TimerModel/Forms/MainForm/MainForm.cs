@@ -131,7 +131,7 @@ namespace TimerModel
         void FinalReport()
         {
             PreFinishAsk PFA = new PreFinishAsk();
-            PFA.FormClosing += (s, a) => { if (PFA.CloseForm) { Close(); } NewSetOfTeams(true); Show(); };
+            PFA.FormClosing += (s, a) => { if (PFA.CloseForm) { Close(); } RoundNum.Visible = false; RoundLabel.Visible = false; NewSetOfTeams(true); Show(); };
             Hide();
             PFA.Show();
         }
@@ -332,13 +332,7 @@ namespace TimerModel
                 {
                     return;
                 }
-                if (Automatic)
-                {
-                    if (RoundNum.Value > Team.Rounds.Count) //Never happening
-                    {
-                        return;
-                    }
-                }
+
                 void R()
                 {
                     string Points = Team.CurrentRound.RoundPoints();

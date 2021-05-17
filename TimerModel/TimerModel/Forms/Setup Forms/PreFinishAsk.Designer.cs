@@ -31,11 +31,12 @@ namespace TimerModel.Forms.Setup_Forms
         {
             this.ReflyModels = new System.Windows.Forms.Button();
             this.Report = new System.Windows.Forms.Button();
+            this.OpenCompetitionManager = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // ReflyModels
             // 
-            this.ReflyModels.Location = new System.Drawing.Point(12, 64);
+            this.ReflyModels.Location = new System.Drawing.Point(12, 116);
             this.ReflyModels.Name = "ReflyModels";
             this.ReflyModels.Size = new System.Drawing.Size(348, 46);
             this.ReflyModels.TabIndex = 0;
@@ -53,11 +54,22 @@ namespace TimerModel.Forms.Setup_Forms
             this.Report.UseVisualStyleBackColor = true;
             this.Report.Click += new System.EventHandler(this.Report_Click);
             // 
+            // OpenCompetitionManager
+            // 
+            this.OpenCompetitionManager.Location = new System.Drawing.Point(12, 64);
+            this.OpenCompetitionManager.Name = "OpenCompetitionManager";
+            this.OpenCompetitionManager.Size = new System.Drawing.Size(348, 46);
+            this.OpenCompetitionManager.TabIndex = 2;
+            this.OpenCompetitionManager.Text = "Открыть менеджер соревнования";
+            this.OpenCompetitionManager.UseVisualStyleBackColor = true;
+            this.OpenCompetitionManager.Click += new System.EventHandler(this.OpenCompetitionManager_Click);
+            // 
             // PreFinishAsk
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(372, 119);
+            this.ClientSize = new System.Drawing.Size(372, 171);
+            this.Controls.Add(this.OpenCompetitionManager);
             this.Controls.Add(this.Report);
             this.Controls.Add(this.ReflyModels);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
@@ -72,5 +84,6 @@ namespace TimerModel.Forms.Setup_Forms
 
         private System.Windows.Forms.Button ReflyModels;
         private System.Windows.Forms.Button Report;
+        private System.Windows.Forms.Button OpenCompetitionManager;
     }
 }

@@ -25,5 +25,13 @@ namespace TimerModel.Forms.Setup_Forms
             Hide();
             RM.Show();
         }
+
+        private void OpenCompetitionManager_Click(object sender, EventArgs e)
+        {
+            CompetitionManager CM = new CompetitionManager();
+            CM.FormClosing += (s, a) => { Show(); };
+            Hide();
+            CM.Show();
+        }
     }
 }

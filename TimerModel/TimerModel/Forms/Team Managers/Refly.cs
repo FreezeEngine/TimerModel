@@ -87,6 +87,11 @@ namespace TimerModel.Forms.Team_Managers
                     try
                     {
                         byte index = Convert.ToByte(i);
+                        if(index > T.Rounds.Count)
+                        {
+                            MessageBox.Show("Номер тура превысил количество туров для команды");
+                            return;
+                        }
                         //T.CurrentRoundNum = --index;
                         T.SelectRound(index);
                         T.Reset();
@@ -98,6 +103,7 @@ namespace TimerModel.Forms.Team_Managers
                         return;
                     }
                 }
+                
                 T.CurrentRoundNum = (byte)(Convert.ToByte(RTRI[0]) - 1);
             }
             UpdateReflyStatus();

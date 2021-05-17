@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using TimerModel.Forms;
 using TimerModel.Forms.Setup_Forms;
 using TimerModel.Objects.Reporting;
 
@@ -147,13 +145,13 @@ namespace TimerModel
         void FinalReport()
         {
             PreFinishAsk PFA = new PreFinishAsk();
-            PFA.FormClosing += (s, a) => { NewSetOfTeams(true);  Show(); };
+            PFA.FormClosing += (s, a) => { NewSetOfTeams(true); Show(); };
             Hide();
             PFA.Show();
         }
         private void NewSetOfTeams(bool Force = false)
         {
-            if (Automatic|Force)
+            if (Automatic | Force)
             {
                 Competition.Teams.NextSetOfTeams();
             }
@@ -173,11 +171,19 @@ namespace TimerModel
             M3L1.Visible = Competition.Teams.Third.Enabled;
 
             if (M1Round.Enabled)
+            {
                 M1Round.Maximum = Competition.Teams.First.CM.RoundsForThisClass;
+            }
+
             if (M2Round.Enabled)
+            {
                 M2Round.Maximum = Competition.Teams.Second.CM.RoundsForThisClass;
+            }
+
             if (M3Round.Enabled)
+            {
                 M3Round.Maximum = Competition.Teams.Third.CM.RoundsForThisClass;
+            }
 
             RoundNum.Maximum = Competition.Teams.MaxRounds();
 
@@ -362,7 +368,9 @@ namespace TimerModel
                     }
 
                     if ((T1.CurrentRound.Finished | !T1.Enabled) && (T2.CurrentRound.Finished | !T2.Enabled) && (T3.CurrentRound.Finished | !T3.Enabled) && !AllowRerun)
+                    {
                         StopTimer();
+                    }
                 }
                 if (Team.CurrentRound.Laps.Count == 0)
                 {
@@ -429,6 +437,7 @@ namespace TimerModel
                 AutoStart = false;
             }
             if (Stopwatch.Started)
+            {
                 switch (e.KeyChar)
                 {
                     case '1':
@@ -443,6 +452,7 @@ namespace TimerModel
                     default:
                         return;
                 }
+            }
         }
 
         private void CloseProtection(Object sender, FormClosingEventArgs e)
@@ -621,7 +631,9 @@ namespace TimerModel
                     }
                 }
                 if (LF.SomethingChanged)
+                {
                     UpdateTeamsData();
+                }
             };
             LF.Show();
         }

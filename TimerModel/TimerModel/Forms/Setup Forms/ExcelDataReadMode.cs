@@ -1,13 +1,7 @@
 ﻿using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq.Expressions;
-using System.Reflection;
-using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using TimerModel.Objects;
@@ -33,7 +27,7 @@ namespace TimerModel
 
             onTeamsLoaded += () =>
             {
-                Continue.SetPropertyThreadSafe(() => this.Text, "Загружено "+Teams.Count+" команд");
+                Continue.SetPropertyThreadSafe(() => this.Text, "Загружено " + Teams.Count + " команд");
                 Continue.SetPropertyThreadSafe(() => Continue.Enabled, true);
                 Continue.SetPropertyThreadSafe(() => Continue.Text, "Продолжить");
                 //MessageBox.Show("Таблица обработана, нажмите \"Продолжить\"");
@@ -141,7 +135,8 @@ namespace TimerModel
                         Teams.Add(new Team() { Pilot = P, Mechanic = M, ModelName = FM, TeamName = TN });
                         i++;
                     }
-                } catch
+                }
+                catch
                 {
                     onTeamsFailed();
                 }

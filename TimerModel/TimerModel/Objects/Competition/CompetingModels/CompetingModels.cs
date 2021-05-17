@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Windows.Forms;
 
 namespace TimerModel.Objects
@@ -36,7 +35,7 @@ namespace TimerModel.Objects
         }*/
         public CompetingModels(List<Team> Teams)
         {
-            foreach(var T in Teams)
+            foreach (var T in Teams)
             {
                 Add(T);
             }
@@ -85,10 +84,20 @@ namespace TimerModel.Objects
         }
         public override bool Equals(object obj)
         {
-            if (obj == null) return false;
+            if (obj == null)
+            {
+                return false;
+            }
+
             CompetingModels objAsPart = obj as CompetingModels;
-            if (objAsPart == null) return false;
-            else return Equals(objAsPart);
+            if (objAsPart == null)
+            {
+                return false;
+            }
+            else
+            {
+                return Equals(objAsPart);
+            }
         }
         public override int GetHashCode()
         {
@@ -96,7 +105,11 @@ namespace TimerModel.Objects
         }
         public bool Equals(CompetingModels other)
         {
-            if (other == null) return false;
+            if (other == null)
+            {
+                return false;
+            }
+
             return (CompetingModel.Equals(other.CompetingModel));
         }
     }

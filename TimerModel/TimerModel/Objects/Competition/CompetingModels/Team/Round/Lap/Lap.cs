@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace TimerModel
 {
@@ -46,10 +44,20 @@ namespace TimerModel
         }
         public override bool Equals(object obj)
         {
-            if (obj == null) return false;
+            if (obj == null)
+            {
+                return false;
+            }
+
             Lap objAsPart = obj as Lap;
-            if (objAsPart == null) return false;
-            else return Equals(objAsPart);
+            if (objAsPart == null)
+            {
+                return false;
+            }
+            else
+            {
+                return Equals(objAsPart);
+            }
         }
         public override int GetHashCode()
         {
@@ -57,7 +65,11 @@ namespace TimerModel
         }
         public bool Equals(Lap other)
         {
-            if (other == null) return false;
+            if (other == null)
+            {
+                return false;
+            }
+
             return (Time.Equals(other.Time));
         }
     }

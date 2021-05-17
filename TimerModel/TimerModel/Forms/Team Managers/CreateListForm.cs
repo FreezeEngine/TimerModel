@@ -1,12 +1,9 @@
-﻿using OfficeOpenXml;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TimerModel.Forms;
-using TimerModel.Objects;
 
 namespace TimerModel
 {

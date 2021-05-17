@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 using TimerModel.Objects;
 
@@ -48,7 +47,7 @@ namespace TimerModel
         {
             get
             {
-                if (Finished&&!BadFinish)
+                if (Finished && !BadFinish)
                 {
                     double D = Math.Round(Convert.ToDouble(Time.TotalSeconds), 2);
                     /*if (D >= 200)
@@ -90,7 +89,7 @@ namespace TimerModel
         public string RoundPoints()
         {
             var D = Math.Round(TotalPoints, 2);
-            return D.ToString("0.00").Replace(",",".");
+            return D.ToString("0.00").Replace(",", ".");
         }
 
         public byte[] _FlyMisses = new byte[3];
@@ -129,7 +128,9 @@ namespace TimerModel
         public Label GetStopWatchLabel(int Lap = -1)
         {
             if (Lap == -1)
+            {
                 Lap = Laps.Count - 1;
+            }
 
             Label L;
             L = new Label
@@ -154,7 +155,10 @@ namespace TimerModel
             }
             TimeSpan Time = TimeSpan.Parse("00:00:01.00");
             if (DateTime.Now - PreviousTime < Time)
+            {
                 return false;
+            }
+
             return true;
         }
         public void Finish(bool GoodFinish = true)
@@ -176,10 +180,20 @@ namespace TimerModel
         }
         public override bool Equals(object obj)
         {
-            if (obj == null) return false;
+            if (obj == null)
+            {
+                return false;
+            }
+
             Round objAsPart = obj as Round;
-            if (objAsPart == null) return false;
-            else return Equals(objAsPart);
+            if (objAsPart == null)
+            {
+                return false;
+            }
+            else
+            {
+                return Equals(objAsPart);
+            }
         }
         public override int GetHashCode()
         {
@@ -187,7 +201,11 @@ namespace TimerModel
         }
         public bool Equals(Round other)
         {
-            if (other == null) return false;
+            if (other == null)
+            {
+                return false;
+            }
+
             return (this.Laps.Equals(other.Laps));
         }
     }

@@ -5,7 +5,7 @@ namespace TimerModel
 {
     public class Team1 : IEquatable<Team1>
     {
-        
+
         private byte _CurrentPointer;
         public byte CurrentPointer
         {
@@ -15,7 +15,7 @@ namespace TimerModel
         private byte _RoundCounter;
         public byte RoundCounter
         {
-            get { if (_RoundCounter >= Rules.MinRounds && _RoundCounter < Rules.MaxRounds) { _RoundCounter = Rules.MinRounds; return _RoundCounter; } else { return _RoundCounter; }  }
+            get { if (_RoundCounter >= Rules.MinRounds && _RoundCounter < Rules.MaxRounds) { _RoundCounter = Rules.MinRounds; return _RoundCounter; } else { return _RoundCounter; } }
             set { if (_RoundCounter >= Rules.MinRounds && _RoundCounter < Rules.MaxRounds) { _RoundCounter = value; } }
         }
         public string Pilot { get; set; }
@@ -45,14 +45,24 @@ namespace TimerModel
             {
                 ChosenTXT = " - ВЫБР";
             }*/
-            return "П: " + Pilot + " М: " + Mechanic + " FM: "+ModelName;
+            return "П: " + Pilot + " М: " + Mechanic + " FM: " + ModelName;
         }
         public override bool Equals(object obj)
         {
-            if (obj == null) return false;
+            if (obj == null)
+            {
+                return false;
+            }
+
             Team1 objAsPart = obj as Team1;
-            if (objAsPart == null) return false;
-            else return Equals(objAsPart);
+            if (objAsPart == null)
+            {
+                return false;
+            }
+            else
+            {
+                return Equals(objAsPart);
+            }
         }
         public override int GetHashCode()
         {
@@ -60,7 +70,11 @@ namespace TimerModel
         }
         public bool Equals(Team1 other)
         {
-            if (other == null) return false;
+            if (other == null)
+            {
+                return false;
+            }
+
             return (this.Pilot.Equals(other.Pilot));
         }
 
@@ -91,7 +105,10 @@ namespace TimerModel
             }
             TimeSpan Time = TimeSpan.Parse("00:00:01.00");
             if (Now - PrewTime < Time)
+            {
                 return false;
+            }
+
             return true;
         }
         public string GetSubTime(DateTime Now)

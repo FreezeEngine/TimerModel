@@ -1,13 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Text;
 using System.Windows.Forms;
 using TimerModel.Objects;
-using TimerModel.Objects.Reporting;
 
 namespace TimerModel.Forms
 {
@@ -84,19 +79,25 @@ namespace TimerModel.Forms
         private void MainJudge_TextChanged(object sender, EventArgs e)
         {
             if (Update)
+            {
                 Reports[ListOfReports.SelectedIndex].MainJudge = MainJudge.Text;
+            }
         }
 
         private void LaunchSupervisor_TextChanged(object sender, EventArgs e)
         {
             if (Update)
+            {
                 Reports[ListOfReports.SelectedIndex].LaunchSupervisor = LaunchSupervisor.Text;
+            }
         }
 
         private void Scorekeeper_TextChanged(object sender, EventArgs e)
         {
             if (Update)
+            {
                 Reports[ListOfReports.SelectedIndex].Scorekeeper = Scorekeeper.Text;
+            }
         }
         private void Lines_TextChanged(object sender, EventArgs e)
         {

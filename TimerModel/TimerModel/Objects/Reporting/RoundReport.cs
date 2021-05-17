@@ -1,11 +1,8 @@
 ﻿using OfficeOpenXml;
-using OfficeOpenXml.Style;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Text;
 
 namespace TimerModel.Objects.Reporting
 {
@@ -40,7 +37,7 @@ namespace TimerModel.Objects.Reporting
             //F.Close();
             var Workbook = Package.Workbook;
             var Sheet = Workbook.Worksheets[Convert.ToByte(Vertical)];
-            
+
             Workbook.Worksheets.Delete(Convert.ToByte(!Vertical));
             //Horizontal cycle
             for (int c = 1; c <= 26; c++)
@@ -91,7 +88,9 @@ namespace TimerModel.Objects.Reporting
                                 {
                                     byte index = Convert.ToByte(DS.Remove(0, 3));
                                     if (index >= Team.CurrentRound.Laps.Count)
+                                    {
                                         continue;
+                                    }
 
                                     Sheet.Cells[r, c].Value = Team.CurrentRound.Laps[index]?.ReportString();
                                     continue;
@@ -141,7 +140,7 @@ namespace TimerModel.Objects.Reporting
                 }
             }
 
-            
+
             //, DateTime.Now.ToString("dd.MM.yyyy")+"/"
             var SavingPath = Path.Combine(ExecutablePath, "RoundReports");
 

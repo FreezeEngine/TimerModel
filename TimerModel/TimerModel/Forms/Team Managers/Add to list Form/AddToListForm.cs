@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
-using TimerModel.Objects;
 
 namespace TimerModel
 {
@@ -30,9 +28,14 @@ namespace TimerModel
             else
             {
                 if (ModelsList.Items.Count > 0)
+                {
                     ModelsList.SelectedIndex = 0;
+                }
+
                 if (MechanicsList.Items.Count > 0)
+                {
                     MechanicsList.SelectedIndex = 0;
+                }
             }
         }
 

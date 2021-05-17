@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 
 namespace TimerModel.Forms
@@ -42,7 +37,6 @@ namespace TimerModel.Forms
                     MainTree.Nodes[0].Nodes[c].Nodes[1].Nodes[d].Nodes.Add("Текущий тур: " + (T.CurrentRoundNum + 1).ToString());
                     MainTree.Nodes[0].Nodes[c].Nodes[1].Nodes[d].Nodes.Add("Туры: ");
                     int b = 0;
-                    bool first = true;
                     foreach (var TD in T?.Rounds)
                     {
                         MainTree.Nodes[0].Nodes[c].Nodes[1].Nodes[d].Nodes[1].Nodes.Add("Тур - " + (b + 1).ToString());

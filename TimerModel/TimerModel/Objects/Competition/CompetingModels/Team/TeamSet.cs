@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows.Forms;
 
 namespace TimerModel.Objects
@@ -42,9 +40,19 @@ namespace TimerModel.Objects
         }
         public override bool Equals(object obj)
         {
-            if (obj == null) return false;
-            if (!(obj is TeamSet objAsPart)) return false;
-            else return Equals(objAsPart);
+            if (obj == null)
+            {
+                return false;
+            }
+
+            if (!(obj is TeamSet objAsPart))
+            {
+                return false;
+            }
+            else
+            {
+                return Equals(objAsPart);
+            }
         }
         public override int GetHashCode()
         {
@@ -52,7 +60,11 @@ namespace TimerModel.Objects
         }
         public bool Equals(TeamSet other)
         {
-            if (other == null) return false;
+            if (other == null)
+            {
+                return false;
+            }
+
             return (First == other.First && Second == other.Second && Third == other.Third);
         }
     }

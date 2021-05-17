@@ -1,8 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using TimerModel.Forms;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace TimerModel.Forms.Tests
 {

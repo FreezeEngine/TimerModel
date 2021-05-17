@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace TimerModel.Objects
@@ -20,7 +19,7 @@ namespace TimerModel.Objects
         public event CompetitionHandler onCompetitionFinished;
         //public delegate void TeamContainerHandler();
         //public event TeamContainerHandler onTeamRemoved;
-        
+
         public int Count { get { int C = 0; foreach (var CM in TeamClumps) { C = C + CM.Teams.Count; } return C; } private set { } }
 
         private Team _First = new Team() { Enabled = false };
@@ -111,7 +110,7 @@ namespace TimerModel.Objects
                     if (T.Equals(Team))
                     {
                         TC.Teams.Remove(T);
-                        if(TC.Teams.Count == 0)
+                        if (TC.Teams.Count == 0)
                         {
                             TeamClumps.Remove(TC);
                         }
@@ -125,7 +124,10 @@ namespace TimerModel.Objects
         {
             TeamClumps = new List<CompetingModels>();
             if (Teams.Count == 0)
+            {
                 return;
+            }
+
             foreach (var T in Teams)
             {
                 Add(T);
@@ -133,7 +135,6 @@ namespace TimerModel.Objects
         }
         public void GenerateTeamSets()
         {
-            int TS = 1;
             ResetTeams();
 
             var Teams = GetTeams();
@@ -145,7 +146,7 @@ namespace TimerModel.Objects
             int TC = 0;
             foreach (var T in Teams)
             {
-                if(TC == 3)
+                if (TC == 3)
                 {
                     TC = 0;
                     TeamSets.Add(new TeamSet());
@@ -235,7 +236,10 @@ namespace TimerModel.Objects
             foreach (Team T in Teams)
             {
                 if (T.CurrentRoundNum + 1 == T.CM.RoundsForThisClass)
+                {
                     continue;
+                }
+
                 T.NextRound();
                 c++;
             }
@@ -247,11 +251,17 @@ namespace TimerModel.Objects
                     foreach (Round R in T.Rounds)
                     {
                         if (R.Finished)
+                        {
                             continue;
+                        }
+
                         T.CurrentRoundNum = RC++;
                     }
                     if (T.CurrentRoundNum + 1 == T.CM.RoundsForThisClass && T.CurrentRound.Finished)
+                    {
                         continue;
+                    }
+
                     c++;
                 }
                 if (c == 0)
@@ -276,7 +286,10 @@ namespace TimerModel.Objects
                 foreach (var R in T.Rounds)
                 {
                     if (R.Finished)
+                    {
                         continue;
+                    }
+
                     F = false;
                 }
                 if (F)

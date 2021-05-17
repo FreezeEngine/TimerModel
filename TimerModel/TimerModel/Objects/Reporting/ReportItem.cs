@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace TimerModel.Objects
 {
@@ -28,10 +26,20 @@ namespace TimerModel.Objects
         }
         public override bool Equals(object obj)
         {
-            if (obj == null) return false;
+            if (obj == null)
+            {
+                return false;
+            }
+
             FinalReport objAsPart = obj as FinalReport;
-            if (objAsPart == null) return false;
-            else return Equals(objAsPart);
+            if (objAsPart == null)
+            {
+                return false;
+            }
+            else
+            {
+                return Equals(objAsPart);
+            }
         }
         public override int GetHashCode()
         {
@@ -39,7 +47,11 @@ namespace TimerModel.Objects
         }
         public bool Equals(ReportItem other)
         {
-            if (other == null) return false;
+            if (other == null)
+            {
+                return false;
+            }
+
             return (MainJudge == other.MainJudge);
         }
     }

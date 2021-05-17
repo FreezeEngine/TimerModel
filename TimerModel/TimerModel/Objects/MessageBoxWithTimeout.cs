@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows.Forms;
 
 namespace TimerModel.Objects
@@ -15,7 +13,9 @@ namespace TimerModel.Objects
             _timeoutTimer = new System.Threading.Timer(OnTimerElapsed,
                 null, timeout, System.Threading.Timeout.Infinite);
             using (_timeoutTimer)
+            {
                 MessageBox.Show(text, caption);
+            }
         }
         public static void Show(string text, string caption, int timeout)
         {
@@ -25,7 +25,10 @@ namespace TimerModel.Objects
         {
             IntPtr mbWnd = FindWindow("#32770", _caption); // lpClassName is #32770 for MessageBox
             if (mbWnd != IntPtr.Zero)
+            {
                 SendMessage(mbWnd, WM_CLOSE, IntPtr.Zero, IntPtr.Zero);
+            }
+
             _timeoutTimer.Dispose();
         }
         const int WM_CLOSE = 0x0010;

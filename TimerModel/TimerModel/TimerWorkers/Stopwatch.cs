@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace TimerModel
 {
@@ -16,6 +14,6 @@ namespace TimerModel
         {
             return DateTime.Now - StartTime;
         }
-       
+
     }
 }

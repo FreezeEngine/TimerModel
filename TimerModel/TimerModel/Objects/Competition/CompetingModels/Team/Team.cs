@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Windows.Forms;
 using TimerModel.Objects;
 
@@ -67,7 +66,10 @@ namespace TimerModel
         private string GetShortenName(string Name)
         {
             if (Name.Contains("Без "))
+            {
                 return Name;
+            }
+
             string ShortenName = Name;
             var ExplodedName = Name.Split(" ");
             if (ExplodedName.Length > 1)
@@ -114,7 +116,10 @@ namespace TimerModel
         public void SetRoundsCount(int RoundC)
         {
             if (RoundC == Rounds.Count)
+            {
                 return;
+            }
+
             if (RoundC < Rules.MinRounds)
             {
                 return;
@@ -142,7 +147,10 @@ namespace TimerModel
             foreach (var R in Rounds)
             {
                 if (R.Laps.Count <= LapsC)
+                {
                     return;
+                }
+
                 if (R.Laps.Count > LapsC)
                 {
                     int c = 1;
@@ -180,9 +188,19 @@ namespace TimerModel
         }
         public override bool Equals(object obj)
         {
-            if (obj == null) return false;
-            if (!(obj is Team objAsPart)) return false;
-            else return Equals(objAsPart);
+            if (obj == null)
+            {
+                return false;
+            }
+
+            if (!(obj is Team objAsPart))
+            {
+                return false;
+            }
+            else
+            {
+                return Equals(objAsPart);
+            }
         }
         public override int GetHashCode()
         {
@@ -190,7 +208,11 @@ namespace TimerModel
         }
         public bool Equals(Team other)
         {
-            if (other == null) return false;
+            if (other == null)
+            {
+                return false;
+            }
+
             return (Pilot == other.Pilot && ModelName == other.ModelName && Mechanic == other.Mechanic);
         }
     }

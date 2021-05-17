@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Windows.Forms;
 using System.Security.Cryptography;
 using TimerModel.Objects;
-using TimerModel.Forms;
-using System.Threading;
 
 namespace TimerModel
 {
@@ -15,14 +11,17 @@ namespace TimerModel
         {
             RNGCryptoServiceProvider provider = new RNGCryptoServiceProvider();
             int n = list.Count;
-            if(n <= 1)
+            if (n <= 1)
             {
                 return;
             }
             while (n > 1)
             {
                 byte[] box = new byte[1];
-                do provider.GetBytes(box);
+                do
+                {
+                    provider.GetBytes(box);
+                }
                 while (!(box[0] < n * (Byte.MaxValue / n)));
                 int k = (box[0] % n);
                 n--;
@@ -44,7 +43,10 @@ namespace TimerModel
                 foreach (var T in Teams.GetTeams())
                 {
                     if (T.Mechanic == "Без механика")
+                    {
                         continue;
+                    }
+
                     Mechanics.Add(new Mechanic(T));
                 }
                 //if(Mechanics.Count == 0)

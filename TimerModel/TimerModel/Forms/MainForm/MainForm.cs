@@ -635,10 +635,12 @@ namespace TimerModel
             var T1 = GetTeam(0);
             var T2 = GetTeam(1);
             var T3 = GetTeam(2);
-
-            T1.CurrentRound.Finish(!(T1.CurrentRound.Laps.Count - 1 < T1.CM.LapsCount && T1.Enabled));
-            T2.CurrentRound.Finish(!(T2.CurrentRound.Laps.Count - 1 < T2.CM.LapsCount && T2.Enabled));
-            T3.CurrentRound.Finish(!(T3.CurrentRound.Laps.Count - 1 < T3.CM.LapsCount && T3.Enabled));
+            if (T1.Enabled)
+                T1.CurrentRound.Finish(!(T1.CurrentRound.Laps.Count - 1 < T1.CM.LapsCount && T1.Enabled));
+            if (T2.Enabled)
+                T2.CurrentRound.Finish(!(T2.CurrentRound.Laps.Count - 1 < T2.CM.LapsCount && T2.Enabled));
+            if (T3.Enabled)
+                T3.CurrentRound.Finish(!(T3.CurrentRound.Laps.Count - 1 < T3.CM.LapsCount && T3.Enabled));
 
             Stop.Enabled = false;
             StopTimer();

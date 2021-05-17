@@ -20,6 +20,7 @@ namespace TimerModel
                 Choose.Visible = true;
                 CreateExcelFile.Visible = false;
                 ChooseEmpty.Visible = true;
+                JustUse.Visible = false;
                 UpdateFlyModelsList();
             }
             else
@@ -216,6 +217,7 @@ namespace TimerModel
         private void ChooseEmpty_Click(object sender, EventArgs e)
         {
             Choosen_Team = new Team() { Enabled = false };
+            SomethingChanged = true;
             Close();
         }
     }

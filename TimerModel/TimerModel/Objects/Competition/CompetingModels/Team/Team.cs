@@ -169,6 +169,10 @@ namespace TimerModel
             {
                 CurrentRoundNum++;
             }
+            //else
+            //{
+            //    CurrentRoundNum = 0;
+            //}
         }
         public bool isFinished(int Round)
         {

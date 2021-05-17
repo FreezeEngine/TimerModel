@@ -63,20 +63,6 @@ namespace TimerModel
             TimeSpanTable3.Controls.Clear();
             LapTable.Controls.Clear();
 
-
-            if (RoundNum.Value <= M1Round.Maximum)
-            {
-                M1Round.Value = RoundNum.Value;
-            }
-            if (RoundNum.Value <= M2Round.Maximum)
-            {
-                M2Round.Value = RoundNum.Value;
-            }
-            if (RoundNum.Value <= M3Round.Maximum)
-            {
-                M3Round.Value = RoundNum.Value;
-            }
-
             List<int> MaxRounds = new List<int>();
             foreach (var CM in Competition.Teams.TeamClumps)
             {
@@ -145,7 +131,7 @@ namespace TimerModel
         void FinalReport()
         {
             PreFinishAsk PFA = new PreFinishAsk();
-            PFA.FormClosing += (s, a) => { NewSetOfTeams(true); Show(); };
+            PFA.FormClosing += (s, a) => { if (PFA.CloseForm) { Close(); } NewSetOfTeams(true); Show(); };
             Hide();
             PFA.Show();
         }
@@ -156,6 +142,7 @@ namespace TimerModel
                 Competition.Teams.NextSetOfTeams();
             }
         }
+
         private void UpdateTeamsData()
         {
             M1Round.Enabled = Competition.Teams.First.Enabled;
@@ -170,20 +157,25 @@ namespace TimerModel
             M2L1.Visible = Competition.Teams.Second.Enabled;
             M3L1.Visible = Competition.Teams.Third.Enabled;
 
+            UpdateRoundCounters = false;
             if (M1Round.Enabled)
             {
                 M1Round.Maximum = Competition.Teams.First.CM.RoundsForThisClass;
+                M1Round.Value = Competition.Teams.First.CurrentRoundNum + 1;
             }
 
             if (M2Round.Enabled)
             {
                 M2Round.Maximum = Competition.Teams.Second.CM.RoundsForThisClass;
+                M2Round.Value = Competition.Teams.Second.CurrentRoundNum + 1;
             }
 
             if (M3Round.Enabled)
             {
                 M3Round.Maximum = Competition.Teams.Third.CM.RoundsForThisClass;
+                M3Round.Value = Competition.Teams.Third.CurrentRoundNum + 1;
             }
+            UpdateRoundCounters = true;
 
             RoundNum.Maximum = Competition.Teams.MaxRounds();
 
@@ -680,17 +672,20 @@ namespace TimerModel
         private bool UpdateRoundCounters = true;
         private void RoundNum_ValueChanged(object sender, EventArgs e)
         {
-            if (RoundNum.Value <= M1Round.Maximum)
+            if (UpdateRoundCounters)
             {
-                M1Round.Value = RoundNum.Value;
-            }
-            if (RoundNum.Value <= M2Round.Maximum)
-            {
-                M2Round.Value = RoundNum.Value;
-            }
-            if (RoundNum.Value <= M3Round.Maximum)
-            {
-                M3Round.Value = RoundNum.Value;
+                if (RoundNum.Value <= M1Round.Maximum)
+                {
+                    M1Round.Value = RoundNum.Value;
+                }
+                if (RoundNum.Value <= M2Round.Maximum)
+                {
+                    M2Round.Value = RoundNum.Value;
+                }
+                if (RoundNum.Value <= M3Round.Maximum)
+                {
+                    M3Round.Value = RoundNum.Value;
+                }
             }
 
             StopTimer();

@@ -10,11 +10,11 @@ namespace TimerModel.Forms.Setup_Forms
         {
             InitializeComponent();
         }
-
+        public bool CloseForm = false;
         private void ReflyModels_Click(object sender, EventArgs e)
         {
             Refly RF = new Refly();
-            RF.FormClosing += (s, a) => { if (RF.CloseForm) { Close(); } Show(); };
+            RF.FormClosing += (s, a) => { if (RF.CloseForm) { CloseForm = false; Close(); return; } Show(); CloseForm = true; };
             Hide();
             RF.Show();
         }

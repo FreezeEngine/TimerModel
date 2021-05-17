@@ -255,7 +255,7 @@ namespace TimerModel.Objects
                             continue;
                         }
 
-                        T.CurrentRoundNum = RC++;
+                        T.SelectRound(++RC);
                     }
                     if (T.CurrentRoundNum + 1 == T.CM.RoundsForThisClass && T.CurrentRound.Finished)
                     {

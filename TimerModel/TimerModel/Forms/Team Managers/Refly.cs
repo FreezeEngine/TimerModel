@@ -87,7 +87,8 @@ namespace TimerModel.Forms.Team_Managers
                     try
                     {
                         byte index = Convert.ToByte(i);
-                        T.CurrentRoundNum = --index;
+                        //T.CurrentRoundNum = --index;
+                        T.SelectRound(index);
                         T.Reset();
                     }
                     catch
@@ -97,7 +98,7 @@ namespace TimerModel.Forms.Team_Managers
                         return;
                     }
                 }
-                T.CurrentRoundNum = Convert.ToByte(RTRI[0]);
+                T.CurrentRoundNum = (byte)(Convert.ToByte(RTRI[0]) - 1);
             }
             UpdateReflyStatus();
             //Submit.Enabled = true;

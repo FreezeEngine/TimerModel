@@ -37,20 +37,24 @@ namespace TimerModel.Objects
         {
             MessageBox.Show("Один и тот же участник не может быть выбран дважды");
         }
+        private void NoTeamsMessage()
+        {
+            MessageBox.Show("Невозможно отключить все команды");
+        }
         public Team First
         {
             get { return _First; }
-            set { if (value == _Second | value == _Third) { SameTeamMessage(); return; } else { _First = value; } }
+            set { /*if (!_First.Enabled && !_Second.Enabled && _Third.Enabled) { NoTeamsMessage(); return; }*/ if (value == _Second | value == _Third) { SameTeamMessage(); return; } else { _First = value; } }
         }
         public Team Second
         {
             get { return _Second; }
-            set { if (value == _First | value == _Third) { SameTeamMessage(); return; } else { _Second = value; } }
+            set { /*if (!_First.Enabled && !_Second.Enabled && _Third.Enabled) { NoTeamsMessage(); return; }*/ if (value == _First | value == _Third | (!_First.Enabled && !_Second.Enabled && _Third.Enabled)) { SameTeamMessage(); return; } else { _Second = value; } }
         }
         public Team Third
         {
             get { return _Third; }
-            set { if (value == _First | value == _Second) { SameTeamMessage(); return; } else { _Third = value; } }
+            set { /*if (!_First.Enabled && !_Second.Enabled && _Third.Enabled) { NoTeamsMessage(); return; }*/  if (value == _First | value == _Second) { SameTeamMessage(); return; } else { _Third = value; } }
         }
         public List<Team> GetTeamContainer()
         {

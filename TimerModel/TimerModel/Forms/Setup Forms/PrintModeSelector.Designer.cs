@@ -1,7 +1,7 @@
 ﻿
 namespace TimerModel.Forms.Setup_Forms
 {
-    partial class PrintMode
+    partial class PrintModeSelector
     {
         /// <summary>
         /// Required designer variable.
@@ -33,6 +33,7 @@ namespace TimerModel.Forms.Setup_Forms
             this.HorizontalPrint = new System.Windows.Forms.RadioButton();
             this.RememberMode = new System.Windows.Forms.CheckBox();
             this.OK = new System.Windows.Forms.Button();
+            this.PrintBoth = new System.Windows.Forms.RadioButton();
             this.SuspendLayout();
             // 
             // VerticalPrint
@@ -62,7 +63,7 @@ namespace TimerModel.Forms.Setup_Forms
             // RememberMode
             // 
             this.RememberMode.AutoSize = true;
-            this.RememberMode.Location = new System.Drawing.Point(13, 76);
+            this.RememberMode.Location = new System.Drawing.Point(12, 102);
             this.RememberMode.Name = "RememberMode";
             this.RememberMode.Size = new System.Drawing.Size(126, 19);
             this.RememberMode.TabIndex = 2;
@@ -72,7 +73,7 @@ namespace TimerModel.Forms.Setup_Forms
             // 
             // OK
             // 
-            this.OK.Location = new System.Drawing.Point(12, 101);
+            this.OK.Location = new System.Drawing.Point(12, 127);
             this.OK.Name = "OK";
             this.OK.Size = new System.Drawing.Size(136, 23);
             this.OK.TabIndex = 3;
@@ -80,17 +81,29 @@ namespace TimerModel.Forms.Setup_Forms
             this.OK.UseVisualStyleBackColor = true;
             this.OK.Click += new System.EventHandler(this.OK_Click);
             // 
-            // PrintMode
+            // PrintBoth
+            // 
+            this.PrintBoth.AutoSize = true;
+            this.PrintBoth.Location = new System.Drawing.Point(28, 69);
+            this.PrintBoth.Name = "PrintBoth";
+            this.PrintBoth.Size = new System.Drawing.Size(96, 19);
+            this.PrintBoth.TabIndex = 4;
+            this.PrintBoth.Text = "Вертикально";
+            this.PrintBoth.UseVisualStyleBackColor = true;
+            this.PrintBoth.CheckedChanged += new System.EventHandler(this.VerticalPrint_CheckedChanged);
+            // 
+            // PrintModeSelector
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(160, 133);
+            this.ClientSize = new System.Drawing.Size(160, 162);
+            this.Controls.Add(this.PrintBoth);
             this.Controls.Add(this.OK);
             this.Controls.Add(this.RememberMode);
             this.Controls.Add(this.HorizontalPrint);
             this.Controls.Add(this.VerticalPrint);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Name = "PrintMode";
+            this.Name = "PrintModeSelector";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Режим печати";
             this.ResumeLayout(false);
@@ -104,5 +117,6 @@ namespace TimerModel.Forms.Setup_Forms
         private System.Windows.Forms.RadioButton HorizontalPrint;
         private System.Windows.Forms.CheckBox RememberMode;
         private System.Windows.Forms.Button OK;
+        private System.Windows.Forms.RadioButton PrintBoth;
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace TimerModel
+﻿using TimerModel.Objects.PrintModes;
+
+namespace TimerModel
 {
     class TimerSettings
     {
@@ -9,5 +11,6 @@
         public static byte LapCount = 10;
         public static bool NoPrePrintAsking = false;
         public static bool VerticalPrint = false;
+        public static PrintModes PrintMode = PrintModes.Horizontal;
     }
 }

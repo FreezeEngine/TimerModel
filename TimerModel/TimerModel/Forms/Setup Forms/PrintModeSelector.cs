@@ -1,14 +1,27 @@
 ﻿using System;
 using System.Windows.Forms;
+using TimerModel.Objects.PrintModes;
 
 namespace TimerModel.Forms.Setup_Forms
 {
-    public partial class PrintMode : Form
+    public partial class PrintModeSelector : Form
     {
-        public bool Vertical = false;
-        public PrintMode()
+        public PrintModes PrintMode;
+        public PrintModeSelector()
         {
             InitializeComponent();
+            switch (TimerSettings.PrintMode)
+            {
+                case PrintModes.Horizontal:
+                    HorizontalPrint.Checked = true;
+                    break;
+                case PrintModes.Vertical:
+                    VerticalPrint.Checked = true;
+                    break;
+                case PrintModes.Both:
+                    PrintBoth.Checked = true;
+                    break;
+            }
         }
 
         private void RememberMode_CheckedChanged(object sender, EventArgs e)

@@ -40,7 +40,7 @@ namespace TimerModel.Forms.Setup_Forms
             this.ReflyModels.Name = "ReflyModels";
             this.ReflyModels.Size = new System.Drawing.Size(348, 46);
             this.ReflyModels.TabIndex = 0;
-            this.ReflyModels.Text = "Назначить прелёты";
+            this.ReflyModels.Text = "Назначить перелёты";
             this.ReflyModels.UseVisualStyleBackColor = true;
             this.ReflyModels.Click += new System.EventHandler(this.ReflyModels_Click);
             // 

@@ -114,7 +114,7 @@ namespace TimerModel.Objects
 
                     Sheet.Cells[TeamRowStart, tableShift].Value = b + 1;
                     Sheet.Cells[TeamRowStart, tableShift + 1].Value = Report.CompetingModel.Teams[b].GetShortPilotName();
-                    Sheet.Cells[TeamRowStart + 1, tableShift + 1].Value = Report.CompetingModel.Teams[b].GetShortPilotName();
+                    Sheet.Cells[TeamRowStart + 1, tableShift + 1].Value = Report.CompetingModel.Teams[b].GetShortMechanicName();
                     Sheet.Cells[TeamRowStart, tableShift + 2].Value = Report.CompetingModel.Teams[b].TeamName;
                     //Sheet.Cells[TeamRowStart, tableShift + 2].AutoFitColumns();
 

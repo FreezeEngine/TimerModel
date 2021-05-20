@@ -548,7 +548,7 @@ namespace TimerModel
                 //MessageBox desision
                 if (!TimerSettings.NoPrePrintAsking)
                 {
-                    var PM = new PrintMode();
+                    var PM = new PrintModeSelector();
                     PM.Show();
                     PM.FormClosing += (s, a) => { PrintReport(); };
                 }

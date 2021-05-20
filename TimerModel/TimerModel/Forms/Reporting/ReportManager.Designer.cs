@@ -43,6 +43,7 @@ namespace TimerModel.Forms
             this.l4 = new System.Windows.Forms.TextBox();
             this.l2 = new System.Windows.Forms.TextBox();
             this.l3 = new System.Windows.Forms.TextBox();
+            this.AddToExistingFile = new System.Windows.Forms.Button();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -182,11 +183,21 @@ namespace TimerModel.Forms
             this.l3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.l3.TextChanged += new System.EventHandler(this.Lines_TextChanged);
             // 
+            // AddToExistingFile
+            // 
+            this.AddToExistingFile.Location = new System.Drawing.Point(12, 331);
+            this.AddToExistingFile.Name = "AddToExistingFile";
+            this.AddToExistingFile.Size = new System.Drawing.Size(637, 32);
+            this.AddToExistingFile.TabIndex = 16;
+            this.AddToExistingFile.Text = "Добавить к существующему";
+            this.AddToExistingFile.UseVisualStyleBackColor = true;
+            // 
             // ReportManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(660, 334);
+            this.ClientSize = new System.Drawing.Size(660, 371);
+            this.Controls.Add(this.AddToExistingFile);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.SaveReport);
@@ -220,5 +231,6 @@ namespace TimerModel.Forms
         private System.Windows.Forms.TextBox l4;
         private System.Windows.Forms.TextBox l2;
         private System.Windows.Forms.TextBox l3;
+        private System.Windows.Forms.Button AddToExistingFile;
     }
 }

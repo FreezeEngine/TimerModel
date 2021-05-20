@@ -178,7 +178,9 @@ namespace TimerModel
         private void OpenCompetitionManager_Click(object sender, EventArgs e)
         {
             SomethingChanged = true;
+            OpenCompetitionManager.Enabled = false;
             CompetitionManager CM = new CompetitionManager();
+            CM.FormClosing += (s,a) => { OpenCompetitionManager.Enabled = true; };
             CM.Show();
         }
 

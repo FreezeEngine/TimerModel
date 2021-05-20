@@ -3,13 +3,14 @@ using System;
 using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using TimerModel.Objects.PrintMode;
 
 namespace TimerModel.Objects.Reporting
 {
     class RoundReport
     {
 
-        public static void MakeReport(bool Vertical = true)
+        public static void MakeReport()
         {
             int MaxLaps = Competition.Teams.MaxLaps();
             if (MaxLaps > 12)
@@ -36,108 +37,134 @@ namespace TimerModel.Objects.Reporting
             var Package = new ExcelPackage(F);
             //F.Close();
             var Workbook = Package.Workbook;
-            var Sheet = Workbook.Worksheets[Convert.ToByte(Vertical)];
+            ExcelWorksheet Sheet;
 
-            Workbook.Worksheets.Delete(Convert.ToByte(!Vertical));
-            //Horizontal cycle
-            for (int c = 1; c <= 26; c++)
+            switch (TimerSettings.PrintMode)
             {
-                //Vertical cycle
-                for (int r = 1; r <= 50; r++)
+                case PrintModes.Vertical:
+                    Sheet = Workbook.Worksheets[1];
+                    Workbook.Worksheets.Delete(0);
+                    break;
+                case PrintModes.Horizontal:
+                    Sheet = Workbook.Worksheets[0];
+                    Workbook.Worksheets.Delete(1);
+                    break;
+                default:
+                    Sheet = Workbook.Worksheets[0];
+                    break;
+            }
+
+            for (int p = 0; p < Workbook.Worksheets.Count; p++)
+            {
+
+                //Horizontal cycle
+                for (int c = 1; c <= 26; c++)
                 {
-                    var D = Sheet.Cells[r, c]?.Value;
-                    if (D != null)
+                    //Vertical cycle
+                    for (int r = 1; r <= 50; r++)
                     {
-                        string DS = D.ToString();
-                        if (DS.Length >= 3 && DS.Length <= 5)
+                        var D = Sheet.Cells[r, c]?.Value;
+                        if (D != null)
                         {
-                            if (DS[0] == 'M')
+                            string DS = D.ToString();
+                            if (DS.Length >= 3 && DS.Length <= 5)
                             {
-                                Team Team = new Team();
-                                switch (DS[1])
+                                if (DS[0] == 'M')
                                 {
-                                    case '1':
-                                        if (!Competition.Teams.First.Enabled)
-                                        {
-                                            continue;
-                                        }
-                                        Team = Competition.Teams.First;
-                                        break;
-                                    case '2':
-                                        if (!Competition.Teams.Second.Enabled)
-                                        {
-                                            continue;
-                                        }
-                                        Team = Competition.Teams.Second;
-                                        break;
-                                    case '3':
-                                        if (!Competition.Teams.Third.Enabled)
-                                        {
-                                            continue;
-                                        }
-                                        Team = Competition.Teams.Third;
-                                        break;
-                                }
-                                if (DS.Contains("FM"))
-                                {
-                                    byte index = Convert.ToByte(DS[4].ToString());
-                                    Sheet.Cells[r, c].Value = Team.CurrentRound.FlyMisses[index - 1].ToString();
-                                    continue;
-                                }
-                                if (DS.Contains("L"))
-                                {
-                                    byte index = Convert.ToByte(DS.Remove(0, 3));
-                                    if (index >= Team.CurrentRound.Laps.Count)
+                                    Team Team = new Team();
+                                    switch (DS[1])
                                     {
+                                        case '1':
+                                            if (!Competition.Teams.First.Enabled)
+                                            {
+                                                continue;
+                                            }
+                                            Team = Competition.Teams.First;
+                                            break;
+                                        case '2':
+                                            if (!Competition.Teams.Second.Enabled)
+                                            {
+                                                continue;
+                                            }
+                                            Team = Competition.Teams.Second;
+                                            break;
+                                        case '3':
+                                            if (!Competition.Teams.Third.Enabled)
+                                            {
+                                                continue;
+                                            }
+                                            Team = Competition.Teams.Third;
+                                            break;
+                                    }
+                                    if (DS.Contains("FM"))
+                                    {
+                                        byte index = Convert.ToByte(DS[4].ToString());
+                                        Sheet.Cells[r, c].Value = Team.CurrentRound.FlyMisses[index - 1].ToString();
                                         continue;
                                     }
+                                    if (DS.Contains("L"))
+                                    {
+                                        byte index = Convert.ToByte(DS.Remove(0, 3));
+                                        if (index >= Team.CurrentRound.Laps.Count)
+                                        {
+                                            continue;
+                                        }
 
-                                    Sheet.Cells[r, c].Value = Team.CurrentRound.Laps[index]?.ReportString();
+                                        Sheet.Cells[r, c].Value = Team.CurrentRound.Laps[index]?.ReportString();
+                                        continue;
+                                    }
+                                    switch (DS.Remove(0, 2))
+                                    {
+                                        case "TN":
+                                            Sheet.Cells[r, c].Value = Team.CurrentRoundNum + 1;
+                                            break;
+                                        case "MC":
+                                            Sheet.Cells[r, c].Value = Team.CM.CompetingModel;
+                                            break;
+                                        case "P":
+                                            Sheet.Cells[r, c].Value = Team.GetShortPilotName();
+                                            break;
+                                        case "M":
+                                            Sheet.Cells[r, c].Value = Team.GetShortMechanicName();
+                                            break;
+                                        case "PTs":
+                                            Sheet.Cells[r, c].Value = Team.CurrentRound.RoundPoints();
+                                            break;
+                                        case "T":
+                                            Sheet.Cells[r, c].Value = Team.CurrentRound.RoundTime();
+                                            break;
+                                    }
                                     continue;
                                 }
-                                switch (DS.Remove(0, 2))
-                                {
-                                    case "TN":
-                                        Sheet.Cells[r, c].Value = Team.CurrentRoundNum + 1;
-                                        break;
-                                    case "MC":
-                                        Sheet.Cells[r, c].Value = Team.CM.CompetingModel;
-                                        break;
-                                    case "P":
-                                        Sheet.Cells[r, c].Value = Team.GetShortPilotName();
-                                        break;
-                                    case "M":
-                                        Sheet.Cells[r, c].Value = Team.GetShortMechanicName();
-                                        break;
-                                    case "PTs":
-                                        Sheet.Cells[r, c].Value = Team.CurrentRound.RoundPoints();
-                                        break;
-                                    case "T":
-                                        Sheet.Cells[r, c].Value = Team.CurrentRound.RoundTime();
-                                        break;
-                                }
-                                continue;
                             }
                         }
                     }
                 }
-            }
 
-            //Clearing
-            for (int c = 1; c <= 26; c++)
-            {
-                //Vertical cycle
-                for (int r = 1; r <= 50; r++)
+                //Clearing
+                for (int c = 1; c <= 26; c++)
                 {
-                    var D = Sheet.Cells[r, c]?.Value;
-                    if (D != null)
+                    //Vertical cycle
+                    for (int r = 1; r <= 50; r++)
                     {
-                        if (D.ToString()[0] == 'M')
+                        var D = Sheet.Cells[r, c]?.Value;
+                        if (D != null)
                         {
-                            Sheet.Cells[r, c].Value = "";
+                            if (D.ToString().Length != 0)
+                            {
+                                if (D.ToString()[0] == 'M')
+                                {
+                                    Sheet.Cells[r, c].Value = "";
+                                }
+                            }
                         }
                     }
                 }
+
+                //if (Mode == PrintModes.Both)
+                //{
+                //    break;
+                //}
             }
 
 
@@ -160,49 +187,57 @@ namespace TimerModel.Objects.Reporting
 
             var FileBytes = Package.GetAsByteArray();
 
-            //File.WriteAllBytes(SavingFile, FileBytes); //Enable
+            File.WriteAllBytes(SavingFile, FileBytes); //Enable
 
             F.Close();
             Package.Dispose();
 
-            //Print(SavingFile); //Enable
+            Print(SavingFile); //Enable
 
         }
         public static void Print(string PathToFile)
         {
             //FIX Excel duplication
-            Microsoft.Office.Interop.Excel.Application excelApp = new Microsoft.Office.Interop.Excel.Application();
 
+            Microsoft.Office.Interop.Excel.Application Excel = new Microsoft.Office.Interop.Excel.Application();
             // Open the Workbook:
-            Microsoft.Office.Interop.Excel.Workbooks wbs = excelApp.Workbooks;
+            // TimerSettings.Excel.Workbooks;
+            Microsoft.Office.Interop.Excel.Workbooks wbs = Excel.Workbooks;
             Microsoft.Office.Interop.Excel.Workbook wb = wbs.Open(
                 PathToFile,
                 Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing,
                 Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing,
                 Type.Missing, Type.Missing, Type.Missing, Type.Missing);
-
+            wb.PrintOutEx();
             // Get the first worksheet.
             // (Excel uses base 1 indexing, not base 0.)
-            Microsoft.Office.Interop.Excel.Worksheet ws = (Microsoft.Office.Interop.Excel.Worksheet)wb.Worksheets[1];
+            /*
+            for (byte c = 1; c <= wb.Worksheets.Count; c++)
+            {
+                Microsoft.Office.Interop.Excel.Worksheet ws = (Microsoft.Office.Interop.Excel.Worksheet)wb.Worksheets[c];
 
-            // Print out 1 copy to the default printer:
-            ws.PrintOut(
-                Type.Missing, Type.Missing, Type.Missing, Type.Missing,
-                Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+                //wb.Worksheets.PrintOu
+
+                // Print out 1 copy to the default printer:
+                ws.PrintOut(
+                    Type.Missing, Type.Missing, Type.Missing, Type.Missing,
+                    Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+                //Marshal.FinalReleaseComObject(ws);
+            }*/
+
 
             // Cleanup:
 
             GC.WaitForPendingFinalizers();
 
-            Marshal.FinalReleaseComObject(ws);
-
-            wb.Close(false, Type.Missing, Type.Missing);
+            wb.Close(0);
             wbs.Close();
+           
             Marshal.FinalReleaseComObject(wb);
             Marshal.FinalReleaseComObject(wbs);
-
-            excelApp.Quit();
-            Marshal.FinalReleaseComObject(excelApp);
+            Excel.Quit();
+            //excelApp.Quit();
+            //Marshal.FinalReleaseComObject(excelApp);
             GC.Collect();
         }
 

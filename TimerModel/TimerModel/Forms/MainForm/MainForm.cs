@@ -558,7 +558,7 @@ namespace TimerModel
                 }
                 void PrintReport()
                 {
-                    RoundReport.MakeReport(TimerSettings.VerticalPrint);
+                    RoundReport.MakeReport();
                     Printed = true;
                     AutoStart = true;
                     ChoosePilots(true);
@@ -595,6 +595,7 @@ namespace TimerModel
         private void ChangePilot(int ModelNum)
         {
             CreateListForm LF = new CreateListForm(true);
+            ChoosePilots();
             LF.Closing += (s, a) =>
             {
                 if (LF.Choosen_Team != null)
@@ -616,6 +617,7 @@ namespace TimerModel
                             break;
                     }
                 }
+                ChoosePilots(true);
                 if (LF.SomethingChanged)
                 {
                     UpdateTeamsData();

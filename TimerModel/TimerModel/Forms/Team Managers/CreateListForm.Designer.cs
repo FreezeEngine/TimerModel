@@ -61,7 +61,7 @@ namespace TimerModel
             // 
             // Add
             // 
-            this.Add.Location = new System.Drawing.Point(21, 68);
+            this.Add.Location = new System.Drawing.Point(20, 74);
             this.Add.Name = "Add";
             this.Add.Size = new System.Drawing.Size(121, 37);
             this.Add.TabIndex = 1;
@@ -71,9 +71,9 @@ namespace TimerModel
             // 
             // Remove
             // 
-            this.Remove.Location = new System.Drawing.Point(20, 167);
+            this.Remove.Location = new System.Drawing.Point(19, 173);
             this.Remove.Name = "Remove";
-            this.Remove.Size = new System.Drawing.Size(121, 37);
+            this.Remove.Size = new System.Drawing.Size(122, 37);
             this.Remove.TabIndex = 2;
             this.Remove.Text = "Удалить";
             this.Remove.UseVisualStyleBackColor = true;
@@ -81,9 +81,9 @@ namespace TimerModel
             // 
             // CreateExcelFile
             // 
-            this.CreateExcelFile.Location = new System.Drawing.Point(21, 369);
+            this.CreateExcelFile.Location = new System.Drawing.Point(20, 434);
             this.CreateExcelFile.Name = "CreateExcelFile";
-            this.CreateExcelFile.Size = new System.Drawing.Size(121, 37);
+            this.CreateExcelFile.Size = new System.Drawing.Size(120, 37);
             this.CreateExcelFile.TabIndex = 3;
             this.CreateExcelFile.Text = "Сохранить";
             this.CreateExcelFile.UseVisualStyleBackColor = true;
@@ -91,7 +91,7 @@ namespace TimerModel
             // 
             // CreateAndUse
             // 
-            this.CreateAndUse.Location = new System.Drawing.Point(21, 412);
+            this.CreateAndUse.Location = new System.Drawing.Point(20, 477);
             this.CreateAndUse.Name = "CreateAndUse";
             this.CreateAndUse.Size = new System.Drawing.Size(121, 51);
             this.CreateAndUse.TabIndex = 4;
@@ -101,7 +101,7 @@ namespace TimerModel
             // 
             // Edit
             // 
-            this.Edit.Location = new System.Drawing.Point(21, 111);
+            this.Edit.Location = new System.Drawing.Point(20, 117);
             this.Edit.Name = "Edit";
             this.Edit.Size = new System.Drawing.Size(121, 37);
             this.Edit.TabIndex = 5;
@@ -111,9 +111,9 @@ namespace TimerModel
             // 
             // Choose
             // 
-            this.Choose.Location = new System.Drawing.Point(21, 418);
+            this.Choose.Location = new System.Drawing.Point(20, 483);
             this.Choose.Name = "Choose";
-            this.Choose.Size = new System.Drawing.Size(120, 45);
+            this.Choose.Size = new System.Drawing.Size(121, 45);
             this.Choose.TabIndex = 7;
             this.Choose.Text = "Выбрать";
             this.Choose.UseVisualStyleBackColor = true;
@@ -122,7 +122,7 @@ namespace TimerModel
             // 
             // OpenCompetitionManager
             // 
-            this.OpenCompetitionManager.Location = new System.Drawing.Point(21, 210);
+            this.OpenCompetitionManager.Location = new System.Drawing.Point(20, 216);
             this.OpenCompetitionManager.Name = "OpenCompetitionManager";
             this.OpenCompetitionManager.Size = new System.Drawing.Size(121, 57);
             this.OpenCompetitionManager.TabIndex = 8;
@@ -134,7 +134,7 @@ namespace TimerModel
             // 
             this.FlyModelsList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.FlyModelsList.FormattingEnabled = true;
-            this.FlyModelsList.Location = new System.Drawing.Point(21, 29);
+            this.FlyModelsList.Location = new System.Drawing.Point(20, 35);
             this.FlyModelsList.Name = "FlyModelsList";
             this.FlyModelsList.Size = new System.Drawing.Size(120, 23);
             this.FlyModelsList.TabIndex = 9;
@@ -143,7 +143,7 @@ namespace TimerModel
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(20, 9);
+            this.label1.Location = new System.Drawing.Point(19, 15);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(53, 15);
             this.label1.TabIndex = 10;
@@ -151,9 +151,9 @@ namespace TimerModel
             // 
             // JustUse
             // 
-            this.JustUse.Location = new System.Drawing.Point(21, 330);
+            this.JustUse.Location = new System.Drawing.Point(20, 389);
             this.JustUse.Name = "JustUse";
-            this.JustUse.Size = new System.Drawing.Size(120, 33);
+            this.JustUse.Size = new System.Drawing.Size(121, 33);
             this.JustUse.TabIndex = 11;
             this.JustUse.Text = "Использовать";
             this.JustUse.UseVisualStyleBackColor = true;
@@ -161,9 +161,9 @@ namespace TimerModel
             // 
             // ChooseEmpty
             // 
-            this.ChooseEmpty.Location = new System.Drawing.Point(21, 369);
+            this.ChooseEmpty.Location = new System.Drawing.Point(20, 428);
             this.ChooseEmpty.Name = "ChooseEmpty";
-            this.ChooseEmpty.Size = new System.Drawing.Size(120, 43);
+            this.ChooseEmpty.Size = new System.Drawing.Size(121, 43);
             this.ChooseEmpty.TabIndex = 12;
             this.ChooseEmpty.Text = "Отключить команду";
             this.ChooseEmpty.UseVisualStyleBackColor = true;
@@ -186,7 +186,7 @@ namespace TimerModel
             this.panel1.Controls.Add(this.OpenCompetitionManager);
             this.panel1.Location = new System.Drawing.Point(471, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(163, 476);
+            this.panel1.Size = new System.Drawing.Size(163, 537);
             this.panel1.TabIndex = 13;
             // 
             // tableLayoutPanel1

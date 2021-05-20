@@ -45,7 +45,7 @@ namespace TimerModel.Forms.Setup_Forms
             this.VerticalPrint.TabIndex = 0;
             this.VerticalPrint.Text = "Вертикально";
             this.VerticalPrint.UseVisualStyleBackColor = true;
-            this.VerticalPrint.CheckedChanged += new System.EventHandler(this.VerticalPrint_CheckedChanged);
+            this.VerticalPrint.CheckedChanged += new System.EventHandler(this.PrintModeChanged);
             // 
             // HorizontalPrint
             // 
@@ -58,7 +58,7 @@ namespace TimerModel.Forms.Setup_Forms
             this.HorizontalPrint.TabStop = true;
             this.HorizontalPrint.Text = "Горизонтально";
             this.HorizontalPrint.UseVisualStyleBackColor = true;
-            this.HorizontalPrint.CheckedChanged += new System.EventHandler(this.VerticalPrint_CheckedChanged);
+            this.HorizontalPrint.CheckedChanged += new System.EventHandler(this.PrintModeChanged);
             // 
             // RememberMode
             // 
@@ -86,11 +86,11 @@ namespace TimerModel.Forms.Setup_Forms
             this.PrintBoth.AutoSize = true;
             this.PrintBoth.Location = new System.Drawing.Point(28, 69);
             this.PrintBoth.Name = "PrintBoth";
-            this.PrintBoth.Size = new System.Drawing.Size(96, 19);
+            this.PrintBoth.Size = new System.Drawing.Size(100, 19);
             this.PrintBoth.TabIndex = 4;
-            this.PrintBoth.Text = "Вертикально";
+            this.PrintBoth.Text = "Оба варианта";
             this.PrintBoth.UseVisualStyleBackColor = true;
-            this.PrintBoth.CheckedChanged += new System.EventHandler(this.VerticalPrint_CheckedChanged);
+            this.PrintBoth.CheckedChanged += new System.EventHandler(this.PrintModeChanged);
             // 
             // PrintModeSelector
             // 

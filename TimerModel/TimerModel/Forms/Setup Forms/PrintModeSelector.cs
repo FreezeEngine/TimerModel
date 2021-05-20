@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
-using TimerModel.Objects.PrintModes;
+using TimerModel.Objects.PrintMode;
 
 namespace TimerModel.Forms.Setup_Forms
 {
@@ -29,9 +29,20 @@ namespace TimerModel.Forms.Setup_Forms
             TimerSettings.NoPrePrintAsking = RememberMode.Checked;
         }
 
-        private void VerticalPrint_CheckedChanged(object sender, EventArgs e)
+        private void PrintModeChanged(object sender, EventArgs e)
         {
-            TimerSettings.VerticalPrint = VerticalPrint.Checked;
+            if (HorizontalPrint.Checked)
+            {
+                TimerSettings.PrintMode = PrintModes.Horizontal;
+            }
+            if (VerticalPrint.Checked)
+            {
+                TimerSettings.PrintMode = PrintModes.Vertical;
+            }
+            if (PrintBoth.Checked)
+            {
+                TimerSettings.PrintMode = PrintModes.Both;
+            }
         }
 
         private void OK_Click(object sender, EventArgs e)

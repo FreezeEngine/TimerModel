@@ -12,5 +12,8 @@ namespace TimerModel
         public static byte LapCount = 10;
         public static bool NoPrePrintAsking = false;
         public static PrintModes PrintMode = PrintModes.Horizontal;
+        public static bool PrintingEnabled = true;
+        public static bool DoubleClickProtectionEnabled = true;
+        public static bool PrintFileGeneration = true;
     }
 }

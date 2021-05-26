@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace TimerModel.Objects
@@ -14,6 +15,18 @@ namespace TimerModel.Objects
             _Second = new Team() { Enabled = false };
             _Third = new Team() { Enabled = false };
         }
+
+        //List<List<Team>> TeamSets { get; set; }
+        //Team[][] TeamSets;
+
+        //public TeamSet(List<Team> Teams)
+        //{
+
+        //}
+        //public void LoadTeams(List<Team> Teams)
+        //{
+        //    TeamSets = new Team[Teams.Count/3][];
+        //}
         //public void 
         private void SameTeamMessage()
         {

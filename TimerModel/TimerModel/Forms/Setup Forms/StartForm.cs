@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using TimerModel.Forms;
 
 namespace TimerModel
 {
@@ -39,7 +40,10 @@ namespace TimerModel
 
         private void Settings_Click(object sender, EventArgs e)
         {
-
+            Settings ST = new Settings();
+            ST.FormClosing += (s,a) => { Show(); };
+            Hide();
+            ST.Show();
         }
     }
 }

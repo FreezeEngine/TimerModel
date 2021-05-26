@@ -12,6 +12,10 @@ namespace TimerModel.Objects.Reporting
 
         public static void MakeReport()
         {
+            if (!TimerSettings.PrintFileGeneration)
+            {
+                return;
+            }
             int MaxLaps = Competition.Teams.MaxLaps();
             if (MaxLaps > 12)
             {
@@ -42,21 +46,21 @@ namespace TimerModel.Objects.Reporting
             switch (TimerSettings.PrintMode)
             {
                 case PrintModes.Vertical:
-                    Sheet = Workbook.Worksheets[1];
+                    //Sheet = Workbook.Worksheets[1];
                     Workbook.Worksheets.Delete(0);
                     break;
                 case PrintModes.Horizontal:
-                    Sheet = Workbook.Worksheets[0];
+                    //Sheet = Workbook.Worksheets[0];
                     Workbook.Worksheets.Delete(1);
                     break;
                 default:
-                    Sheet = Workbook.Worksheets[0];
+                    //Sheet = Workbook.Worksheets[0];
                     break;
             }
 
             for (int p = 0; p < Workbook.Worksheets.Count; p++)
             {
-
+                Sheet = Workbook.Worksheets[p];
                 //Horizontal cycle
                 for (int c = 1; c <= 26; c++)
                 {
@@ -191,8 +195,10 @@ namespace TimerModel.Objects.Reporting
 
             F.Close();
             Package.Dispose();
-
-            Print(SavingFile); //Enable
+            if (TimerSettings.PrintingEnabled)
+            {
+                Print(SavingFile); //Enable
+            }
 
         }
         public static void Print(string PathToFile)
@@ -208,36 +214,23 @@ namespace TimerModel.Objects.Reporting
                 Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing,
                 Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing,
                 Type.Missing, Type.Missing, Type.Missing, Type.Missing);
-            wb.PrintOutEx();
-            // Get the first worksheet.
-            // (Excel uses base 1 indexing, not base 0.)
-            /*
-            for (byte c = 1; c <= wb.Worksheets.Count; c++)
+
+            if(TimerSettings.PrintMode == PrintModes.Both)
             {
-                Microsoft.Office.Interop.Excel.Worksheet ws = (Microsoft.Office.Interop.Excel.Worksheet)wb.Worksheets[c];
-
-                //wb.Worksheets.PrintOu
-
-                // Print out 1 copy to the default printer:
-                ws.PrintOut(
-                    Type.Missing, Type.Missing, Type.Missing, Type.Missing,
-                    Type.Missing, Type.Missing, Type.Missing, Type.Missing);
-                //Marshal.FinalReleaseComObject(ws);
-            }*/
-
-
-            // Cleanup:
+                wb.PrintOutEx(1, 2);
+            }
+            else
+            {
+                wb.PrintOutEx(1, 1);
+            }
 
             GC.WaitForPendingFinalizers();
-
             wb.Close(0);
-            wbs.Close();
-           
             Marshal.FinalReleaseComObject(wb);
+            wbs.Close();
             Marshal.FinalReleaseComObject(wbs);
             Excel.Quit();
-            //excelApp.Quit();
-            //Marshal.FinalReleaseComObject(excelApp);
+            Marshal.FinalReleaseComObject(Excel);
             GC.Collect();
         }
 

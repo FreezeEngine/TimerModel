@@ -148,7 +148,8 @@ namespace TimerModel
         }
         public bool CooldownIsUP()
         {
-            return true;//DELETE
+            if (!TimerSettings.DoubleClickProtectionEnabled)
+                return true;//DELETE
             if (Laps.Count == 0)
             {
                 return true;

@@ -13,6 +13,7 @@ namespace TimerModel
         public CreateListForm(bool ChooseMode = false)
         {
             InitializeComponent();
+            TopMost = true;
 
             if (ChooseMode)
             {
@@ -34,12 +35,12 @@ namespace TimerModel
         {
             FlyModelsList.Items.Clear();
             FlyModelsList.Text = null;
-            FlyModelsList.Items.AddRange(Competition.Teams.TeamClumps?.ToArray());
+            FlyModelsList.Items.AddRange(TimerSettings.Competition.Teams.TeamClumps?.ToArray());
             FlyModelsList.Items.Add("Все модели");
 
-            if (Competition.Teams.TeamClumps.Count != 0)
+            if (TimerSettings.Competition.Teams.TeamClumps.Count != 0)
             {
-                FlyModelsList.SelectedIndex = Competition.Teams.TeamClumps.Count;
+                FlyModelsList.SelectedIndex = TimerSettings.Competition.Teams.TeamClumps.Count;
             }
             else
             {
@@ -51,7 +52,7 @@ namespace TimerModel
         private void Add_Click(object sender, EventArgs e)
         {
             AddToListForm AddItemForm = new AddToListForm();
-            AddItemForm.FormClosing += (s, args) => { if (AddItemForm.NewTeam != null) { ListOfTeams.Items.Add(AddItemForm.NewTeam); Competition.Teams.Add(AddItemForm.NewTeam); UpdateFlyModelsList(); }; };
+            AddItemForm.FormClosing += (s, args) => { if (AddItemForm.NewTeam != null) { UpdateFlyModelsList(); }; };
             AddItemForm.Show();
         }
 
@@ -60,19 +61,19 @@ namespace TimerModel
             if (ListOfTeams.SelectedItem != null)
             {
                 SomethingChanged = true;
-                Competition.Teams.Remove((Team)ListOfTeams.SelectedItem);
+                TimerSettings.Competition.Teams.Remove((Team)ListOfTeams.SelectedItem);
 
-                if ((Team)ListOfTeams.SelectedItem == Competition.Teams.First)
+                if ((Team)ListOfTeams.SelectedItem == TimerSettings.Competition.Teams.First)
                 {
-                    Competition.Teams.First = new Team() { Enabled = false };
+                    TimerSettings.Competition.Teams.First = TimerSettings.Competition.Teams._Disabled;
                 }
-                if ((Team)ListOfTeams.SelectedItem == Competition.Teams.Second)
+                if ((Team)ListOfTeams.SelectedItem == TimerSettings.Competition.Teams.Second)
                 {
-                    Competition.Teams.Second = new Team() { Enabled = false };
+                    TimerSettings.Competition.Teams.Second = TimerSettings.Competition.Teams._Disabled;
                 }
-                if ((Team)ListOfTeams.SelectedItem == Competition.Teams.Third)
+                if ((Team)ListOfTeams.SelectedItem == TimerSettings.Competition.Teams.Third)
                 {
-                    Competition.Teams.Third = new Team() { Enabled = false };
+                    TimerSettings.Competition.Teams.Third = TimerSettings.Competition.Teams._Disabled;
                 }
                 ListOfTeams.Items.RemoveAt(ListOfTeams.SelectedIndex);
                 UpdateFlyModelsList();
@@ -89,9 +90,9 @@ namespace TimerModel
             {
                 SomethingChanged = true;
                 AddToListForm AddItemForm = new AddToListForm((Team)ListOfTeams.SelectedItem);
-                Team T = AddItemForm.NewTeam;
+                //Team T = AddItemForm.NewTeam;
                 AddItemForm.FormClosing += (s, args) => { UpdateFlyModelsList(); };
-                //ListOfTeams.Items[ListOfTeams.SelectedIndex] = Competition.Teams.TeamClumps[FlyModelsList.SelectedIndex].Teams[ListOfTeams.SelectedIndex];
+                //ListOfTeams.Items[ListOfTeams.SelectedIndex] = TimerSettings.Competition.Teams.TeamClumps[FlyModelsList.SelectedIndex].Teams[ListOfTeams.SelectedIndex];
                 AddItemForm.Show();
             }
             else
@@ -101,6 +102,7 @@ namespace TimerModel
         }
         private async Task SaveListAsync()
         {
+            //REWRITE
             if (ListOfTeams.Items.Count == 0)
             {
                 MessageBox.Show("Нет данных для сохранения");
@@ -177,24 +179,25 @@ namespace TimerModel
 
         private void OpenCompetitionManager_Click(object sender, EventArgs e)
         {
+            Hide();
             SomethingChanged = true;
             OpenCompetitionManager.Enabled = false;
             CompetitionManager CM = new CompetitionManager();
-            CM.FormClosing += (s,a) => { OpenCompetitionManager.Enabled = true; };
+            CM.FormClosing += (s, a) => { OpenCompetitionManager.Enabled = true; Show(); };
             CM.Show();
         }
 
         private void FlyModelsList_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-            if (FlyModelsList.SelectedIndex == Competition.Teams.TeamClumps.Count)
+            if (FlyModelsList.SelectedIndex == TimerSettings.Competition.Teams.TeamClumps.Count)
             {
                 ListOfTeams.Items.Clear();
-                ListOfTeams.Items.AddRange(Competition.Teams.GetTeams().ToArray());
+                ListOfTeams.Items.AddRange(TimerSettings.Competition.Teams.GetTeams().ToArray());
                 return;
             }
             ListOfTeams.Items.Clear();
-            ListOfTeams.Items.AddRange(Competition.Teams.TeamClumps[FlyModelsList.SelectedIndex].Teams.ToArray());
+            ListOfTeams.Items.AddRange(TimerSettings.Competition.Teams.TeamClumps[FlyModelsList.SelectedIndex].Teams().ToArray());
 
         }
 

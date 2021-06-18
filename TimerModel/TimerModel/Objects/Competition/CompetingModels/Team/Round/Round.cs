@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Text.Json.Serialization;
 using System.Windows.Forms;
 using TimerModel.Objects;
 
@@ -8,16 +9,24 @@ namespace TimerModel
 {
     public class Round : IEquatable<Round>
     {
-        private DateTime RoundStart { get; set; }
-        private DateTime CurrentTime { get; set; }
-        private DateTime PreviousTime { get; set; }
-        public TimeSpan Time { get; private set; }
+        public DateTime RoundStart { get; set; }
+        public DateTime CurrentTime { get; set; }
+        public DateTime PreviousTime { get; set; }
+        [JsonIgnore]
+        public TimeSpan Time
+        {
+            get
+            {
+                return CurrentTime - RoundStart;
+            }
+        }
 
         public delegate void Finishd();
         public event Finishd onFinish;
         public delegate void MisedAPoint();
         public event MisedAPoint OnFlyMissChanged;
 
+        [JsonIgnore]
         public double TotalPoints
         {
             get
@@ -40,9 +49,10 @@ namespace TimerModel
                     }
                 }
             }
-            set { }
         }
-        bool BadFinish = false;
+        public bool BadFinish = false;
+
+        [JsonIgnore]
         public double Points
         {
             get
@@ -50,10 +60,10 @@ namespace TimerModel
                 if (Finished && !BadFinish)
                 {
                     double D = Math.Round(Convert.ToDouble(Time.TotalSeconds), 2);
-                    /*if (D >= 200)
+                    if (D >= 200)
                     {
                         return 200;
-                    }*/
+                    }
                     return D;
                 }
                 else
@@ -61,11 +71,12 @@ namespace TimerModel
                     return 200;
                 }
             }
-            set { }
         }
 
-        private List<Lap> _Laps;
         public bool Finished { get; set; }
+
+        private List<Lap> _Laps;
+
         public List<Lap> Laps
         {
             get
@@ -76,24 +87,56 @@ namespace TimerModel
                 }
                 return _Laps;
             }
-            private set
+            set
             {
                 _Laps = value;
             }
         }
-
+        //public string Label { get; set; }
+        //public string TimeLabel { get; set; }
+        //public string TimeFLabel { get; set; }
+        //public string PointsLabel { get; set; }
         public string RoundTime()
         {
+            //if (Label == null)
+            //{
+            //    Label = Points.ToString("0.00");
+            //}
             return Points.ToString("0.00");
+        }
+        public string RoundTTime()
+        {
+            //if (TimeLabel == null)
+            //{
+            //    TimeLabel = Time.ToString(@"m\:ss\:ff");
+            //}
+            return Time.ToString(@"m\:ss\:ff");
+        }
+        public string RoundFTime()
+        {
+            //if (TimeFLabel == null)
+            //{
+            //    TimeFLabel = Time.ToString(@"mm\,ss\,ff");
+            //}
+            return Time.ToString(@"mm\,ss\,ff");
         }
         public string RoundPoints()
         {
-            var D = Math.Round(TotalPoints, 2);
-            return D.ToString("0.00").Replace(",", ".");
+            //if (PointsLabel == null)
+            //{
+            // var D = Math.Round(TotalPoints, 2);
+            // PointsLabel = Math.Round(TotalPoints, 2).ToString("0.00").Replace(",", ".");
+            //// if (Label == null)
+            //     RoundTime();
+
+            // if (TimeFLabel == null)
+            //     RoundFTime();
+
+            return Math.Round(TotalPoints, 2).ToString("0.00").Replace(",", ".");
         }
 
         public byte[] _FlyMisses = new byte[3];
-        public byte[] FlyMisses { get { return _FlyMisses; } set { _FlyMisses = value; OnFlyMissChanged(); } }
+        public byte[] FlyMisses { get { return _FlyMisses; } set { _FlyMisses = value; if (OnFlyMissChanged != null) { OnFlyMissChanged(); } } }
         public byte TotalFlyMisses()
         {
             return (byte)(FlyMisses[0] + FlyMisses[1] + FlyMisses[2]);
@@ -104,7 +147,6 @@ namespace TimerModel
             {
                 Finished = false;
                 BadFinish = false;
-                Laps = new List<Lap>(); //if selected old
             }
             DateTime Now = DateTime.Now;
             if (Laps.Count == 0)
@@ -136,7 +178,7 @@ namespace TimerModel
             L = new Label
             {
                 Anchor = (((AnchorStyles.Top | AnchorStyles.Bottom) | AnchorStyles.Left) | AnchorStyles.Right),
-                Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point),
+                Font = new Font("Segoe UI", TimerSettings.LabelsSize, FontStyle.Regular, GraphicsUnit.Point),
                 Location = new Point(5, 2),
                 Name = "TimeSpanLabel" + Laps.Count.ToString(),
                 Size = new Size(273, 35),
@@ -164,11 +206,12 @@ namespace TimerModel
         }
         public void Finish(bool GoodFinish = true)
         {
-            Time = CurrentTime - RoundStart;
+            //Time = CurrentTime - RoundStart;
             Finished = true;
             if (GoodFinish)
             {
-                onFinish();
+                if (onFinish != null)
+                    onFinish();
             }
             else
             {
@@ -207,7 +250,7 @@ namespace TimerModel
                 return false;
             }
 
-            return (this.Laps.Equals(other.Laps));
+            return (Laps.Equals(other.Laps) && RoundTime().Equals(other.RoundTime()));
         }
     }
 }

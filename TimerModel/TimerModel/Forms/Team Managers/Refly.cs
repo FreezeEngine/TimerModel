@@ -13,12 +13,13 @@ namespace TimerModel.Forms.Team_Managers
         public Refly()
         {
             InitializeComponent();
-            ListOfTeams.Items.AddRange(Competition.Teams.GetTeams().ToArray());
+            TopMost = true;
+            ListOfTeams.Items.AddRange(TimerSettings.Competition.Teams.GetTeams().ToArray());
             ListOfTeams.SelectedIndex = 0;
         }
         private void UpdateReflyStatus()
         {
-            List<Team> Ts = Competition.Teams.GetTeams();
+            List<Team> Ts = TimerSettings.Competition.Teams.GetTeams();
             foreach (var T in Ts)
             {
                 foreach (var R in T.Rounds)
@@ -37,8 +38,8 @@ namespace TimerModel.Forms.Team_Managers
             {
                 //Submit.Enabled = true;
                 Team T = (Team)ListOfTeams.SelectedItem;
-                PilotL.Text = "Пилот: " + T.GetShortPilotName();
-                MechanicL.Text = "Механик: " + T.GetShortMechanicName();
+                PilotL.Text = "Пилот: " + T.Pilot.ShortenName();
+                MechanicL.Text = "Механик: " + T.Mechanic.ShortenName();
                 TeamL.Text = "Команда: " + T.TeamName;
                 //SubmitRefly.Enabled = true;
                 List<byte> RTR = new List<byte>();
@@ -87,7 +88,7 @@ namespace TimerModel.Forms.Team_Managers
                     try
                     {
                         byte index = Convert.ToByte(i);
-                        if(index > T.Rounds.Count)
+                        if (index > T.Rounds.Count)
                         {
                             MessageBox.Show("Номер тура превысил количество туров для команды");
                             return;
@@ -103,7 +104,7 @@ namespace TimerModel.Forms.Team_Managers
                         return;
                     }
                 }
-                
+
                 T.CurrentRoundNum = (byte)(Convert.ToByte(RTRI[0]) - 1);
             }
             UpdateReflyStatus();

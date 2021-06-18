@@ -32,7 +32,7 @@ namespace TimerModel
             this.OpenFile = new System.Windows.Forms.Button();
             this.CreateList = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.Settings = new System.Windows.Forms.Button();
+            this.ContinueCompetition = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // OpenFile
@@ -64,29 +64,27 @@ namespace TimerModel
             this.label1.TabIndex = 2;
             this.label1.Text = "Выберете или создайте список участников";
             // 
-            // Settings
+            // ContinueCompetition
             // 
-            this.Settings.Location = new System.Drawing.Point(12, 86);
-            this.Settings.Name = "Settings";
-            this.Settings.Size = new System.Drawing.Size(280, 41);
-            this.Settings.TabIndex = 3;
-            this.Settings.Text = "Настройки";
-            this.Settings.UseVisualStyleBackColor = true;
-            this.Settings.Click += new System.EventHandler(this.Settings_Click);
+            this.ContinueCompetition.Location = new System.Drawing.Point(13, 87);
+            this.ContinueCompetition.Name = "ContinueCompetition";
+            this.ContinueCompetition.Size = new System.Drawing.Size(279, 40);
+            this.ContinueCompetition.TabIndex = 3;
+            this.ContinueCompetition.Text = "Продолжить соревнование";
+            this.ContinueCompetition.UseVisualStyleBackColor = true;
+            this.ContinueCompetition.Click += new System.EventHandler(this.ContinueCompetition_Click);
             // 
             // StartForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(304, 134);
-            this.Controls.Add(this.Settings);
+            this.Controls.Add(this.ContinueCompetition);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.CreateList);
             this.Controls.Add(this.OpenFile);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(320, 173);
-            this.MinimumSize = new System.Drawing.Size(320, 173);
             this.Name = "StartForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Настройка";
@@ -100,6 +98,6 @@ namespace TimerModel
         private System.Windows.Forms.Button OpenFile;
         private System.Windows.Forms.Button CreateList;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button Settings;
+        private System.Windows.Forms.Button ContinueCompetition;
     }
 }

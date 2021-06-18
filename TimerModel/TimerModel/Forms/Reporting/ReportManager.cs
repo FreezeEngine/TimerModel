@@ -12,7 +12,19 @@ namespace TimerModel.Forms
         public ReportManager()
         {
             InitializeComponent();
-            foreach (var CM in Competition.Teams.TeamClumps)
+            TopMost = true;
+
+            MainJudge.Text = TimerSettings.Container.MainJudge;
+            LaunchSupervisor.Text = TimerSettings.Container.LaunchSupervisor;
+            Scorekeeper.Text = TimerSettings.Container.Scorekeeper;
+
+            LoadReports();
+        }
+
+        private void LoadReports()
+        {
+            Reports.Clear();
+            foreach (var CM in TimerSettings.Competition.Teams.TeamClumps)
             {
                 Reports.Add(new ReportItem(CM));
             }
@@ -21,6 +33,7 @@ namespace TimerModel.Forms
                 MessageBox.Show("Нет данных для отчета");
                 Close();
             }
+            ListOfReports.Items.Clear();
             ListOfReports.Items.AddRange(Reports.ToArray());
             ListOfReports.SelectedIndex = 0;
         }
@@ -29,20 +42,17 @@ namespace TimerModel.Forms
 
         private void ListOfReports_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Update = false;
+            UpdateData = false;
             var Report = (ReportItem)ListOfReports.SelectedItem;
-            l1.Text = Report.Lines[0];
-            l2.Text = Report.Lines[1];
-            l3.Text = Report.Lines[2];
-            l4.Text = Report.Lines[3];
 
-            MainJudge.Text = Report.MainJudge;
-            LaunchSupervisor.Text = Report.LaunchSupervisor;
-            Scorekeeper.Text = Report.Scorekeeper;
-            Update = true;
+            l1.Text = Report.CompetingModel.Lines[0];
+            l2.Text = Report.CompetingModel.Lines[1];
+            l3.Text = Report.CompetingModel.Lines[2];
+            l4.Text = Report.CompetingModel.Lines[3];
+
+            UpdateData = true;
         }
-
-        private void SaveReport_Click(object sender, EventArgs e)
+        private void SaveFile(bool Combined = false)
         {
             Stream stream;
             SaveFileDialog SaveFile = new SaveFileDialog
@@ -61,6 +71,11 @@ namespace TimerModel.Forms
                     if ((stream = SaveFile.OpenFile()) != null)
                     {
                         {
+                            if (Combined)
+                            {
+                                TimerSettings.Competition = TimerSettings.Container.GetCombined();
+                                LoadReports();
+                            }
                             byte[] b = FinalReport.Generate(Reports);
                             stream.Write(b);
                             stream.Close();
@@ -75,44 +90,53 @@ namespace TimerModel.Forms
             }
             Close();
         }
-        bool Update = true;
+        private void SaveReport_Click(object sender, EventArgs e)
+        {
+            SaveFile();
+        }
+        bool UpdateData = true;
         private void MainJudge_TextChanged(object sender, EventArgs e)
         {
-            if (Update)
+            if (UpdateData)
             {
-                Reports[ListOfReports.SelectedIndex].MainJudge = MainJudge.Text;
+                TimerSettings.Container.MainJudge = MainJudge.Text;
             }
         }
 
         private void LaunchSupervisor_TextChanged(object sender, EventArgs e)
         {
-            if (Update)
+            if (UpdateData)
             {
-                Reports[ListOfReports.SelectedIndex].LaunchSupervisor = LaunchSupervisor.Text;
+                TimerSettings.Container.MainJudge = LaunchSupervisor.Text;
             }
         }
 
         private void Scorekeeper_TextChanged(object sender, EventArgs e)
         {
-            if (Update)
+            if (UpdateData)
             {
-                Reports[ListOfReports.SelectedIndex].Scorekeeper = Scorekeeper.Text;
+                TimerSettings.Container.MainJudge = Scorekeeper.Text;
             }
         }
         private void Lines_TextChanged(object sender, EventArgs e)
         {
-            if (Update)
+            if (UpdateData)
             {
-                Reports[ListOfReports.SelectedIndex].Lines[0] = l1.Text;
-                Reports[ListOfReports.SelectedIndex].Lines[1] = l2.Text;
-                Reports[ListOfReports.SelectedIndex].Lines[2] = l3.Text;
-                Reports[ListOfReports.SelectedIndex].Lines[3] = l4.Text;
+                Reports[ListOfReports.SelectedIndex].CompetingModel.Lines[0] = l1.Text;
+                Reports[ListOfReports.SelectedIndex].CompetingModel.Lines[1] = l2.Text;
+                Reports[ListOfReports.SelectedIndex].CompetingModel.Lines[2] = l3.Text;
+                Reports[ListOfReports.SelectedIndex].CompetingModel.Lines[3] = l4.Text;
             }
         }
 
         private void ReportManager_FormClosing(object sender, FormClosingEventArgs e)
         {
             Environment.Exit(0);
+        }
+
+        private void SaveCompiledReport_Click(object sender, EventArgs e)
+        {
+            SaveFile(true);
         }
     }
 }

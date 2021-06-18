@@ -1,6 +1,8 @@
-﻿using System;
+﻿using CompetitionOrganizer.Objects;
+using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;
+using System.Text.Json.Serialization;
 using TimerModel.Objects;
 
 namespace TimerModel
@@ -30,24 +32,42 @@ namespace TimerModel
                 list[n] = value;
             }
         }
+        public static void ShuffleTeamSet<T>(this IList<T> list)
+        {
+            T v = list[0];
+            list[0] = list[1];
+            list[1] = list[2];
+            list[2] = v;
+        }
     }
 
-    public class Competition
+    public class Competition : IEquatable<Competition>
     {
         //public static int Round { get; set; }
-        public static List<Mechanic> Mechanics
+
+
+        //[JsonIgnore]
+        public byte Key1 { get; set; }
+
+        //[JsonIgnore]
+        public byte Key2 { get; set; }
+
+        public string DateOfCreation { get; set; }
+
+        [JsonIgnore]
+        public List<Participant> Mechanics
         {
             get
             {
-                var Mechanics = new List<Mechanic>();
+                var Mechanics = new List<Participant>();
                 foreach (var T in Teams.GetTeams())
                 {
-                    if (T.Mechanic == "Без механика")
+                    if (T.Mechanic == null | T.Mechanic?.Name == null)
                     {
                         continue;
                     }
 
-                    Mechanics.Add(new Mechanic(T));
+                    Mechanics.Add(T.Mechanic);
                 }
                 //if(Mechanics.Count == 0)
                 //{
@@ -56,44 +76,28 @@ namespace TimerModel
                 //}
                 return Mechanics;
             }
-            set
-            {
-            }
         }
-        public static TeamContainer Teams = new TeamContainer(new List<Team>());
-        public Competition(List<Team> LTeams = null)
+        public TeamContainer Teams { get; set; }//= new TeamContainer(new List<Team>());
+
+        public delegate void CompetitionHandler();
+        public event CompetitionHandler onCompetitionFinished;
+
+        public Competition()
         {
-            if (LTeams == null)
-            {
-                Teams = new TeamContainer(new List<Team>());
-            }
-            else
-            {
-                Teams = new TeamContainer(LTeams);
-            }
-
-            /*Teams.onTeamNewCycle += () =>
-            {
-                //Round = Round++;
-            };*/
-
-            /*Mechanics = new List<Mechanic>();
-            foreach (var M in LTeams)
-            {
-                if (M.Mechanic == "Без механика")
-                    continue;
-                Mechanics.Add(new Mechanic(M));
-            }
-            if (Mechanics.Count == 0)
-            {
-                MessageBox.Show("Не обнаружено ни одного механика. Выход из программы");
-                Environment.Exit(0);
-            }*/
-            //Delete
-            //CompetitionManager CM = new CompetitionManager();
-            //CM.Show();
+            //AutoClosingMessageBox.Show("Test","Test", 4000);
+            Key1 = (byte)new Random().Next(0, 255);
+            Key2 = (byte)new Random().Next(0, 255);
+            DateOfCreation = DateTime.Now.ToString("D") + " " + DateTime.Now.ToString("H-mm-ss");
+            Teams = new TeamContainer(new List<Team>());
         }
-        public static void Lap(int ModelNum)
+        public Competition(List<Team> LTeams)
+        {
+            Key1 = (byte)new Random().Next(0, 255);
+            Key2 = (byte)new Random().Next(0, 255);
+            DateOfCreation = DateTime.Now.ToString("D") + " " + DateTime.Now.ToString("H-mm-ss");
+            Teams = new TeamContainer(LTeams);
+        }
+        public void Lap(int ModelNum)
         {
             switch (ModelNum)
             {
@@ -118,9 +122,49 @@ namespace TimerModel
             }
         }
 
+        public void Finish()
+        {
+            foreach (var T in TimerSettings.Competition.Teams.AllTeams)
+            {
+                //var Rc = 
+            }
+            onCompetitionFinished();
+        }
+
         public override string ToString()
         {
-            return "Соревнование";
+            return "Соревнование " + DateOfCreation;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+
+            Competition objAsPart = obj as Competition;
+            if (objAsPart == null)
+            {
+                return false;
+            }
+            else
+            {
+                return Equals(objAsPart);
+            }
+        }
+        public override int GetHashCode()
+        {
+            return ToString().GetHashCode();
+        }
+        public bool Equals(Competition other)
+        {
+            if (other == null)
+            {
+                return false;
+            }
+
+            return (Mechanics.Equals(other.Mechanics) && Teams.Count.Equals(other.Teams.Count) && Teams.TeamClumps.Equals(other.Teams.TeamClumps) && Key1 == other.Key1 && Key2 == other.Key2);
         }
     }
 

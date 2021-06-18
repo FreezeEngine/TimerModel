@@ -5,7 +5,13 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <Platforms>AnyCPU;x64</Platforms>
+    <RootNamespace>CompetitionOrganizer</RootNamespace>
+    <AssemblyName>CompetitionOrganizer</AssemblyName>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Trash\TeamContainer.cs" />
+  </ItemGroup>
 
   <ItemGroup>
     <COMReference Include="Microsoft.Office.Interop.Excel">
@@ -21,6 +27,7 @@
 
   <ItemGroup>
     <PackageReference Include="EPPlus" Version="4.5.3.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -40,17 +47,21 @@
 
   <ItemGroup>
     <Folder Include="Reports\Round Reports\" />
-    <Folder Include="Templates\" />
+    <Folder Include="Шаблоны\" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Templates\Шаблон печати 11 кругов.xlsx">
+    <None Include="Trash\TeamContainer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Шаблоны\Шаблон печати 11 кругов.xlsx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Templates\Шаблон печати 12 кругов.xlsx">
+    <None Update="Шаблоны\Шаблон печати 12 кругов.xlsx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Templates\Шаблон печати.xlsx">
+    <None Update="Шаблоны\Шаблон печати.xlsx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

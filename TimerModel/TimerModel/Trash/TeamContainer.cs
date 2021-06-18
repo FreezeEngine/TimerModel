@@ -22,14 +22,19 @@ namespace TimerModel.Objects
 
         public int Count { get { int C = 0; foreach (var CM in TeamClumps) { C = C + CM.Teams.Count; } return C; } private set { } }
 
-        private Team _First = new Team() { Enabled = false };
-        private Team _Second = new Team() { Enabled = false };
-        private Team _Third = new Team() { Enabled = false };
+
+        private Team _Disabled = new Team(false);
+
+        private Team _First;
+        private Team _Second;
+        private Team _Third;
+
+        public CompetingModels CurrentModel;
         private void ResetTeams()
         {
-            _First = new Team() { Enabled = false };
-            _Second = new Team() { Enabled = false };
-            _Third = new Team() { Enabled = false };
+            _First = _Disabled;
+            _Second = _Disabled;
+            _Third = _Disabled;
         }
         public List<TeamSet> TeamSets { get; set; }
         public List<CompetingModels> TeamClumps { get; set; }
@@ -44,17 +49,17 @@ namespace TimerModel.Objects
         public Team First
         {
             get { return _First; }
-            set { /*if (!_First.Enabled && !_Second.Enabled && _Third.Enabled) { NoTeamsMessage(); return; }*/ if (value == _Second | value == _Third) { SameTeamMessage(); return; } else { _First = value; } }
+            set { /*if (!_First.Enabled && !_Second.Enabled && _Third.Enabled) { NoTeamsMessage(); return; }*/ if ((value == _Second | value == _Third) && value.Enabled == true) { SameTeamMessage(); return; } else { _First = value; } }
         }
         public Team Second
         {
             get { return _Second; }
-            set { /*if (!_First.Enabled && !_Second.Enabled && _Third.Enabled) { NoTeamsMessage(); return; }*/ if (value == _First | value == _Third | (!_First.Enabled && !_Second.Enabled && _Third.Enabled)) { SameTeamMessage(); return; } else { _Second = value; } }
+            set { /*if (!_First.Enabled && !_Second.Enabled && _Third.Enabled) { NoTeamsMessage(); return; }*/ if ((value == _First | value == _Third) && value.Enabled == true) { SameTeamMessage(); return; } else { _Second = value; } }
         }
         public Team Third
         {
             get { return _Third; }
-            set { /*if (!_First.Enabled && !_Second.Enabled && _Third.Enabled) { NoTeamsMessage(); return; }*/  if (value == _First | value == _Second) { SameTeamMessage(); return; } else { _Third = value; } }
+            set { /*if (!_First.Enabled && !_Second.Enabled && _Third.Enabled) { NoTeamsMessage(); return; }*/  if ((value == _First | value == _Second) && value.Enabled == true) { SameTeamMessage(); return; } else { _Third = value; } }
         }
         public List<Team> GetTeamContainer()
         {
@@ -72,20 +77,8 @@ namespace TimerModel.Objects
         }
         public int MaxRounds()
         {
-            int M1c = (First.CM != null) ? (First.CM.RoundsForThisClass) : (Rules.MinRounds);
-            int M2c = (Second.CM != null) ? (Second.CM.RoundsForThisClass) : (Rules.MinRounds);
-            int M3c = (Third.CM != null) ? (Third.CM.RoundsForThisClass) : (Rules.MinRounds);
-
-            int[] MaxRounds = new int[3] { M1c, M2c, M3c };
-
-            return MaxRounds.Max();
+            return Rules.MaxRounds;
         }
-        /*private int _Shift { get; set; }
-        public int Shift
-        {
-            get { return _Shift; } //Shift < MaxRounds
-            set { _Shift = value; }
-        }*/
         public void Add(Team Team)
         {
             bool Added = false;
@@ -101,8 +94,6 @@ namespace TimerModel.Objects
             if (!Added)
             {
                 TeamClumps.Add(new CompetingModels(new List<Team>() { Team }) { CompetingModel = Team.ModelName });
-                //TeamClumps[^1].Teams[^1].CM = TeamClumps[^1];
-                //TeamClumps[^1].SetRoundsCount(Rules.MinRounds);
             }
         }
         public void Remove(Team Team)
@@ -122,7 +113,9 @@ namespace TimerModel.Objects
                     }
                 }
             }
-            //onTeamRemoved();
+        }
+        public TeamContainer()
+        {
         }
         public TeamContainer(List<Team> Teams)
         {
@@ -137,6 +130,13 @@ namespace TimerModel.Objects
                 Add(T);
             }
         }
+        public void Setup(bool Enabled = true)
+        {
+            foreach (var CM in TeamClumps)
+            {
+                CM.AtSetup = Enabled;
+            }
+        }
         public void GenerateTeamSets()
         {
             ResetTeams();
@@ -144,7 +144,7 @@ namespace TimerModel.Objects
             var Teams = GetTeams();
 
             byte CountOfTeamSets = Convert.ToByte(Teams.Count / 3);
-            //return CountOfTeamSets;
+
             TeamSets = new List<TeamSet>();
             TeamSets.Add(new TeamSet());
             int TC = 0;
@@ -158,53 +158,6 @@ namespace TimerModel.Objects
                 TC++;
 
             }
-            /*foreach (var T in Teams)
-            {
-                bool F = true;
-                foreach (var R in T.Rounds)
-                {
-                    if (R.Finished)
-                        continue;
-                    F = false;
-                }
-                if (F)
-                {
-                    continue;
-                }
-                if (T.Rounds[T.CurrentRound].Finished)
-                {
-                    continue;
-                }
-                switch (TS)
-                {
-                    case 1:
-                        _First = T;
-                        TS++;
-                        break;
-                    case 2:
-                        _Second = T;
-                        TS++;
-                        break;
-                    case 3:
-                        _Third = T;
-                        TS++;
-                        onTeamChanged();
-                        return;
-                    default:
-                        break;
-                }
-            }
-
-            if (TS == 1)
-            {
-                foreach (var TC in TeamClumps)
-                {
-                    TC.Teams.Shuffle();
-                }
-                NextRound();
-                return;
-            }
-            onTeamChanged();*/
         }
         public List<Team> GetTeams()
         {
@@ -239,10 +192,10 @@ namespace TimerModel.Objects
 
             foreach (Team T in Teams)
             {
-                if (T.CurrentRoundNum + 1 == T.CM.RoundsForThisClass)
+                /*if (T.CurrentRoundNum + 1 == T.CM.RoundsForThisClass)
                 {
                     continue;
-                }
+                }*/
 
                 T.NextRound();
                 c++;
@@ -261,10 +214,10 @@ namespace TimerModel.Objects
 
                         T.SelectRound(++RC);
                     }
-                    if (T.CurrentRoundNum + 1 == T.CM.RoundsForThisClass && T.CurrentRound.Finished)
+                    /*if (T.CurrentRoundNum + 1 == T.CM.RoundsForThisClass && T.CurrentRound.Finished)
                     {
                         continue;
-                    }
+                    }*/
 
                     c++;
                 }

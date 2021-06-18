@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CompetitionOrganizer.Forms.Setup_Forms;
+using System;
 using System.Windows.Forms;
 using TimerModel.Forms;
 
@@ -9,6 +10,7 @@ namespace TimerModel
         public StartForm()
         {
             InitializeComponent();
+            TopMost = true;
         }
 
         private void OpenFile_Click(object sender, EventArgs e)
@@ -24,8 +26,8 @@ namespace TimerModel
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 Hide();
-                ExcelDataReadMode ChooseModeForm = new ExcelDataReadMode(openFileDialog.FileName);
-                ChooseModeForm.Closed += (s, args) => Show();
+                FileReadPlaceholder ChooseModeForm = new FileReadPlaceholder(openFileDialog.FileName);
+                ChooseModeForm.Closed += (s, args) => { TimerSettings.ResetCompetition();/* Может убрать в др место? */ Show(); };
                 ChooseModeForm.Show();
             }
         }
@@ -41,9 +43,17 @@ namespace TimerModel
         private void Settings_Click(object sender, EventArgs e)
         {
             Settings ST = new Settings();
-            ST.FormClosing += (s,a) => { Show(); };
+            ST.FormClosing += (s, a) => { Show(); };
             Hide();
             ST.Show();
+        }
+
+        private void ContinueCompetition_Click(object sender, EventArgs e)
+        {
+            Hide();
+            OpenCompetition OCM = new OpenCompetition();
+            OCM.Closed += (s, args) => Show();
+            OCM.Show();
         }
     }
 }

@@ -9,6 +9,7 @@ namespace TimerModel.Forms.Setup_Forms
         public PreFinishAsk()
         {
             InitializeComponent();
+            TopMost = true;
         }
         public bool CloseForm = false;
         private void ReflyModels_Click(object sender, EventArgs e)

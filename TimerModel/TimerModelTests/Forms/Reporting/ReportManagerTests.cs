@@ -13,7 +13,7 @@ namespace TimerModel.Forms.Tests
             new Competition(new List<Team>() { new Team() { Pilot = new Random().Next().ToString(), Mechanic = new Random().Next().ToString(), ModelName = new Random().Next().ToString() } });
             for (int i = 0; i <= 20; i++)
             {
-                Competition.Teams.Add(new Team() { Pilot = new Random().Next().ToString(), Mechanic = new Random().Next().ToString(), ModelName = new Random().Next().ToString() });
+                TimerSettings.Competition.Teams.Add(new Team() { Pilot = new Random().Next().ToString(), Mechanic = new Random().Next().ToString(), ModelName = new Random().Next().ToString() });
             }
             var RM = new ReportManager();
             RM.Show();

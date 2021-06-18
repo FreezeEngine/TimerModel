@@ -1,23 +1,24 @@
 ﻿using System;
+using System.Text.Json.Serialization;
 
 namespace TimerModel
 {
     public class Lap : IEquatable<Lap>
     {
-        public TimeSpan Time { get; private set; }
-        private DateTime PreviousTime { get; set; }
-        private bool First { get; set; }
-        public string ReportString()
+        [JsonIgnore]
+        private TimeSpan Time
         {
-            if (First)
+            get
             {
-                return PreviousTime.ToString("HH:mm:ss:FFF");
-            }
-            else
-            {
-                return GetLapTime();
+                return PreviousTime - LapTime;
             }
         }
+        public DateTime LapTime { get; set; }
+        public DateTime PreviousTime { get; set; }
+        public bool First { get; set; }
+        //public string Label { get; set; }
+        //public string LapTimePoints { get; set; }
+
         public override string ToString()
         {
             if (First)
@@ -35,12 +36,17 @@ namespace TimerModel
         }
         public Lap(DateTime fromTime, DateTime toTime, bool isFirst = false)
         {
-            if (!isFirst)
+            /*if (!isFirst)
             {
                 Time = fromTime - toTime;
-            }
+            }*/
             this.First = isFirst;
+            this.LapTime = toTime;
             this.PreviousTime = fromTime;
+        }
+        public Lap()
+        {
+
         }
         public override bool Equals(object obj)
         {

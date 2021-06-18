@@ -1,6 +1,8 @@
-﻿using System;
+﻿using CompetitionOrganizer.Objects;
+//using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
+using System.Text.Json.Serialization;
 using TimerModel.Objects;
 
 namespace TimerModel
@@ -9,15 +11,32 @@ namespace TimerModel
     {
         private string _TeamName;
         public string TeamName { get { if (_TeamName == null) { return "Без названия"; } else { return _TeamName; } } set { _TeamName = value; } }
-
-        private string _Pilot;
-        public string Pilot { get { if (_Pilot == null) { return "Без пилота"; } else { return _Pilot; } } set { _Pilot = value; } }
-
-        private string _Mechanic;
-        public string Mechanic { get { if (_Mechanic == null) { return "Без механика"; } else { return _Mechanic; } } set { if (value?.Length < 3 | value == "") { _Mechanic = null; return; } _Mechanic = value; } }
+        public Participant Pilot { get; set; }
+        public Participant Mechanic { get; set; }
+        //public string Mechanic { get { if (_Mechanic == null) { return "Без механика"; } else { return _Mechanic.ToString(); } } set { if (value?.Length < 3 | value == "") { _Mechanic = null; return; } _Mechanic = value; } }
         public string ModelName { get; set; }
 
-        public CompetingModels CM;
+        [JsonIgnore]
+        public CompetingModels CM
+        {
+            get
+            {
+                if (TimerSettings.Competition == null)
+                {
+                    return null;
+                }
+                var CM = TimerSettings.Competition.Teams.TeamClumps.Find(delegate (CompetingModels CM) { return CM.CompetingModel == ModelName; });
+                if (CM == null)
+                {
+                    if (Enabled)
+                        TimerSettings.Competition.Teams.TeamClumps.Add(new CompetingModels() { CompetingModel = ModelName });
+                }
+                return TimerSettings.Competition.Teams.TeamClumps.Find(delegate (CompetingModels CM) { return CM.CompetingModel == ModelName; });
+            }
+        }
+
+        //MAKE IT SMARTER
+        //public string CMName { get { return CM.CompetingModel; } set { } }
 
         public List<Round> _Rounds;
         public List<Round> Rounds
@@ -30,62 +49,45 @@ namespace TimerModel
                 }
                 return _Rounds;
             }
-            private set
+            set
             {
                 _Rounds = value;
             }
         }
         public byte CurrentRoundNum { get; set; }
+
+        [JsonIgnore]
         public Round CurrentRound
         {
             get
             {
-                return Rounds[CurrentRoundNum];
+                if (Enabled)
+                {
+                    return Rounds[CurrentRoundNum];
+                }
+                else
+                {
+                    return new Round();
+                }
             }
-            private set
+            set
             {
-                Rounds[CurrentRoundNum] = value;
+                if (Enabled)
+                    Rounds[CurrentRoundNum] = value;
             }
         }
         public bool Enabled { get; set; }
 
-        public Team()
+        public Team(bool Enabled)
         {
             Rounds.Add(new Round());
-            Enabled = true;
+            this.Enabled = Enabled;
+        }
+        public Team()
+        {
+
         }
 
-        public string GetShortPilotName()
-        {
-            return GetShortenName(Pilot);
-        }
-        public string GetShortMechanicName()
-        {
-            return GetShortenName(Mechanic);
-        }
-        private string GetShortenName(string Name)
-        {
-            if (Name.Contains("Без "))
-            {
-                return Name;
-            }
-
-            string ShortenName = Name;
-            var ExplodedName = Name.Split(" ");
-            if (ExplodedName.Length > 1)
-            {
-                ShortenName = ExplodedName[0] + " ";
-                for (int i = 1; i < ExplodedName.Length; i++)
-                {
-                    if (ExplodedName[i] == "")
-                    {
-                        continue;
-                    }
-                    ShortenName += ExplodedName[i][0] + ".";
-                }
-            }
-            return ShortenName;
-        }
         public void SelectRound(byte Round)
         {
             /*if (!(CM.RoundsForThisClass <= Round))
@@ -93,25 +95,26 @@ namespace TimerModel
                 CM.SetRoundsCount(Round);
                 return;
             }*/
-            if (Round <= Rounds.Count)
+            CurrentRoundNum = (byte)(Round - 1);
+            //AutoClosingMessageBox.Show(Round.ToString(),"d",8000);
+            if (Round > Rounds.Count)
             {
-                CurrentRoundNum = (byte)(Round - 1);
-                //Rounds[CurrentRound] = ;
-                return;
+                SetRoundsCount(Round);
+                //CurrentRoundNum = (byte)(Round - 1);
             }
             /*if (Rounds.Count >= Round)
             {
                 //Normal
             }*/
-            if (Round > CM.RoundsForThisClass)
-            {
-                return;
-                DialogResult dialogResult = MessageBox.Show("Вы пытаетесь превысить количество туров для соревнования моделей " + CM.CompetingModel + ". Увеличить количество туров для совревнования?", "Предупреждение", MessageBoxButtons.YesNo);
-                if (dialogResult == DialogResult.Yes)
-                {
-                    CM.SetRoundsCount(Round);
-                }
-            }
+            /*if (Round > CM.RoundsForThisClass)
+             {
+                 return;
+                 DialogResult dialogResult = MessageBox.Show("Вы пытаетесь превысить количество туров для соревнования моделей " + CM.CompetingModel + ". Увеличить количество туров для совревнования?", "Предупреждение", MessageBoxButtons.YesNo);
+                 if (dialogResult == DialogResult.Yes)
+                 {
+                     CM.SetRoundsCount(Round);
+                 }
+             }*/
         }
         public void SetRoundsCount(int RoundC)
         {
@@ -120,17 +123,16 @@ namespace TimerModel
                 return;
             }
 
-            if (RoundC < Rules.MinRounds)
+            /*if (RoundC < Rules.MinRounds)
             {
                 return;
-            }
+            }*/
             if (Rounds.Count > RoundC)
             {
-                int c = 1;
+                int c = 0;
                 while (!(Rounds.Count == RoundC))
                 {
-                    Rounds.Remove(Rounds[^c]);
-                    c++;
+                    Rounds.Remove(Rounds[^c++]);
                 }
                 return;
             }
@@ -174,6 +176,15 @@ namespace TimerModel
             //    CurrentRoundNum = 0;
             //}
         }
+        public bool HasSameParticipant(Team other)
+        {
+            if (other == null | other.Pilot == null | other.Mechanic == null)
+            {
+                return false;
+            }
+
+            return ((Pilot.Equals(other.Pilot) && other.Pilot.Name != null) | (Mechanic.Equals(other.Mechanic) && other.Mechanic.Name != null));
+        }
         public bool isFinished(int Round)
         {
             if (Round <= Rounds.Count)
@@ -184,11 +195,16 @@ namespace TimerModel
         }
         public void Reset()
         {
+            //var R = new Round();
             CurrentRound = new Round();
         }
         public override string ToString()
         {
-            return "П: " + GetShortPilotName() + " | М: " + GetShortMechanicName() + " | FM: " + ModelName + " | T: " + TeamName;
+            if (!Enabled)
+            {
+                return "Отсутсвует";
+            }
+            return "П: " + Pilot.ShortenName() + " | М: " + Mechanic.ShortenName() + " | FM: " + ModelName + " | T: " + TeamName;
         }
         public override bool Equals(object obj)
         {

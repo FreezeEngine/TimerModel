@@ -3,10 +3,10 @@
     class Rules
     {
         public static byte MaxRounds = 12;//12
-        public static byte MinRounds = 2;//6
+        public static byte MinRounds = 6;//6
 
         public static byte MaxLaps = 12;//12
-        public static byte MinLaps = 2;//6
+        public static byte MinLaps = 6;//6
 
         public static byte MaxFlyMisses = 16;
         public static byte MinFlyMisses = 0;

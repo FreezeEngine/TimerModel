@@ -10,6 +10,7 @@ namespace TimerModel.Forms.Setup_Forms
         public PrintModeSelector()
         {
             InitializeComponent();
+            TopMost = true;
             switch (TimerSettings.PrintMode)
             {
                 case PrintModes.Horizontal:
@@ -47,6 +48,7 @@ namespace TimerModel.Forms.Setup_Forms
 
         private void OK_Click(object sender, EventArgs e)
         {
+            Hide();
             Close();
         }
     }

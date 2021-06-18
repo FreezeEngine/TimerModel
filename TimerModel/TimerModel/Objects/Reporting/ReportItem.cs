@@ -4,21 +4,19 @@ namespace TimerModel.Objects
 {
     public class ReportItem : IEquatable<ReportItem>
     {
-        public string MainJudge { get; set; }
-        public string LaunchSupervisor { get; set; }
-        public string Scorekeeper { get; set; }
-
-        public string[] Lines = new string[4];
-
         public CompetingModels CompetingModel { get; private set; }
 
         public ReportItem(CompetingModels CM)
         {
             CompetingModel = CM;
-            Lines[0] = "ПРОТОКОЛ";
-            Lines[1] = "соревнований по авиамодельному спорту";
-            Lines[2] = "\"...\"  в классе радиоуправляемых моделей " + CompetingModel.CompetingModel;
-            Lines[3] = "Дата соревнования";
+            if (CompetingModel.Lines[0] == null | CompetingModel.Lines[0] == "")
+                CompetingModel.Lines[0] = "ПРОТОКОЛ";
+            if (CompetingModel.Lines[1] == null | CompetingModel.Lines[1] == "")
+                CompetingModel.Lines[1] = "соревнований по авиамодельному спорту";
+            if (CompetingModel.Lines[2] == null | CompetingModel.Lines[2] == "")
+                CompetingModel.Lines[2] = "\"...\"  в классе радиоуправляемых моделей " + CompetingModel.CompetingModel;
+            if (CompetingModel.Lines[3] == null | CompetingModel.Lines[3] == "")
+                CompetingModel.Lines[3] = "Дата соревнования";
         }
         public override string ToString()
         {
@@ -52,7 +50,7 @@ namespace TimerModel.Objects
                 return false;
             }
 
-            return (MainJudge == other.MainJudge);
+            return (CompetingModel == other.CompetingModel);
         }
     }
 }

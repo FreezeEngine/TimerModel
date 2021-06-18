@@ -16,45 +16,34 @@ namespace TimerModel.Objects.Reporting
             {
                 return;
             }
-            int MaxLaps = Competition.Teams.MaxLaps();
+            int MaxLaps = TimerSettings.Competition.Teams.MaxLaps();
             if (MaxLaps > 12)
             {
                 AutoClosingMessageBox.Show("Количество кругов превысило 12, шаблоны не предназначены для печати больше 12 кругов", "Ошибка", 5000);
                 return;
             }
-            string FN = "";
-            switch (MaxLaps)
+            string FN = MaxLaps switch
             {
-                case 12:
-                    FN = "Шаблон печати 12 кругов.xlsx";
-                    break;
-                case 11:
-                    FN = "Шаблон печати 11 кругов.xlsx";
-                    break;
-                default:
-                    FN = "Шаблон печати.xlsx";
-                    break;
-            }
+                12 => "Шаблон печати 12 кругов.xlsx",
+                11 => "Шаблон печати 11 кругов.xlsx",
+                _ => "Шаблон печати.xlsx",
+            };
             var ExecutablePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            var P = Path.Combine(ExecutablePath, "Templates/" + FN);
+            var P = Path.Combine(ExecutablePath, "Шаблоны/" + FN);
             var F = File.OpenRead(P);
             var Package = new ExcelPackage(F);
-            //F.Close();
             var Workbook = Package.Workbook;
             ExcelWorksheet Sheet;
 
             switch (TimerSettings.PrintMode)
             {
                 case PrintModes.Vertical:
-                    //Sheet = Workbook.Worksheets[1];
                     Workbook.Worksheets.Delete(0);
                     break;
                 case PrintModes.Horizontal:
-                    //Sheet = Workbook.Worksheets[0];
                     Workbook.Worksheets.Delete(1);
                     break;
                 default:
-                    //Sheet = Workbook.Worksheets[0];
                     break;
             }
 
@@ -75,29 +64,29 @@ namespace TimerModel.Objects.Reporting
                             {
                                 if (DS[0] == 'M')
                                 {
-                                    Team Team = new Team();
+                                    Team Team = new Team(false);
                                     switch (DS[1])
                                     {
                                         case '1':
-                                            if (!Competition.Teams.First.Enabled)
+                                            if (!TimerSettings.Competition.Teams.First.Enabled)
                                             {
                                                 continue;
                                             }
-                                            Team = Competition.Teams.First;
+                                            Team = TimerSettings.Competition.Teams.First;
                                             break;
                                         case '2':
-                                            if (!Competition.Teams.Second.Enabled)
+                                            if (!TimerSettings.Competition.Teams.Second.Enabled)
                                             {
                                                 continue;
                                             }
-                                            Team = Competition.Teams.Second;
+                                            Team = TimerSettings.Competition.Teams.Second;
                                             break;
                                         case '3':
-                                            if (!Competition.Teams.Third.Enabled)
+                                            if (!TimerSettings.Competition.Teams.Third.Enabled)
                                             {
                                                 continue;
                                             }
-                                            Team = Competition.Teams.Third;
+                                            Team = TimerSettings.Competition.Teams.Third;
                                             break;
                                     }
                                     if (DS.Contains("FM"))
@@ -114,7 +103,7 @@ namespace TimerModel.Objects.Reporting
                                             continue;
                                         }
 
-                                        Sheet.Cells[r, c].Value = Team.CurrentRound.Laps[index]?.ReportString();
+                                        Sheet.Cells[r, c].Value = Team.CurrentRound.Laps[index]?.GetLapTime();
                                         continue;
                                     }
                                     switch (DS.Remove(0, 2))
@@ -126,10 +115,10 @@ namespace TimerModel.Objects.Reporting
                                             Sheet.Cells[r, c].Value = Team.CM.CompetingModel;
                                             break;
                                         case "P":
-                                            Sheet.Cells[r, c].Value = Team.GetShortPilotName();
+                                            Sheet.Cells[r, c].Value = Team.Pilot.ShortenName();
                                             break;
                                         case "M":
-                                            Sheet.Cells[r, c].Value = Team.GetShortMechanicName();
+                                            Sheet.Cells[r, c].Value = Team.Mechanic.ShortenName();
                                             break;
                                         case "PTs":
                                             Sheet.Cells[r, c].Value = Team.CurrentRound.RoundPoints();
@@ -146,6 +135,7 @@ namespace TimerModel.Objects.Reporting
                 }
 
                 //Clearing
+                //Horizontal cycle
                 for (int c = 1; c <= 26; c++)
                 {
                     //Vertical cycle
@@ -164,16 +154,9 @@ namespace TimerModel.Objects.Reporting
                         }
                     }
                 }
-
-                //if (Mode == PrintModes.Both)
-                //{
-                //    break;
-                //}
             }
 
-
-            //, DateTime.Now.ToString("dd.MM.yyyy")+"/"
-            var SavingPath = Path.Combine(ExecutablePath, "RoundReports");
+            var SavingPath = Path.Combine(TimerSettings.CurrentProjectFolder, "Отчеты");
 
             if (!Directory.Exists(SavingPath))
             {
@@ -195,19 +178,28 @@ namespace TimerModel.Objects.Reporting
 
             F.Close();
             Package.Dispose();
+
+            Print(SavingFile);
+            /*
             if (TimerSettings.PrintingEnabled)
             {
-                Print(SavingFile); //Enable
-            }
+                var PrintDialog = MessageBox.Show("Печать завершена успешно?", "Проверка", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (PrintDialog == DialogResult.Yes)
+                {
+                    Print(SavingFile);
+                    return;
+                }
+            }*/
 
         }
+        //FIX Excel duplication
+
         public static void Print(string PathToFile)
         {
-            //FIX Excel duplication
-
+            if (!TimerSettings.PrintingEnabled)
+                return;
             Microsoft.Office.Interop.Excel.Application Excel = new Microsoft.Office.Interop.Excel.Application();
-            // Open the Workbook:
-            // TimerSettings.Excel.Workbooks;
+
             Microsoft.Office.Interop.Excel.Workbooks wbs = Excel.Workbooks;
             Microsoft.Office.Interop.Excel.Workbook wb = wbs.Open(
                 PathToFile,
@@ -215,7 +207,7 @@ namespace TimerModel.Objects.Reporting
                 Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing,
                 Type.Missing, Type.Missing, Type.Missing, Type.Missing);
 
-            if(TimerSettings.PrintMode == PrintModes.Both)
+            if (TimerSettings.PrintMode == PrintModes.Both)
             {
                 wb.PrintOutEx(1, 2);
             }
@@ -233,7 +225,5 @@ namespace TimerModel.Objects.Reporting
             Marshal.FinalReleaseComObject(Excel);
             GC.Collect();
         }
-
-
     }
 }

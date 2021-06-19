@@ -1,5 +1,6 @@
 ﻿using CompetitionOrganizer.Forms.Team_Managers;
 using System;
+using System.IO;
 using System.Windows.Forms;
 
 namespace TimerModel.Forms
@@ -65,6 +66,24 @@ namespace TimerModel.Forms
                 Close();
             }
             
+        }
+
+        private void RecoverData_Click(object sender, EventArgs e)
+        {
+            using (var fbd = new FolderBrowserDialog())
+            {
+                DialogResult result = fbd.ShowDialog();
+
+                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+                {
+                    string[] files = Directory.GetFiles(fbd.SelectedPath);
+                    foreach(var path in files)
+                    {
+                        File.OpenRead(path);
+                    }
+                    //System.Windows.Forms.MessageBox.Show("Files found: " + files.Length.ToString(), "Message");
+                }
+            }
         }
     }
 }

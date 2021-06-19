@@ -1,6 +1,7 @@
 ﻿using CompetitionOrganizer.Objects;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text.Json.Serialization;
 using TimerModel.Objects;
@@ -124,9 +125,33 @@ namespace TimerModel
 
         public void Finish()
         {
+            //onCompetitionFinished();
+            //return; //FIX
+            //List<byte> MinRounds = new List<byte>();
             foreach (var T in TimerSettings.Competition.Teams.AllTeams)
             {
                 //var Rc = 
+                var BR = T.Rounds.FindAll(delegate (Round R) { return !R.Finished; });
+                foreach (var R in BR)
+                {
+                    T.Rounds.Remove(R);
+                }
+                //MinRounds.Add((byte)T.Rounds.Count);
+            }
+            //byte minr = MinRounds.ToArray().Min();
+            foreach(var TC in TimerSettings.Competition.Teams.TeamClumps)
+            {
+                List<byte> MinRounds = new List<byte>();
+                foreach (var T in TC.Teams())
+                {
+                    MinRounds.Add((byte)T.Rounds.Count);
+                }
+                byte minr = MinRounds.ToArray().Min();
+
+                foreach (var T in TC.Teams())
+                {
+                    T.SetRoundsCount(minr);
+                }
             }
             onCompetitionFinished();
         }

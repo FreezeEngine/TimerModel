@@ -34,12 +34,14 @@ namespace CompetitionOrganizer.Forms.Team_Managers
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.TeamSetsTree = new System.Windows.Forms.TreeView();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.Shuffle2 = new System.Windows.Forms.Button();
+            this.Shuffle1 = new System.Windows.Forms.Button();
             this.MoveUp1 = new System.Windows.Forms.Button();
             this.MoveUp2 = new System.Windows.Forms.Button();
             this.MoveDown2 = new System.Windows.Forms.Button();
             this.MoveDown1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.AddTeam2 = new System.Windows.Forms.Button();
+            this.AddTeam = new System.Windows.Forms.Button();
             this.DeleteTeamSet2 = new System.Windows.Forms.Button();
             this.DeleteTeamSet1 = new System.Windows.Forms.Button();
             this.AddTeamSet2 = new System.Windows.Forms.Button();
@@ -54,8 +56,6 @@ namespace CompetitionOrganizer.Forms.Team_Managers
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.Submit = new System.Windows.Forms.Button();
-            this.Shuffle1 = new System.Windows.Forms.Button();
-            this.Shuffle2 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -106,8 +106,8 @@ namespace CompetitionOrganizer.Forms.Team_Managers
             this.groupBox2.Controls.Add(this.MoveUp2);
             this.groupBox2.Controls.Add(this.MoveDown2);
             this.groupBox2.Controls.Add(this.MoveDown1);
-            this.groupBox2.Controls.Add(this.button2);
-            this.groupBox2.Controls.Add(this.button1);
+            this.groupBox2.Controls.Add(this.AddTeam2);
+            this.groupBox2.Controls.Add(this.AddTeam);
             this.groupBox2.Controls.Add(this.DeleteTeamSet2);
             this.groupBox2.Controls.Add(this.DeleteTeamSet1);
             this.groupBox2.Controls.Add(this.AddTeamSet2);
@@ -129,6 +129,26 @@ namespace CompetitionOrganizer.Forms.Team_Managers
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Параметры";
+            // 
+            // Shuffle2
+            // 
+            this.Shuffle2.Location = new System.Drawing.Point(565, 15);
+            this.Shuffle2.Name = "Shuffle2";
+            this.Shuffle2.Size = new System.Drawing.Size(157, 23);
+            this.Shuffle2.TabIndex = 24;
+            this.Shuffle2.Text = "Перемешать";
+            this.Shuffle2.UseVisualStyleBackColor = true;
+            this.Shuffle2.Click += new System.EventHandler(this.Shuffle2_Click);
+            // 
+            // Shuffle1
+            // 
+            this.Shuffle1.Location = new System.Drawing.Point(206, 15);
+            this.Shuffle1.Name = "Shuffle1";
+            this.Shuffle1.Size = new System.Drawing.Size(157, 23);
+            this.Shuffle1.TabIndex = 23;
+            this.Shuffle1.Text = "Перемешать";
+            this.Shuffle1.UseVisualStyleBackColor = true;
+            this.Shuffle1.Click += new System.EventHandler(this.Shuffle1_Click);
             // 
             // MoveUp1
             // 
@@ -170,23 +190,23 @@ namespace CompetitionOrganizer.Forms.Team_Managers
             this.MoveDown1.UseVisualStyleBackColor = true;
             this.MoveDown1.Click += new System.EventHandler(this.MoveDown1_Click);
             // 
-            // button2
+            // AddTeam2
             // 
-            this.button2.Location = new System.Drawing.Point(565, 44);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(157, 23);
-            this.button2.TabIndex = 18;
-            this.button2.Text = "Добавить команду";
-            this.button2.UseVisualStyleBackColor = true;
+            this.AddTeam2.Location = new System.Drawing.Point(565, 44);
+            this.AddTeam2.Name = "AddTeam2";
+            this.AddTeam2.Size = new System.Drawing.Size(157, 23);
+            this.AddTeam2.TabIndex = 18;
+            this.AddTeam2.Text = "Добавить команду";
+            this.AddTeam2.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // AddTeam
             // 
-            this.button1.Location = new System.Drawing.Point(206, 44);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(157, 23);
-            this.button1.TabIndex = 17;
-            this.button1.Text = "Добавить команду";
-            this.button1.UseVisualStyleBackColor = true;
+            this.AddTeam.Location = new System.Drawing.Point(206, 44);
+            this.AddTeam.Name = "AddTeam";
+            this.AddTeam.Size = new System.Drawing.Size(157, 23);
+            this.AddTeam.TabIndex = 17;
+            this.AddTeam.Text = "Добавить команду";
+            this.AddTeam.UseVisualStyleBackColor = true;
             // 
             // DeleteTeamSet2
             // 
@@ -231,11 +251,11 @@ namespace CompetitionOrganizer.Forms.Team_Managers
             // Exchange
             // 
             this.Exchange.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.Exchange.Location = new System.Drawing.Point(203, 155);
+            this.Exchange.Location = new System.Drawing.Point(300, 131);
             this.Exchange.Margin = new System.Windows.Forms.Padding(0);
             this.Exchange.Name = "Exchange";
             this.Exchange.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.Exchange.Size = new System.Drawing.Size(326, 25);
+            this.Exchange.Size = new System.Drawing.Size(131, 25);
             this.Exchange.TabIndex = 12;
             this.Exchange.Text = "<->";
             this.Exchange.UseVisualStyleBackColor = true;
@@ -264,9 +284,9 @@ namespace CompetitionOrganizer.Forms.Team_Managers
             // 
             this.TeamSet2.FormattingEnabled = true;
             this.TeamSet2.ItemHeight = 15;
-            this.TeamSet2.Location = new System.Drawing.Point(532, 126);
+            this.TeamSet2.Location = new System.Drawing.Point(434, 126);
             this.TeamSet2.Name = "TeamSet2";
-            this.TeamSet2.Size = new System.Drawing.Size(145, 79);
+            this.TeamSet2.Size = new System.Drawing.Size(243, 79);
             this.TeamSet2.TabIndex = 6;
             // 
             // TeamSet1
@@ -275,7 +295,7 @@ namespace CompetitionOrganizer.Forms.Team_Managers
             this.TeamSet1.ItemHeight = 15;
             this.TeamSet1.Location = new System.Drawing.Point(56, 126);
             this.TeamSet1.Name = "TeamSet1";
-            this.TeamSet1.Size = new System.Drawing.Size(144, 79);
+            this.TeamSet1.Size = new System.Drawing.Size(241, 79);
             this.TeamSet1.TabIndex = 7;
             // 
             // label3
@@ -326,26 +346,6 @@ namespace CompetitionOrganizer.Forms.Team_Managers
             this.Submit.UseVisualStyleBackColor = true;
             this.Submit.Click += new System.EventHandler(this.Submit_Click);
             // 
-            // Shuffle1
-            // 
-            this.Shuffle1.Location = new System.Drawing.Point(206, 15);
-            this.Shuffle1.Name = "Shuffle1";
-            this.Shuffle1.Size = new System.Drawing.Size(157, 23);
-            this.Shuffle1.TabIndex = 23;
-            this.Shuffle1.Text = "Перемешать";
-            this.Shuffle1.UseVisualStyleBackColor = true;
-            this.Shuffle1.Click += new System.EventHandler(this.Shuffle1_Click);
-            // 
-            // Shuffle2
-            // 
-            this.Shuffle2.Location = new System.Drawing.Point(565, 15);
-            this.Shuffle2.Name = "Shuffle2";
-            this.Shuffle2.Size = new System.Drawing.Size(157, 23);
-            this.Shuffle2.TabIndex = 24;
-            this.Shuffle2.Text = "Перемешать";
-            this.Shuffle2.UseVisualStyleBackColor = true;
-            this.Shuffle2.Click += new System.EventHandler(this.Shuffle2_Click);
-            // 
             // TeamSetEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -387,8 +387,8 @@ namespace CompetitionOrganizer.Forms.Team_Managers
         private System.Windows.Forms.Button DeleteTeamSet1;
         private System.Windows.Forms.Button AddTeamSet2;
         private System.Windows.Forms.Button AddTeamSet1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button AddTeam2;
+        private System.Windows.Forms.Button AddTeam;
         private System.Windows.Forms.Button MoveUp1;
         private System.Windows.Forms.Button MoveUp2;
         private System.Windows.Forms.Button MoveDown2;

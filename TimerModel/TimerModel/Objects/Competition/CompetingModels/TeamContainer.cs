@@ -150,7 +150,7 @@ namespace TimerModel.Objects
 
             return MaxLaps.Max();
         }
-        bool Updater = false;
+        public bool Updater = false;
         public void ReloadTeamSet()
         {
             Updater = true;

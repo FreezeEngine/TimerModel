@@ -727,7 +727,15 @@ namespace TimerModel
         }
         private void Start_Click(object sender, EventArgs e)
         {
-            StartTimer();
+            if (GetTeam(0).CurrentRound.Finished | GetTeam(1).CurrentRound.Finished | GetTeam(2).CurrentRound.Finished)
+            {
+                MessageBox.Show("В одной из команд имеются данные на текущий тур, сбросьте их или смените тур");
+            }
+            else
+            {
+                StartTimer();
+            }
+
         }
         private void StartTimer()
         {
@@ -938,7 +946,7 @@ namespace TimerModel
         {
             Settings.Enabled = false;
             Settings ST = new Settings();
-            ST.FormClosing += (s, a) => { Settings.Enabled = true; };
+            ST.FormClosing += (s, a) => { Settings.Enabled = true; UpdateTeamsData(); };
             ST.Show();
         }
 
@@ -950,6 +958,13 @@ namespace TimerModel
             {
                 if (UpdateRoundCounters)
                 {
+                    foreach (var TS in TimerSettings.Competition.Teams.CurrentModel.TeamSets)
+                    {
+                        TS.Shuffle();
+                    }
+
+                    TimerSettings.Competition.Teams.ReloadTeamSet();
+
                     if (RoundNum.Value <= M1Round.Maximum)
                     {
                         M1Round.Value = RoundNum.Value;
@@ -962,6 +977,7 @@ namespace TimerModel
                     {
                         M3Round.Value = RoundNum.Value;
                     }
+
                     //TimerSettings.Competition.Teams.CurrentModel.CurrentTeamset.First.CurrentRoundNum = 
                 }
                 StopTimer();

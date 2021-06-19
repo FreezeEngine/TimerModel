@@ -102,6 +102,7 @@ namespace TimerModel.Objects
         private bool Updater = false;
         public void UpdateSets()
         {
+            TimerSettings.Competition.Teams.Updater = !TimerSettings.Competition.Teams.Updater;
             Updater = !Updater;
         }
         public TeamSet()

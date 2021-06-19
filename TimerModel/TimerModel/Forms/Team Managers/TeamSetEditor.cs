@@ -241,6 +241,10 @@ namespace CompetitionOrganizer.Forms.Team_Managers
                         SameParticipant = true;
                     }
                 }
+                if(TeamSet2.SelectedItem == TeamSet1.SelectedItem)
+                {
+                    SameParticipant = true;
+                }
                 if (SameParticipant)
                 {
                     MessageBox.Show("Перемещаемая команда делит одного участника в тройке назвачения, операция отменена");
@@ -348,6 +352,7 @@ namespace CompetitionOrganizer.Forms.Team_Managers
                 TeamSet2.Items[1] = TeamSet2.SelectedItem;
                 TeamSet2.Items[2] = T1;
             }
+            //TimerSettings.Competition.Teams.First
             TimerSettings.Competition.Teams.TeamClumps[Model2.SelectedIndex].TeamSets[TS2.SelectedIndex].UpdateAsList(new Team[3] { (Team)TeamSet2.Items[0], (Team)TeamSet2.Items[1], (Team)TeamSet2.Items[2] });
             TimerSettings.Competition.Teams.TeamClumps[Model2.SelectedIndex].TeamSets[TS2.SelectedIndex].UpdateSets();
             //.Competition.Teams.TeamClumps[Model2.SelectedIndex].TeamSets[TS2.SelectedIndex].UpdateAsList(new Team[3] { (Team)TeamSet2.Items[0], (Team)TeamSet2.Items[1], (Team)TeamSet2.Items[2] });

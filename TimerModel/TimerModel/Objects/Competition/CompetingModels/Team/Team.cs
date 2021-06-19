@@ -63,6 +63,10 @@ namespace TimerModel
             {
                 if (Enabled)
                 {
+                    if(Rounds.Count >= CurrentRoundNum)
+                    {
+                        return Rounds[Rounds.Count - 1];
+                    }
                     return Rounds[CurrentRoundNum];
                 }
                 else
@@ -129,7 +133,7 @@ namespace TimerModel
             }*/
             if (Rounds.Count > RoundC)
             {
-                int c = 0;
+                int c = 1;
                 while (!(Rounds.Count == RoundC))
                 {
                     Rounds.Remove(Rounds[^c++]);
@@ -178,12 +182,35 @@ namespace TimerModel
         }
         public bool HasSameParticipant(Team other)
         {
-            if (other == null | other.Pilot == null | other.Mechanic == null)
+            if (other == null)
             {
                 return false;
             }
+            //bool HSP = false;
+            //bool HSM = false;
 
-            return ((Pilot.Equals(other.Pilot) && other.Pilot.Name != null) | (Mechanic.Equals(other.Mechanic) && other.Mechanic.Name != null));
+            if (Pilot != null && Pilot?.Name != null)
+            {
+                if (other.Pilot != null && other.Pilot?.Name != null)
+                {
+                    if (Pilot.Equals(other.Pilot))
+                    {
+                        return true;
+                    }
+                }
+            }
+            if (Mechanic != null && Mechanic?.Name != null)
+            {
+                if (other.Mechanic != null && other.Mechanic?.Name != null)
+                {
+                    if (Mechanic.Equals(other.Mechanic))
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+            //return ((Pilot.Equals(other.Pilot) && other.Pilot?.Name != null) | (Mechanic.Equals(other.Mechanic) && other.Mechanic?.Name != null));
         }
         public bool isFinished(int Round)
         {

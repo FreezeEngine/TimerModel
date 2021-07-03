@@ -31,13 +31,14 @@ namespace TimerModel.Forms
         {
             this.TestModeCheckBox = new System.Windows.Forms.CheckBox();
             this.DevGroupBox = new System.Windows.Forms.GroupBox();
+            this.RecoverData = new System.Windows.Forms.Button();
             this.FileGeneration = new System.Windows.Forms.CheckBox();
             this.DoubleClickProtection = new System.Windows.Forms.CheckBox();
             this.Print = new System.Windows.Forms.CheckBox();
             this.OpenCompetitionManager = new System.Windows.Forms.Button();
             this.EditTeamSets = new System.Windows.Forms.Button();
             this.EndCompetition = new System.Windows.Forms.Button();
-            this.RecoverData = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.DevGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -54,6 +55,7 @@ namespace TimerModel.Forms
             // 
             // DevGroupBox
             // 
+            this.DevGroupBox.Controls.Add(this.button1);
             this.DevGroupBox.Controls.Add(this.RecoverData);
             this.DevGroupBox.Controls.Add(this.FileGeneration);
             this.DevGroupBox.Controls.Add(this.DoubleClickProtection);
@@ -65,6 +67,16 @@ namespace TimerModel.Forms
             this.DevGroupBox.TabIndex = 1;
             this.DevGroupBox.TabStop = false;
             this.DevGroupBox.Text = "Работа модулей";
+            // 
+            // RecoverData
+            // 
+            this.RecoverData.Location = new System.Drawing.Point(126, 10);
+            this.RecoverData.Name = "RecoverData";
+            this.RecoverData.Size = new System.Drawing.Size(75, 23);
+            this.RecoverData.TabIndex = 5;
+            this.RecoverData.Text = "Recovery";
+            this.RecoverData.UseVisualStyleBackColor = true;
+            this.RecoverData.Click += new System.EventHandler(this.RecoverData_Click);
             // 
             // FileGeneration
             // 
@@ -135,15 +147,15 @@ namespace TimerModel.Forms
             this.EndCompetition.UseVisualStyleBackColor = true;
             this.EndCompetition.Click += new System.EventHandler(this.EndCompetition_Click);
             // 
-            // RecoverData
+            // button1
             // 
-            this.RecoverData.Location = new System.Drawing.Point(113, 19);
-            this.RecoverData.Name = "RecoverData";
-            this.RecoverData.Size = new System.Drawing.Size(75, 23);
-            this.RecoverData.TabIndex = 5;
-            this.RecoverData.Text = "Recovery";
-            this.RecoverData.UseVisualStyleBackColor = true;
-            this.RecoverData.Click += new System.EventHandler(this.RecoverData_Click);
+            this.button1.Location = new System.Drawing.Point(126, 32);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(76, 12);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Settings
             // 
@@ -177,5 +189,6 @@ namespace TimerModel.Forms
         private System.Windows.Forms.Button EditTeamSets;
         private System.Windows.Forms.Button EndCompetition;
         private System.Windows.Forms.Button RecoverData;
+        private System.Windows.Forms.Button button1;
     }
 }

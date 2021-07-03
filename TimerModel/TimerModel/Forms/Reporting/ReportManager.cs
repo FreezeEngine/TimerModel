@@ -138,5 +138,10 @@ namespace TimerModel.Forms
         {
             SaveFile(true);
         }
+
+        private void ReportManager_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

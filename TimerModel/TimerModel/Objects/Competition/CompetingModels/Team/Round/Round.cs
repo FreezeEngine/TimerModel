@@ -12,6 +12,10 @@ namespace TimerModel
         public DateTime RoundStart { get; set; }
         public DateTime CurrentTime { get; set; }
         public DateTime PreviousTime { get; set; }
+
+        public double PointsD { get; set; }
+        public double TimeD { get; set; }
+
         [JsonIgnore]
         public TimeSpan Time
         {
@@ -31,6 +35,10 @@ namespace TimerModel
         {
             get
             {
+                if(PointsD != 0)
+                {
+                    return PointsD;
+                }
                 byte Value = TotalFlyMisses();
 
                 if (Value == 1)
@@ -57,6 +65,10 @@ namespace TimerModel
         {
             get
             {
+                if (TimeD != 0)
+                {
+                    return TimeD;
+                }
                 if (Finished && !BadFinish)
                 {
                     double D = Math.Round(Convert.ToDouble(Time.TotalSeconds), 2);
@@ -118,6 +130,10 @@ namespace TimerModel
             //{
             //    TimeFLabel = Time.ToString(@"mm\,ss\,ff");
             //}
+            if(TimeD != 0)
+            {
+                return TimeD.ToString();
+            }
             return Time.ToString(@"mm\,ss\,ff");
         }
         public string RoundPoints()

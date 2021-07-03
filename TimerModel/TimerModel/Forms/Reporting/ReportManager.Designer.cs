@@ -208,6 +208,7 @@ namespace TimerModel.Forms
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Менеджер отчетов";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ReportManager_FormClosing);
+            this.Load += new System.EventHandler(this.ReportManager_Load);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);

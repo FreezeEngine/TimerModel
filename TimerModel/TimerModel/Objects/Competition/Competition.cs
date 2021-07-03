@@ -123,7 +123,7 @@ namespace TimerModel
             }
         }
 
-        public void Finish()
+        public void Finish(bool Recover = false)
         {
             //onCompetitionFinished();
             //return; //FIX
@@ -139,20 +139,41 @@ namespace TimerModel
                 //MinRounds.Add((byte)T.Rounds.Count);
             }
             //byte minr = MinRounds.ToArray().Min();
-            foreach(var TC in TimerSettings.Competition.Teams.TeamClumps)
+            if (!Recover)
             {
-                List<byte> MinRounds = new List<byte>();
-                foreach (var T in TC.Teams())
+                foreach (var TC in TimerSettings.Competition.Teams.TeamClumps)
                 {
-                    MinRounds.Add((byte)T.Rounds.Count);
-                }
-                byte minr = MinRounds.ToArray().Min();
+                    List<byte> MinRounds = new List<byte>();
+                    foreach (var T in TC.Teams())
+                    {
+                        MinRounds.Add((byte)T.Rounds.Count);
+                    }
+                    byte minr = MinRounds.ToArray().Min();
 
-                foreach (var T in TC.Teams())
-                {
-                    T.SetRoundsCount(minr);
+                    foreach (var T in TC.Teams())
+                    {
+                        T.SetRoundsCount(minr);
+                    }
                 }
             }
+            else
+            {
+                foreach (var TC in TimerSettings.Competition.Teams.TeamClumps)
+                {
+                    List<byte> MaxRounds = new List<byte>();
+                    foreach (var T in TC.Teams())
+                    {
+                        MaxRounds.Add((byte)T.Rounds.Count);
+                    }
+                    byte maxr = MaxRounds.ToArray().Max();
+
+                    foreach (var T in TC.Teams())
+                    {
+                        T.SetRoundsCount(maxr);
+                    }
+                }
+            }
+            if(onCompetitionFinished != null)
             onCompetitionFinished();
         }
 

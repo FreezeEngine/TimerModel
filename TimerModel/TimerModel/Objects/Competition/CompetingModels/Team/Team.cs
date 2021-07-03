@@ -133,10 +133,10 @@ namespace TimerModel
             }*/
             if (Rounds.Count > RoundC)
             {
-                int c = 1;
+                //int c = 1;
                 while (!(Rounds.Count == RoundC))
                 {
-                    Rounds.Remove(Rounds[^c++]);
+                    Rounds.Remove(Rounds[^1]);
                 }
                 return;
             }

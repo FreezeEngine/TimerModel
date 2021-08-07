@@ -31,6 +31,7 @@ namespace TimerModel.Forms
         {
             this.TestModeCheckBox = new System.Windows.Forms.CheckBox();
             this.DevGroupBox = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.RecoverData = new System.Windows.Forms.Button();
             this.FileGeneration = new System.Windows.Forms.CheckBox();
             this.DoubleClickProtection = new System.Windows.Forms.CheckBox();
@@ -38,18 +39,17 @@ namespace TimerModel.Forms
             this.OpenCompetitionManager = new System.Windows.Forms.Button();
             this.EditTeamSets = new System.Windows.Forms.Button();
             this.EndCompetition = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.DevGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // TestModeCheckBox
             // 
             this.TestModeCheckBox.AutoSize = true;
-            this.TestModeCheckBox.Location = new System.Drawing.Point(12, 130);
+            this.TestModeCheckBox.Location = new System.Drawing.Point(12, 131);
             this.TestModeCheckBox.Name = "TestModeCheckBox";
-            this.TestModeCheckBox.Size = new System.Drawing.Size(130, 19);
+            this.TestModeCheckBox.Size = new System.Drawing.Size(114, 19);
             this.TestModeCheckBox.TabIndex = 0;
-            this.TestModeCheckBox.Text = "Режим разработки";
+            this.TestModeCheckBox.Text = "Дополнительно";
             this.TestModeCheckBox.UseVisualStyleBackColor = true;
             this.TestModeCheckBox.CheckedChanged += new System.EventHandler(this.TestModeCheckBox_CheckedChanged);
             // 
@@ -61,20 +61,30 @@ namespace TimerModel.Forms
             this.DevGroupBox.Controls.Add(this.DoubleClickProtection);
             this.DevGroupBox.Controls.Add(this.Print);
             this.DevGroupBox.Enabled = false;
-            this.DevGroupBox.Location = new System.Drawing.Point(12, 154);
+            this.DevGroupBox.Location = new System.Drawing.Point(12, 155);
             this.DevGroupBox.Name = "DevGroupBox";
-            this.DevGroupBox.Size = new System.Drawing.Size(202, 100);
+            this.DevGroupBox.Size = new System.Drawing.Size(202, 184);
             this.DevGroupBox.TabIndex = 1;
             this.DevGroupBox.TabStop = false;
             this.DevGroupBox.Text = "Работа модулей";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(6, 148);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(190, 30);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "Создать шаблон соревнований";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // RecoverData
             // 
-            this.RecoverData.Location = new System.Drawing.Point(126, 10);
+            this.RecoverData.Location = new System.Drawing.Point(6, 100);
             this.RecoverData.Name = "RecoverData";
-            this.RecoverData.Size = new System.Drawing.Size(75, 23);
+            this.RecoverData.Size = new System.Drawing.Size(190, 42);
             this.RecoverData.TabIndex = 5;
-            this.RecoverData.Text = "Recovery";
+            this.RecoverData.Text = "Восстановить данные по полетным листам";
             this.RecoverData.UseVisualStyleBackColor = true;
             this.RecoverData.Click += new System.EventHandler(this.RecoverData_Click);
             // 
@@ -139,7 +149,7 @@ namespace TimerModel.Forms
             // 
             // EndCompetition
             // 
-            this.EndCompetition.Location = new System.Drawing.Point(12, 260);
+            this.EndCompetition.Location = new System.Drawing.Point(13, 345);
             this.EndCompetition.Name = "EndCompetition";
             this.EndCompetition.Size = new System.Drawing.Size(202, 36);
             this.EndCompetition.TabIndex = 4;
@@ -147,21 +157,11 @@ namespace TimerModel.Forms
             this.EndCompetition.UseVisualStyleBackColor = true;
             this.EndCompetition.Click += new System.EventHandler(this.EndCompetition_Click);
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(126, 32);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(76, 12);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(227, 303);
+            this.ClientSize = new System.Drawing.Size(227, 393);
             this.Controls.Add(this.EndCompetition);
             this.Controls.Add(this.EditTeamSets);
             this.Controls.Add(this.OpenCompetitionManager);

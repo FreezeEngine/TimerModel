@@ -249,17 +249,28 @@ namespace TimerModel.Objects
             }
             //GenerateTeamSets();
         }
-        public void Remove(Team Team)
+        public void Remove(Team teamToDelete)
         {
-            return; //TEAM INDEXES UPDATE AFTER DELETION!!!!!
-            AllTeams.Remove(Team);
+            //return; //TEAM INDEXES UPDATE AFTER DELETION!!!!!
+            sbyte teamIndex = (sbyte)AllTeams.FindIndex(delegate (Team t) { return t == teamToDelete; });
+            AllTeams.Remove(teamToDelete);
             //TeamClumps.FindAll(delegate (CompetingModels CM) { return CM.Teams().Count == 0; }).ForEach(delegate (CompetingModels CM) { TeamClumps.Remove(CM); });
             //GenerateTeamSets();
+
+
+            
             TeamClumps.ForEach(delegate (CompetingModels CM)
             {
+                while (CM.TeamSets.Find(delegate (TeamSet TS) { return TS.Set.ToList().Contains(teamIndex); }) != null)
+                {
+                    CM.TeamSets.Remove(CM.TeamSets.Find(delegate (TeamSet TS) { return !TS.First.Enabled && !TS.Second.Enabled && !TS.Third.Enabled; }));
+                    //return;
+                }
+                //delete all empty clumps
                 while (CM.TeamSets.Find(delegate (TeamSet TS) { return !TS.First.Enabled && !TS.Second.Enabled && !TS.Third.Enabled; }) != null)
                 {
                     CM.TeamSets.Remove(CM.TeamSets.Find(delegate (TeamSet TS) { return !TS.First.Enabled && !TS.Second.Enabled && !TS.Third.Enabled; }));
+                    //return;
                 }
             });
 
@@ -284,7 +295,6 @@ namespace TimerModel.Objects
             {
                 Add(T);
             }
-
 
             GenerateTeamSets(); //Fix reordering!!!
         }

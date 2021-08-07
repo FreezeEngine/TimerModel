@@ -1763,7 +1763,6 @@
         private System.Windows.Forms.NumericUpDown M2Round;
         private System.Windows.Forms.Label M2L1;
         private System.Windows.Forms.Label NextInOrder;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button NextSetOfTeamsBTN;
         private System.Windows.Forms.Button Print;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel15;

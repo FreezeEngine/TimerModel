@@ -97,7 +97,7 @@ namespace TimerModel.Forms
                         var Workbook = Package.Workbook;
                         //if (Workbook.Worksheets.Count == 2|)
                         //{
-                        
+
                         byte mnum = 0;
                         byte shift = 0;
                         var Sheet = Workbook.Worksheets[Workbook.Worksheets.Count - 1];
@@ -127,7 +127,7 @@ namespace TimerModel.Forms
                                 var Round = new Round() { Finished = true, TimeD = timev, PointsD = points, FlyMisses = new byte[3] { overallfm, 0, 0 } };
                                 void Fuckedup()
                                 {
-                                    string f = "\r\n"+path +" |||||"+ model + " " + pilot + " " + mechanic + " R-" + round_num + " FM-" + overallfm + " P - " + points.ToString() + " -> P- " + Round.Points + " T - " + Round.TimeD + " FM - " + Round.TotalFlyMisses();
+                                    string f = "\r\n" + path + " |||||" + model + " " + pilot + " " + mechanic + " R-" + round_num + " FM-" + overallfm + " P - " + points.ToString() + " -> P- " + Round.Points + " T - " + Round.TimeD + " FM - " + Round.TotalFlyMisses();
                                     File.AppendAllText(TTP, f);
 
                                 }
@@ -180,7 +180,7 @@ namespace TimerModel.Forms
                         }
                         else
                         {
-                            MessageBox.Show(path);
+                            MessageBox.Show("Файл потребуется внести вручную - " + path);
                             //continue;
                         }
                         //}

@@ -42,6 +42,8 @@ namespace TimerModel
             this.JustUse = new System.Windows.Forms.Button();
             this.ChooseEmpty = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -61,7 +63,7 @@ namespace TimerModel
             // 
             // Add
             // 
-            this.Add.Location = new System.Drawing.Point(20, 74);
+            this.Add.Location = new System.Drawing.Point(21, 112);
             this.Add.Name = "Add";
             this.Add.Size = new System.Drawing.Size(121, 37);
             this.Add.TabIndex = 1;
@@ -71,7 +73,7 @@ namespace TimerModel
             // 
             // Remove
             // 
-            this.Remove.Location = new System.Drawing.Point(19, 173);
+            this.Remove.Location = new System.Drawing.Point(20, 211);
             this.Remove.Name = "Remove";
             this.Remove.Size = new System.Drawing.Size(122, 37);
             this.Remove.TabIndex = 2;
@@ -101,7 +103,7 @@ namespace TimerModel
             // 
             // Edit
             // 
-            this.Edit.Location = new System.Drawing.Point(20, 117);
+            this.Edit.Location = new System.Drawing.Point(21, 155);
             this.Edit.Name = "Edit";
             this.Edit.Size = new System.Drawing.Size(121, 37);
             this.Edit.TabIndex = 5;
@@ -122,7 +124,7 @@ namespace TimerModel
             // 
             // OpenCompetitionManager
             // 
-            this.OpenCompetitionManager.Location = new System.Drawing.Point(20, 216);
+            this.OpenCompetitionManager.Location = new System.Drawing.Point(21, 254);
             this.OpenCompetitionManager.Name = "OpenCompetitionManager";
             this.OpenCompetitionManager.Size = new System.Drawing.Size(121, 57);
             this.OpenCompetitionManager.TabIndex = 8;
@@ -134,7 +136,7 @@ namespace TimerModel
             // 
             this.FlyModelsList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.FlyModelsList.FormattingEnabled = true;
-            this.FlyModelsList.Location = new System.Drawing.Point(20, 35);
+            this.FlyModelsList.Location = new System.Drawing.Point(21, 73);
             this.FlyModelsList.Name = "FlyModelsList";
             this.FlyModelsList.Size = new System.Drawing.Size(120, 23);
             this.FlyModelsList.TabIndex = 9;
@@ -143,7 +145,7 @@ namespace TimerModel
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(19, 15);
+            this.label1.Location = new System.Drawing.Point(20, 53);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(53, 15);
             this.label1.TabIndex = 10;
@@ -173,6 +175,8 @@ namespace TimerModel
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.Window;
+            this.panel1.Controls.Add(this.textBox1);
+            this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.ChooseEmpty);
             this.panel1.Controls.Add(this.CreateAndUse);
             this.panel1.Controls.Add(this.Add);
@@ -188,6 +192,22 @@ namespace TimerModel
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(163, 537);
             this.panel1.TabIndex = 13;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(21, 27);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(121, 23);
+            this.textBox1.TabIndex = 14;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(20, 9);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(45, 15);
+            this.label2.TabIndex = 13;
+            this.label2.Text = "Поиск:";
             // 
             // tableLayoutPanel1
             // 
@@ -241,5 +261,7 @@ namespace TimerModel
         private System.Windows.Forms.Button ChooseEmpty;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label2;
     }
 }

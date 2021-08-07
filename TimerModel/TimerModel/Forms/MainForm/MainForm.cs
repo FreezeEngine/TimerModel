@@ -403,7 +403,7 @@ namespace TimerModel
                 M3Round.Value = Teams.Third.CurrentRoundNum + 1;
             }
             UpdateRoundCounters = true;
-
+            /*
             if (RoundNum.Value <= M1Round.Maximum)
             {
                 M1Round.Value = RoundNum.Value;
@@ -416,7 +416,7 @@ namespace TimerModel
             {
                 M3Round.Value = RoundNum.Value;
             }
-
+            */
             RoundNum.Maximum = Teams.MaxRounds();
 
             TimeSpanTable1.BackColor = (Teams.First.Enabled) ? (SystemColors.ButtonHighlight) : (SystemColors.GrayText);

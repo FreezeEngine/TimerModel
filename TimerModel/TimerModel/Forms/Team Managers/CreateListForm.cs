@@ -37,6 +37,7 @@ namespace TimerModel
             FlyModelsList.Text = null;
             FlyModelsList.Items.AddRange(TimerSettings.Competition.Teams.TeamClumps?.ToArray());
             FlyModelsList.Items.Add("Все модели");
+            FlyModelsList.Items.Add("Не используемые");
 
             if (TimerSettings.Competition.Teams.TeamClumps.Count != 0)
             {

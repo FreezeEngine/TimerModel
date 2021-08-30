@@ -4,6 +4,7 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TimerModel.Forms;
+using TimerModel.Objects;
 
 namespace TimerModel
 {
@@ -190,18 +191,34 @@ namespace TimerModel
 
         private void FlyModelsList_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            UpdateList();
+        }
+        private void UpdateList()
+        {
+            ListOfTeams.Items.Clear();
+            List<Team> Ts;
             if (FlyModelsList.SelectedIndex == TimerSettings.Competition.Teams.TeamClumps.Count)
             {
-                ListOfTeams.Items.Clear();
-                ListOfTeams.Items.AddRange(TimerSettings.Competition.Teams.GetTeams().ToArray());
-                return;
+                Ts = TimerSettings.Competition.Teams.GetTeams();
             }
-            ListOfTeams.Items.Clear();
-            ListOfTeams.Items.AddRange(TimerSettings.Competition.Teams.TeamClumps[FlyModelsList.SelectedIndex].Teams().ToArray());
-
+            else if(FlyModelsList.SelectedIndex < TimerSettings.Competition.Teams.TeamClumps.Count)
+            {
+                Ts = TimerSettings.Competition.Teams.TeamClumps[FlyModelsList.SelectedIndex].Teams();
+            }else
+            {
+                Ts = TimerSettings.Competition.Teams.AllTeams.FindAll(delegate (Team T) { return T.CM.TeamSets.Find(delegate(TeamSet tset) { return tset.ShareSamePerson(T); }) == null; });
+            }
+            List<Team> TsFiltered;
+            if (searchBox.Text != "")
+            {
+                TsFiltered = Ts.FindAll(delegate (Team T) { return T.Pilot.Name.Contains(searchBox.Text)|T.Mechanic.Name.Contains(searchBox.Text); });
+            }
+            else
+            {
+                TsFiltered = Ts;
+            }
+            ListOfTeams.Items.AddRange(TsFiltered.ToArray());
         }
-
         private void JustUse_Click(object sender, EventArgs e)
         {
             List<Team> TeamsList = new List<Team>();
@@ -225,6 +242,11 @@ namespace TimerModel
             Choosen_Team = new Team() { Enabled = false };
             SomethingChanged = true;
             Close();
+        }
+
+        private void searchBox_TextChanged(object sender, EventArgs e)
+        {
+            UpdateList();
         }
     }
 }

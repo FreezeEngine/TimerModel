@@ -73,7 +73,7 @@ namespace TimerModel.Forms
                         {
                             if (Combined)
                             {
-                                TimerSettings.Competition = TimerSettings.Container.GetCombined();
+                                TimerSettings.Competition = TimerSettings.Container.Competition;
                                 LoadReports();
                             }
                             byte[] b = FinalReport.Generate(Reports);

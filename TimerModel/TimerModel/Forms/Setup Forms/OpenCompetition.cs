@@ -45,7 +45,7 @@ namespace CompetitionOrganizer.Forms.Setup_Forms
             ProjectsList.Items.Clear();
             foreach (CompetitionsContainer CC in Projects)
             {
-                ProjectsList.Items.Add("Название: " + CC.Name);
+                ProjectsList.Items.Add("Название: " + CC.Name + (CC.Competition.Finished ? " (Завершено)" : ""));
             }
             if (Projects.Length == 0)
             {
@@ -55,46 +55,35 @@ namespace CompetitionOrganizer.Forms.Setup_Forms
                 DeleteCompetition.Visible = false;
                 ModelStartBox.Visible = false;
                 InfoBox.Visible = false;
-                SelectCompetition.Visible = false;
-                SelectCompetition.Items.Clear();
+                CompetitionLabel.Visible = false;
             }
             else
             {
                 ProjectsList.SelectedIndex = ProjectsList.Items.Count - 1;
-                SelectCompetition.SelectedIndex = SelectCompetition.Items.Count - 1;
+                CompetitionLabel.Text = Projects[ProjectsList.SelectedIndex].Competition.ToString();
+                InfoBox.Visible = true;
+                UpdateData();
             }
         }
         void UpdateData()
         {
-
             MainTree.Nodes.Clear();
-            if (SelectCompetition.SelectedIndex == SelectCompetition.Items.Count - 1)
-            {
-                InfoBox.Visible = false;
-
-            }
 
             if (Projects.Length == 0)
             {
                 return;
             }
+
             StartModelIndex.Items.Clear();
             if (ProjectsList.SelectedIndex != -1)
             {
-                if (SelectCompetition.SelectedIndex == SelectCompetition.Items.Count - 1)
-                {
-                    StartModelIndex.Items.AddRange(Projects[ProjectsList.SelectedIndex].PartsOfCompetitions[^1].Teams.TeamClumps.ToArray());
-                    StartModelIndex.SelectedIndex = 0;
-                    return;
-                }
-                else
-                {
-                    StartModelIndex.Items.AddRange(Projects[ProjectsList.SelectedIndex].PartsOfCompetitions[SelectCompetition.SelectedIndex].Teams.TeamClumps.ToArray());
-                }
+                StartModelIndex.Items.AddRange(Projects[ProjectsList.SelectedIndex].Competition.Teams.TeamClumps.ToArray());
                 StartModelIndex.SelectedIndex = 0;
+                //return;
             }
+
             var CC = Projects[ProjectsList.SelectedIndex];
-            var C = CC.PartsOfCompetitions[SelectCompetition.SelectedIndex];
+            var C = CC.Competition;
 
             TeamsCount.Text = "Количество команд: " + C.Teams.Count.ToString();
             PeopleCount.Text = "Количество участников: " + C.Teams.Participants().Count.ToString();
@@ -110,66 +99,9 @@ namespace CompetitionOrganizer.Forms.Setup_Forms
             HeadOfAStart.Text = "Начальник старта: " + LS;
 
 
-            MainTree.Nodes.Add("Соревнование");
-            int c = 0;
-            //if
-            //MessageBox.Show(Projects[ProjectsList.SelectedIndex].PartsOfCompetitions[SelectCompetition.SelectedIndex].Teams?.TeamClumps.Count.ToString());
-            if (!(SelectCompetition.SelectedIndex == Projects[ProjectsList.SelectedIndex].PartsOfCompetitions.Count))
-            {
-                TimerSettings.Competition = Projects[ProjectsList.SelectedIndex].PartsOfCompetitions[SelectCompetition.SelectedIndex];
-            }
-            var TCs = Projects[ProjectsList.SelectedIndex].PartsOfCompetitions[SelectCompetition.SelectedIndex].Teams?.GetTeamClumps();
-            foreach (var TC in TCs)
-            {
-                //MessageBox.Show(c.ToString());
-                MainTree.CheckBoxes = false;
-                MainTree.Nodes[0].Nodes.Add("Между моделями: " + TC.CompetingModel + " | Количество команд: " + TC.Teams().Count);
-                //MainTree.Nodes[0].Nodes[c].Nodes.Add("Туров в соревновании: " + TC.RoundsForThisClass.ToString());
-                int d = 0;
-                MainTree.Nodes[0].Nodes[c].Nodes.Add("Команды:");
+            var TCs = C.Teams?.TeamClumps;
 
-                var Ts = TC.Teams();
-
-                foreach (var T in Ts)
-                {
-                    //MessageBox.Show(d.ToString());
-                    MainTree.Nodes[0].Nodes[c].Nodes[0].Nodes.Add(T.ToString());
-                    MainTree.Nodes[0].Nodes[c].Nodes[0].Nodes[d].Nodes.Add("Текущий тур: " + (T.CurrentRoundNum + 1).ToString());
-                    MainTree.Nodes[0].Nodes[c].Nodes[0].Nodes[d].Nodes.Add("Туры: ");
-                    int b = 0;
-                    foreach (var TD in T?.Rounds)
-                    {
-                        MainTree.Nodes[0].Nodes[c].Nodes[0].Nodes[d].Nodes[1].Nodes.Add("Тур - " + (b + 1).ToString());
-                        if (TD.Laps.Count == 0)
-                        {
-                            MainTree.Nodes[0].Nodes[c].Nodes[0].Nodes[d].Nodes[1].Nodes[b].Nodes.Add("В очереди");
-                            b++;
-                            continue;
-                        }
-                        MainTree.Nodes[0].Nodes[c].Nodes[0].Nodes[d].Nodes[1].Nodes[b].Nodes.Add("Круги:");
-                        int e = 0;
-                        foreach (var TL in TD?.Laps)
-                        {
-                            MainTree.Nodes[0].Nodes[c].Nodes[0].Nodes[d].Nodes[1].Nodes[b].Nodes[0].Nodes.Add(TL.ToString());
-                            e++;
-                        }
-                        MainTree.Nodes[0].Nodes[c].Nodes[0].Nodes[d].Nodes[1].Nodes[b].Nodes.Add("Время: " + TD.RoundTTime());
-                        MainTree.Nodes[0].Nodes[c].Nodes[0].Nodes[d].Nodes[1].Nodes[b].Nodes.Add("Всего очков: " + TD.RoundPoints());
-                        b++;
-                        if (T.CurrentRound == TD)
-                        {
-                            if (!T.CurrentRound.Finished)
-                            {
-                                MainTree.Nodes[0].Nodes[c].Nodes[0].Nodes[d].Nodes[1].Nodes[T.CurrentRoundNum].Nodes.Clear();
-                                MainTree.Nodes[0].Nodes[c].Nodes[0].Nodes[d].Nodes[1].Nodes[T.CurrentRoundNum].Nodes.Add("В ожидании");
-                            }
-                        }
-                    }
-                    d++;
-                }
-                c++;
-            }
-            MainTree.Nodes[0].Expand();
+            TreeDrawer.DrawCompetitionStructure(MainTree, TCs, C);
         }
         private void Continue_Click(object sender, EventArgs e)
         {
@@ -177,19 +109,9 @@ namespace CompetitionOrganizer.Forms.Setup_Forms
 
             Hide();
             TimerSettings.Container = Projects[ProjectsList.SelectedIndex];
-            if (SelectCompetition.SelectedIndex == Projects[ProjectsList.SelectedIndex].PartsOfCompetitions.Count)
-            {
-                //NEW SYSTEM
-                //REGEN TEAMS
-                //var CTeams = TimerSettings.Container.PartsOfCompetitions[0].Teams.AllTeams
-                TimerSettings.Container.PartsOfCompetitions.Add(new Competition(TimerSettings.Container.PartsOfCompetitions[0].Teams.AllTeams));
-                TimerSettings.Competition = TimerSettings.Container.PartsOfCompetitions[^1];
 
-            }
-            else
-            {
-                TimerSettings.Competition = Projects[ProjectsList.SelectedIndex].PartsOfCompetitions[SelectCompetition.SelectedIndex];
-            }
+            TimerSettings.Competition = Projects[ProjectsList.SelectedIndex].Competition;
+
             TimerSettings.Competition.Teams.Setup(false);
 
 
@@ -211,28 +133,10 @@ namespace CompetitionOrganizer.Forms.Setup_Forms
             {
                 return;
             }
-            SelectCompetition.Items.Clear();
-            SelectCompetition.Items.AddRange(Projects[ProjectsList.SelectedIndex].PartsOfCompetitions.ToArray());
-            SelectCompetition.Items.Add("Новый этап");
             if (ProjectsList.SelectedIndex != -1)
             {
-                SelectCompetition.Enabled = true;
-                SelectCompetition.SelectedIndex = SelectCompetition.Items.Count - 1;
-            }
-            UpdateData();
-        }
-
-        private void SelectCompetition_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-            if (SelectCompetition.SelectedIndex == Projects[ProjectsList.SelectedIndex].PartsOfCompetitions.Count)
-            {
-                InfoBox.Visible = true;
-            }
-            else
-            {
-                InfoBox.Visible = true;
-
+                
+                CompetitionLabel.Enabled = true;
             }
             UpdateData();
         }

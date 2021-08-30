@@ -57,7 +57,7 @@ namespace TimerModel
 
             TimerSettings.Container.Name = CMName.Text;
             //TimerSettings.Container.PartsOfCompetitions = new List<Competition>();
-            TimerSettings.Container.PartsOfCompetitions.Add(TimerSettings.Competition);
+            TimerSettings.Container.Competition = TimerSettings.Competition;
             //TimerSettings.Container.CurrentState = TimerSettings.Competition;
             //MessageBox.Show("3");
             //Async!

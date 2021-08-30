@@ -44,6 +44,7 @@ namespace TimerModel
                 {
                     RoundNum.Value++;
                 }
+
                 UpdateRoundCounters = true;
             };
 
@@ -63,6 +64,7 @@ namespace TimerModel
         }
         private void UpdateTabels()
         {
+
             TimeSpanTable1.Controls.Clear();
             TimeSpanTable2.Controls.Clear();
             TimeSpanTable3.Controls.Clear();
@@ -308,24 +310,24 @@ namespace TimerModel
                         FM1FlyMiss1Point.Value = R.FlyMisses[0];
                         FM1FlyMiss2Point.Value = R.FlyMisses[1];
                         FM1FlyMiss3Point.Value = R.FlyMisses[2];
-                        FinishTime.Text = R.RoundTTime();
                         Result.Text = R.RoundPoints();
+                        FinishTime.Text = R.BadFinish ? "База не пройдена!" : R.RoundTTime();
                         //Round = (byte)(M1Round.Value - 1);
                         break;
                     case 1:
                         FM2FlyMiss1Point.Value = R.FlyMisses[0];
                         FM2FlyMiss2Point.Value = R.FlyMisses[1];
                         FM2FlyMiss3Point.Value = R.FlyMisses[2];
-                        FinishTime2.Text = R.RoundTTime();
                         Result2.Text = R.RoundPoints();
+                        FinishTime2.Text = R.BadFinish ? "База не пройдена!" : R.RoundTTime();
                         //Round = (byte)(M1Round.Value - 1);
                         break;
                     case 2:
                         FM3FlyMiss1Point.Value = R.FlyMisses[0];
                         FM3FlyMiss2Point.Value = R.FlyMisses[1];
                         FM3FlyMiss3Point.Value = R.FlyMisses[2];
-                        FinishTime3.Text = R.RoundTTime();
                         Result3.Text = R.RoundPoints();
+                        FinishTime3.Text = R.BadFinish ? "База не пройдена!" : R.RoundTTime();
                         //Round = (byte)(M1Round.Value - 1);
                         break;
                 }
@@ -353,6 +355,7 @@ namespace TimerModel
         }
         private void UpdateTeamsData()
         {
+            //MessageBox.Show(Environment.StackTrace.ToString());
             NT1.Text = "";
             NT2.Text = "";
             NT3.Text = "";
@@ -776,11 +779,11 @@ namespace TimerModel
             TimerSettings.Competition.Teams.Reset();
             //Reset finished round
         }
-        private void StopTimer()
+        private void StopTimer(bool EnableControls = false)
         {
             //if (!Automatic)
             //{
-            ChoosePilots();
+            ChoosePilots(EnableControls);
             //}
             AutoStart = false;
             Stop.Enabled = false;
@@ -827,7 +830,7 @@ namespace TimerModel
                     Print.Start();
 
                     //NewSetOfTeams();
-                    StopTimer();
+                    StopTimer(true);
                     //ClearTimer();
                 }
                 void PrintFunc()
@@ -896,7 +899,6 @@ namespace TimerModel
                 ChoosePilots(true);
                 if (LF.SomethingChanged)
                 {
-
                     UpdateTeamsData();
                 }
                 BGSaver.SaveData();
@@ -951,20 +953,26 @@ namespace TimerModel
         }
 
         private bool UpdateRoundCounters = true;
+        private bool justSetRoundNum = false;
         private void RoundNum_ValueChanged(object sender, EventArgs e)
         {
+            if (justSetRoundNum)
+                return;
             var RoundSwitchingDialog = MessageBox.Show("Вы уверены что хотите сменить тур?", "Предупреждение", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (RoundSwitchingDialog == DialogResult.Yes)
             {
                 if (UpdateRoundCounters)
                 {
-                    foreach (var TS in TimerSettings.Competition.Teams.CurrentModel.TeamSets)
-                    {
-                        TS.Shuffle();
-                    }
+                    //NO-NO
+                    TimerSettings.Competition.Teams.GlobalRound = (byte)(RoundNum.Value);
+                    //foreach (var TS in TimerSettings.Competition.Teams.CurrentModel.TeamSets)
+                    //{
+                    //    TS.Shuffle();
+                    //}
 
-                    TimerSettings.Competition.Teams.ReloadTeamSet();
+                    //TimerSettings.Competition.Teams.ReloadTeamSet();
 
+                    UpdateRoundCounters = false;
                     if (RoundNum.Value <= M1Round.Maximum)
                     {
                         M1Round.Value = RoundNum.Value;
@@ -977,12 +985,17 @@ namespace TimerModel
                     {
                         M3Round.Value = RoundNum.Value;
                     }
+                    UpdateRoundCounters = true;
+                    RoundValueChanged(1, false);
+                    RoundValueChanged(2, false);
+                    RoundValueChanged(3, false);
 
                     //TimerSettings.Competition.Teams.CurrentModel.CurrentTeamset.First.CurrentRoundNum = 
                 }
                 StopTimer();
                 ChoosePilots(true);
                 //ClearTimer();
+                //MessageBox.Show("D");
                 UpdateTeamsData();
                 return;
             }
@@ -990,31 +1003,54 @@ namespace TimerModel
         //private bool AllowRerun = false;
         private void M1Round_ValueChanged(object sender, EventArgs e)
         {
-            if (UpdateRoundCounters && M1Round.Enabled)
-            {
-                //AllowRerun = true;
-                TimerSettings.Competition.Teams.First.SelectRound((byte)M1Round.Value);
-                UpdateTeamsData();
-            }
+            RoundValueChanged(1);
         }
 
         private void M2Round_ValueChanged(object sender, EventArgs e)
         {
-            if (UpdateRoundCounters && M2Round.Enabled)
-            {
-                //AllowRerun = true;
-                TimerSettings.Competition.Teams.Second.SelectRound((byte)M2Round.Value);
-                UpdateTeamsData();
-            }
+            RoundValueChanged(2);
         }
 
         private void M3Round_ValueChanged(object sender, EventArgs e)
         {
-            if (UpdateRoundCounters && M3Round.Enabled)
+            RoundValueChanged(3);
+        }
+        private void RoundValueChanged(byte rNum, bool updateTables = true)
+        {
+            //if all ==  then main round is that num too
+            //()&&()&&()
+
+            if (((M1Round.Enabled && (M1Round.Value == M2Round.Value | !M2Round.Enabled) && (M1Round.Value == M3Round.Value | !M3Round.Enabled)) | !M1Round.Enabled)
+                && ((M2Round.Enabled && (M2Round.Value == M1Round.Value | !M1Round.Enabled) && (M2Round.Value == M3Round.Value | !M3Round.Enabled)) | !M2Round.Enabled)
+                && ((M3Round.Enabled && (M3Round.Value == M2Round.Value | !M2Round.Enabled) && (M1Round.Value == M3Round.Value | !M1Round.Enabled)) | !M3Round.Enabled))
+            {
+                justSetRoundNum = true;
+                RoundNum.Value = M1Round.Enabled ? M1Round.Value : M2Round.Enabled ? M2Round.Value : M3Round.Enabled ? M3Round.Value : 1;
+                justSetRoundNum = false;
+            }
+
+            bool isCounterEnabled = rNum == 1 ? M1Round.Enabled : rNum == 2 ? M2Round.Enabled : rNum == 3 ? M3Round.Enabled : false;
+
+            if (UpdateRoundCounters && isCounterEnabled)
             {
                 //AllowRerun = true;
-                TimerSettings.Competition.Teams.Third.SelectRound((byte)M3Round.Value);
-                UpdateTeamsData();
+                switch (rNum)
+                {
+                    case 1:
+                        TimerSettings.Competition.Teams.First.SelectRound((byte)M1Round.Value);
+                        break;
+                    case 2:
+                        TimerSettings.Competition.Teams.Second.SelectRound((byte)M2Round.Value);
+                        break;
+                    case 3:
+                        TimerSettings.Competition.Teams.Third.SelectRound((byte)M3Round.Value);
+                        break;
+                }
+                //MessageBox.Show("D");
+                if (updateTables)
+                {
+                    UpdateTeamsData();
+                }
             }
         }
 

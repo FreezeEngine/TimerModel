@@ -1,4 +1,5 @@
 ﻿using CompetitionOrganizer.Forms.Team_Managers;
+using CompetitionOrganizer.Objects;
 using System;
 using System.Windows.Forms;
 
@@ -37,64 +38,7 @@ namespace TimerModel.Forms
         }
         void RedrawTree()
         {
-            MainTree.Nodes.Clear();
-            MainTree.Nodes.Add("Соревнование");
-            int c = 0;
-
-            foreach (var TC in TimerSettings.Competition.Teams.TeamClumps)
-            {
-                MainTree.CheckBoxes = false;
-                MainTree.Nodes[0].Nodes.Add("Между моделями: " + TC.CompetingModel + " | Количество команд: " + TC.Teams().Count);
-                //MainTree.Nodes[0].Nodes[c].Nodes.Add("Туров в соревновании: " + TC.RoundsForThisClass.ToString());
-                int d = 0;
-                MainTree.Nodes[0].Nodes[c].Nodes.Add("Команды:");
-                var Ts = TC.Teams();
-                foreach (var T in Ts)
-                {
-                    MainTree.Nodes[0].Nodes[c].Nodes[0].Nodes.Add(T.ToString());
-                    MainTree.Nodes[0].Nodes[c].Nodes[0].Nodes[d].Nodes.Add("Текущий тур: " + (T.CurrentRoundNum + 1).ToString());
-                    MainTree.Nodes[0].Nodes[c].Nodes[0].Nodes[d].Nodes.Add("Туры: ");
-                    int b = 0;
-                    //MessageBox.Show(T.Rounds.Count.ToString());
-                    foreach (var TD in T.Rounds)
-                    {
-                        MainTree.Nodes[0].Nodes[c].Nodes[0].Nodes[d].Nodes[1].Nodes.Add("Тур - " + (b + 1).ToString());
-                        if (TD.Laps.Count == 0)
-                        {
-                            MainTree.Nodes[0].Nodes[c].Nodes[0].Nodes[d].Nodes[1].Nodes[b].Nodes.Add("В очереди");
-                            b++;
-                            continue;
-                        }
-                        MainTree.Nodes[0].Nodes[c].Nodes[0].Nodes[d].Nodes[1].Nodes[b].Nodes.Add("Круги:");
-                        int e = 0;
-                        foreach (var TL in TD.Laps)
-                        {
-                            MainTree.Nodes[0].Nodes[c].Nodes[0].Nodes[d].Nodes[1].Nodes[b].Nodes[0].Nodes.Add(TL.ToString());
-                            e++;
-                        }
-                        MainTree.Nodes[0].Nodes[c].Nodes[0].Nodes[d].Nodes[1].Nodes[b].Nodes.Add("Время: " + TD.RoundTTime());
-                        MainTree.Nodes[0].Nodes[c].Nodes[0].Nodes[d].Nodes[1].Nodes[b].Nodes.Add("Всего очков: " + TD.RoundPoints());
-
-                        if (T.CurrentRound == TD)
-                        {
-                            if (!T.CurrentRound.Finished)
-                            {
-                                MainTree.Nodes[0].Nodes[c].Nodes[0].Nodes[d].Nodes[1].Nodes[T.CurrentRoundNum].Nodes.Clear();
-                                MainTree.Nodes[0].Nodes[c].Nodes[0].Nodes[d].Nodes[1].Nodes[T.CurrentRoundNum].Nodes.Add("В ожидании");
-                            }
-                        }
-                        b++;
-                    }
-                    d++;
-                }
-                c++;
-            }
-            MainTree.Nodes[0].Expand();
-
-        }
-        private void MainTree_AfterSelect(object sender, TreeViewEventArgs e)
-        {
-
+            TreeDrawer.DrawCompetitionStructure(MainTree);
         }
         private void UpdateFlyModelsList()
         {

@@ -21,7 +21,13 @@ namespace TimerModel
         {
             get
             {
-                return CurrentTime - RoundStart;
+                var t = CurrentTime - RoundStart;
+                if (t.TotalSeconds > 200|t.TotalSeconds<0)
+                {
+                    //return new TimeSpan();
+                    return new TimeSpan(0,0,200);
+                }
+                return t;
             }
         }
 
@@ -35,8 +41,13 @@ namespace TimerModel
         {
             get
             {
-                if(PointsD != 0)
+                if (PointsD != 0)
                 {
+                    if (PointsD < 0)
+                    {
+                        PointsD = 200;
+                        return PointsD;
+                    }
                     return PointsD;
                 }
                 byte Value = TotalFlyMisses();
@@ -67,16 +78,29 @@ namespace TimerModel
             {
                 if (TimeD != 0)
                 {
+                    if (TimeD < 0)
+                    {
+                        TimeD = 200;
+                        return TimeD;
+                    }
                     return TimeD;
                 }
                 if (Finished && !BadFinish)
                 {
-                    double D = Math.Round(Convert.ToDouble(Time.TotalSeconds), 2);
-                    if (D >= 200)
+                    var time = Convert.ToDouble(Time.TotalSeconds);
+                    if (time < 0)
                     {
                         return 200;
                     }
-                    return D;
+                    else
+                    {
+                        double D = Math.Round(time, 2);
+                        if (D >= 200)
+                        {
+                            return 200;
+                        }
+                        return D;
+                    }
                 }
                 else
                 {
@@ -130,7 +154,7 @@ namespace TimerModel
             //{
             //    TimeFLabel = Time.ToString(@"mm\,ss\,ff");
             //}
-            if(TimeD != 0)
+            if (TimeD != 0)
             {
                 return TimeD.ToString();
             }

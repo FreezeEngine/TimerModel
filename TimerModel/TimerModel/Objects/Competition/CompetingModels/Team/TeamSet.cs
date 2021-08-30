@@ -12,17 +12,23 @@ namespace TimerModel.Objects
         {
             get
             {
-                if (Set[0] == -1)
+                var TO = getOffset(0);
+                //if(TO != 0)
+                //{
+                    //MessageBox.Show("DD");
+                //}
+                if (Set[TO] == -1)
                 {
                     return new Team(false);
                 }
-                return TimerSettings.Competition.Teams.AllTeams[Set[0]];
+                return TimerSettings.Competition.Teams.AllTeams[Set[TO]];
             }
             set
             {
+                var TO = getOffset(0);
                 //if (Set[0] == -1) {  }
-                if (value == null | !value.Enabled) { Set[0] = -1; return; }
-                if (value == Second | value == Third && value.Enabled == true && !Updater) { SameTeamMessage(); return; } else { Set[0] = (sbyte)TimerSettings.Competition.Teams.AllTeams.FindIndex(delegate (Team fT) { return fT.Equals(value); }); }
+                if (value == null | !value.Enabled) { Set[TO] = -1; return; }
+                if (value == Second | value == Third && value.Enabled == true && !Updater) { SameTeamMessage(value); return; } else { Set[TO] = (sbyte)TimerSettings.Competition.Teams.AllTeams.FindIndex(delegate (Team fT) { return fT.Equals(value); }); }
             }
         }
         [JsonIgnore]
@@ -30,17 +36,19 @@ namespace TimerModel.Objects
         {
             get
             {
-                if (Set[1] == -1)
+                var TO = getOffset(1);
+                if (Set[TO] == -1)
                 {
                     return new Team(false);
                 }
-                return TimerSettings.Competition.Teams.AllTeams[Set[1]];
+                return TimerSettings.Competition.Teams.AllTeams[Set[TO]];
             }
             set
             {
+                var TO = getOffset(1);
                 //if (Set[0] == -1) {  }
-                if (value == null | !value.Enabled) { Set[1] = -1; return; }
-                if (value == Second | value == Third && value.Enabled == true && !Updater) { SameTeamMessage(); return; } else { Set[1] = (sbyte)TimerSettings.Competition.Teams.AllTeams.FindIndex(delegate (Team fT) { return fT.Equals(value); }); }
+                if (value == null | !value.Enabled) { Set[TO] = -1; return; }
+                if (value == Second | value == Third && value.Enabled == true && !Updater) { SameTeamMessage(value); return; } else { Set[TO] = (sbyte)TimerSettings.Competition.Teams.AllTeams.FindIndex(delegate (Team fT) { return fT.Equals(value); }); }
             }
         }
         //TimerSettings.Competition.Teams.AllTeams[Set[2]]
@@ -49,18 +57,55 @@ namespace TimerModel.Objects
         {
             get
             {
-                if (Set[2] == -1)
+                var TO = getOffset(2);
+                if (Set[TO] == -1)
                 {
                     return new Team(false);
                 }
-                return TimerSettings.Competition.Teams.AllTeams[Set[2]];
+                return TimerSettings.Competition.Teams.AllTeams[Set[TO]];
             }
             set
             {
+                var TO = getOffset(2);
                 //if (Set[0] == -1) {  }
-                if (value == null | !value.Enabled) { Set[2] = -1; return; }
-                if (value == Second | value == Third && value.Enabled == true && !Updater) { SameTeamMessage(); return; } else { Set[2] = (sbyte)TimerSettings.Competition.Teams.AllTeams.FindIndex(delegate (Team fT) { return fT.Equals(value); }); }
+                if (value == null | !value.Enabled) { Set[TO] = -1; return; }
+                if (value == Second | value == Third && value.Enabled == true && !Updater) { SameTeamMessage(value); return; } else { Set[TO] = (sbyte)TimerSettings.Competition.Teams.AllTeams.FindIndex(delegate (Team fT) { return fT.Equals(value); }); }
             }
+        }
+        private byte getOffset(byte TeamNum)
+        {
+            var TO = TimerSettings.Competition.Teams.TeamOffset;
+            //MessageBox.Show((TeamNum == 0 ? TO : TeamNum == 1 ? TO == 0 ? 1 : TO == 1 ? 2 : TO == 2 ? 0 : 0 : TeamNum == 2 ? TO == 0 ? 2 : TO == 1 ? 0 : TO == 2 ? 1 : 0 : 0).ToString());
+            return (byte)(TeamNum == 0 ? TO : TeamNum == 1 ? TO == 0 ? 1 : TO == 1 ? 2 : TO == 2 ? 0 : 0 : TeamNum == 2 ? TO == 0 ? 2 : TO == 1 ? 0 : TO == 2 ? 1 : 0 : 0);
+            /*switch (TeamNum)
+            {
+                case 0:
+                    return TimerSettings.Competition.Teams.TeamOffset;
+                    
+                case 1:
+                    switch (TimerSettings.Competition.Teams.TeamOffset)
+                    {
+                        case 0:
+                            return 1;
+                        case 1:
+                            return 2;
+                        case 2:
+                            return 0;
+                    }
+                    return 0;
+                case 2:
+                    switch (TimerSettings.Competition.Teams.TeamOffset)
+                    {
+                        case 0:
+                            return 2;
+                        case 1:
+                            return 0;
+                        case 2:
+                            return 1;
+                    }
+                    return 0;
+            }
+            return 0;*/
         }
         public bool isFull()
         {
@@ -70,7 +115,7 @@ namespace TimerModel.Objects
         public bool ShareSamePerson(Team T)
         {
             //REPLACE ALL WITH THIS TEAM SET EDITOR
-            foreach(var Tm in GetAsList())
+            foreach (var Tm in GetAsList())
             {
                 if (!Tm.Enabled)
                     continue;
@@ -99,6 +144,7 @@ namespace TimerModel.Objects
             }
             UpdateSets();
         }
+
         private bool Updater = false;
         public void UpdateSets()
         {
@@ -163,9 +209,10 @@ namespace TimerModel.Objects
             string t = Third.Enabled ? " 3: " + Third.Pilot.ShortenName() : " 3: Отсутствует";
             return f + s + t;
         }
-        private void SameTeamMessage()
+        private void SameTeamMessage(Team T)
         {
-            MessageBox.Show("Один и тот же участник не может быть выбран дважды");
+            MessageBox.Show("Один и тот же участник не может быть выбран дважды. Текущий список:\n" + First.Pilot.Name + "\n" + Second.Pilot.Name + "\n" + Third.Pilot.Name + "\n\nНе удалось добавить:\n" + T.Pilot.Name);
+            //+ "\nСтек вызовов:" + Environment.StackTrace);
         }
         public override bool Equals(object obj)
         {

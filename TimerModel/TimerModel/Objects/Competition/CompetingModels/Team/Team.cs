@@ -63,7 +63,7 @@ namespace TimerModel
             {
                 if (Enabled)
                 {
-                    if(Rounds.Count >= CurrentRoundNum)
+                    if(Rounds.Count <= CurrentRoundNum)
                     {
                         return Rounds[Rounds.Count - 1];
                     }

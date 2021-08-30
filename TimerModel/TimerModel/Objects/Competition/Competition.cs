@@ -10,7 +10,7 @@ namespace TimerModel
 {
     static class IListExtention
     {
-        public static void Shuffle<T>(this IList<T> list)
+        /*public static void Shuffle<T>(this IList<T> list)
         {
             RNGCryptoServiceProvider provider = new RNGCryptoServiceProvider();
             int n = list.Count;
@@ -32,7 +32,7 @@ namespace TimerModel
                 list[k] = list[n];
                 list[n] = value;
             }
-        }
+        }*/
         public static void ShuffleTeamSet<T>(this IList<T> list)
         {
             T v = list[0];
@@ -53,6 +53,8 @@ namespace TimerModel
         //[JsonIgnore]
         public byte Key2 { get; set; }
 
+        public bool Finished { get; set; }
+
         public string DateOfCreation { get; set; }
 
         [JsonIgnore]
@@ -63,12 +65,10 @@ namespace TimerModel
                 var Mechanics = new List<Participant>();
                 foreach (var T in Teams.GetTeams())
                 {
-                    if (T.Mechanic == null | T.Mechanic?.Name == null)
+                    if (T.Mechanic != null & (T.Mechanic?.Name) != null)
                     {
-                        continue;
+                        Mechanics.Add(T.Mechanic);
                     }
-
-                    Mechanics.Add(T.Mechanic);
                 }
                 //if(Mechanics.Count == 0)
                 //{
@@ -125,6 +125,7 @@ namespace TimerModel
 
         public void Finish(bool Recover = false)
         {
+            TimerSettings.Competition.Finished = true;
             //onCompetitionFinished();
             //return; //FIX
             //List<byte> MinRounds = new List<byte>();

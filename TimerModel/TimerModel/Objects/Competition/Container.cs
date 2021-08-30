@@ -10,8 +10,10 @@ namespace CompetitionOrganizer.Objects
         public string LaunchSupervisor { get; set; }
         public string Scorekeeper { get; set; }
 
-        private List<Competition> _PartsOfCompetitions;
-        public List<Competition> PartsOfCompetitions
+        public Competition Competition { get; set; }
+
+        //private List<Competition> _PartsOfCompetitions;
+        /*public List<Competition> PartsOfCompetitions
         {
             get
             {
@@ -25,14 +27,14 @@ namespace CompetitionOrganizer.Objects
             {
                 _PartsOfCompetitions = value;
             }
-        }
+        }*/
 
         //public Competition CurrentState { get; set; }
         public CompetitionsContainer()
         {
 
         }
-        public Competition GetCombined()
+        /*public Competition GetCombined()
         {
             //REWORK!!!
             Competition Combined = new Competition();
@@ -45,6 +47,6 @@ namespace CompetitionOrganizer.Objects
                 }
             }
             return Combined;
-        }
+        }*/
     }
 }

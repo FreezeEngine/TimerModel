@@ -205,5 +205,10 @@ namespace TimerModel.Forms
             }
             TimerSettings.Competition.Finish(true);
         }
+
+        private void ReportPreview_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

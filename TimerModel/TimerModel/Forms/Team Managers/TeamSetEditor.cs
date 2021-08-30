@@ -168,13 +168,18 @@ namespace CompetitionOrganizer.Forms.Team_Managers
         }
 
 
-        private void AddTeamSet1_Click(object sender, System.EventArgs e)
+        private void AddTeamSet_Click(object sender, System.EventArgs e)
         {
+            //TimerSettings.Competition.Teams.TeamClumps[Model.SelectedIndex].TeamSets.Add
 
         }
-        private void DeleteTeamSet1_Click(object sender, System.EventArgs e)
+        private void DeleteTeamSet_Click(object sender, System.EventArgs e)
         {
-
+            
+            //MessageBox.Show(V.ToString());
+            TimerSettings.Competition.Teams.TeamClumps[Model.SelectedIndex].TeamSets.RemoveAt(TS1.SelectedIndex);
+            //MessageBox.Show(T.ToString());
+            UpdateLists();
         }
         private void Shuffle1_Click(object sender, System.EventArgs e)
         {

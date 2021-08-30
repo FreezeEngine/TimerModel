@@ -32,10 +32,17 @@ namespace TimerModel.Objects
         public TeamSet CurrentTeamset { get { return TeamSets[CurrentTeamSetIndex]; } }
         //private List<Team> _Teams;
         //[JsonIgnore]
-        public List<Team> Teams()
+        public List<Team> Teams(Competition competition = null)
         {
-            var T = TimerSettings.Competition?.Teams.AllTeams.FindAll(delegate (Team T) { return T.ModelName == CompetingModel; });
-            if (T == null)
+            if (TimerSettings.Competition == null && competition == null)
+            {
+                return new List<Team>();
+            }
+            List<Team> Ts = competition == null ? TimerSettings.Competition?.Teams.AllTeams : competition?.Teams.AllTeams;
+
+            var T = Ts.FindAll(delegate (Team T) { return T.ModelName == CompetingModel; });
+
+            if (T == null | T.Count == 0)
             {
                 return new List<Team>();
             }

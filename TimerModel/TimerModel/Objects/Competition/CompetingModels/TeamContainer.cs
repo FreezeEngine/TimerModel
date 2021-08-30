@@ -27,9 +27,11 @@ namespace TimerModel.Objects
 
         public Team _Disabled = new Team(false);
 
-        private Team _First;
-        private Team _Second;
-        private Team _Third;
+        //public TeamSet 
+
+        //private Team _First;
+        //private Team _Second;
+        //private Team _Third;
 
         private List<Team> _AllTeams { get; set; }
         public List<Team> AllTeams { get { if (_AllTeams == null) { _AllTeams = new List<Team>(); } return _AllTeams; } set { if (_AllTeams == null) { _AllTeams = new List<Team>(); } _AllTeams = value; } }
@@ -66,14 +68,6 @@ namespace TimerModel.Objects
             set { if (value == null) { return; } _CurrentModel = value; }
         }
 
-        public List<CompetingModels> GetTeamClumps()
-        {
-            if (_TeamClumps == null)
-            {
-                _TeamClumps = new List<CompetingModels>();
-            }
-            return _TeamClumps;
-        }
         public List<Participant> Participants()
         {
             List<Participant> P = new List<Participant>();
@@ -86,55 +80,93 @@ namespace TimerModel.Objects
             }
             return P;
         }
-        private void SameTeamMessage()
-        {
-            MessageBox.Show("Один и тот же участник не может быть выбран дважды!");
-        }
-        private void NoTeamsMessage()
-        {
-            MessageBox.Show("Невозможно отключить все команды");
-        }
+
+        [JsonIgnore]
         public Team First
         {
             get
             {
-                if (AllTeams.Find(delegate (Team T) { return T.Equals(_First) && T != _First; }) != null)
+                if(CurrentModel == null)
+                {
+                    return _Disabled;
+                }
+                var _First = CurrentModel.CurrentTeamset.First;
+                /*if (AllTeams.Find(delegate (Team T) { return T.Equals(_First) && T != _First; }) != null)
                 {
                     byte i = (byte)AllTeams.FindIndex(delegate (Team T) { return T.Equals(_First) && T != _First; });
                     AllTeams.RemoveAt(i);
                     AllTeams.Insert(i, _First);
-                }
+                }*/
                 return _First;
             }
-            set { if (value == null) { return; } if ((value == _Second | value == _Third) && value.Enabled == true && !Updater) { SameTeamMessage(); return; } else { _First = value; } }
+            set { if (CurrentModel == null) { return; } CurrentModel.CurrentTeamset.First = value; }
+            //set { if (value == null | CurrentModel == null) { return; } if ((value == Second | value == Third) && value.Enabled == true && !Updater) { SameTeamMessage(); return; } else { CurrentModel.CurrentTeamset.First = value; } }
+
         }
+        [JsonIgnore]
         public Team Second
         {
             get
             {
-                if (AllTeams.Find(delegate (Team T) { return T.Equals(_Second) && T != _Second; }) != null)
+                if (CurrentModel == null)
+                {
+                    return _Disabled;
+                }
+                var _Second = CurrentModel.CurrentTeamset.Second;
+                /*if (AllTeams.Find(delegate (Team T) { return T.Equals(_Second) && T != _Second; }) != null)
                 {
                     byte i = (byte)AllTeams.FindIndex(delegate (Team T) { return T.Equals(_Second) && T != _Second; });
                     AllTeams.RemoveAt(i);
                     AllTeams.Insert(i, _Second);
-                }
+                }*/
                 return _Second;
             }
-            set { if (value == null) { return; } if ((value == _First | value == _Third) && value.Enabled == true && !Updater) { SameTeamMessage(); return; } else { _Second = value; } }
+            set { if (CurrentModel == null) { return; } CurrentModel.CurrentTeamset.Second = value; }
         }
+        [JsonIgnore]
         public Team Third
         {
             get
             {
-                if (AllTeams.Find(delegate (Team T) { return T.Equals(_Third) && T != _Third; }) != null)
+                if (CurrentModel == null)
+                {
+                    return _Disabled;
+                }
+                var _Third = CurrentModel.CurrentTeamset.Third;
+                /*if (AllTeams.Find(delegate (Team T) { return T.Equals(_Third) && T != _Third; }) != null)
                 {
                     byte i = (byte)AllTeams.FindIndex(delegate (Team T) { return T.Equals(_Third) && T != _Third; });
                     AllTeams.RemoveAt(i);
                     AllTeams.Insert(i, _Third);
-                }
+                }*/
                 return _Third;
             }
-            set { if (value == null) { return; } if ((value == _First | value == _Second) && value.Enabled == true && !Updater) { SameTeamMessage(); return; } else { _Third = value; } }
+            set { if (CurrentModel == null) { return; } CurrentModel.CurrentTeamset.Third = value; }
+        }
+        public byte GlobalRound { get; set; }
+        [JsonIgnore]
+        public byte TeamOffset {
+
+            get
+            {
+                double TDr = GlobalRound / 3d;
+                if (TDr == 0)
+                    return 0;
+                if (TDr.ToString("0.00").Split(',')[1].Contains('0'))
+                {
+                    return 0;
+                }
+                if (TDr.ToString("0.00").Split(',')[1].Contains('3'))
+                {
+                    return 1;
+                }
+                if (TDr.ToString("0.00").Split(',')[1].Contains('6'))
+                {
+                    return 2;
+                }
+                return 0;
+            }
+            set { }
         }
         public List<Team> GetTeamContainer()
         {
@@ -153,12 +185,13 @@ namespace TimerModel.Objects
         public bool Updater = false;
         public void ReloadTeamSet()
         {
+            //Resolve?
             Updater = true;
-            First = CurrentModel.CurrentTeamset.First;
-            Second = CurrentModel.CurrentTeamset.Second;
-            Third = CurrentModel.CurrentTeamset.Third;
+            //First = CurrentModel.CurrentTeamset.First;
+            //Second = CurrentModel.CurrentTeamset.Second;
+            //Third = CurrentModel.CurrentTeamset.Third;
             Updater = false;
-            onTeamChanged();
+            //onTeamChanged();
         }
 
         public void NextTeamSet(bool FirstStart = false)
@@ -199,9 +232,9 @@ namespace TimerModel.Objects
                     return;
                 }
             }
-            First = CurrentModel.CurrentTeamset.First;
-            Second = CurrentModel.CurrentTeamset.Second;
-            Third = CurrentModel.CurrentTeamset.Third;
+            //First = CurrentModel.CurrentTeamset.First;
+            //Second = CurrentModel.CurrentTeamset.Second;
+            //Third = CurrentModel.CurrentTeamset.Third;
             if (onTeamChanged != null)
                 onTeamChanged();
         }
@@ -307,6 +340,7 @@ namespace TimerModel.Objects
         }
         public void GenerateTeamSets()
         {
+            //MessageBox.Show("TT");
             foreach (var TC in TeamClumps)
             {
                 TC.GenerateTeamSets(); //Fix reordering!!!

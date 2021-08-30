@@ -69,7 +69,6 @@ namespace TimerModel.Forms
             this.MainTree.Name = "MainTree";
             this.MainTree.Size = new System.Drawing.Size(531, 569);
             this.MainTree.TabIndex = 3;
-            this.MainTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.MainTree_AfterSelect);
             // 
             // groupBox1
             // 

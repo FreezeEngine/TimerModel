@@ -37,7 +37,6 @@ namespace CompetitionOrganizer.Forms.Team_Managers
             this.Shuffle1 = new System.Windows.Forms.Button();
             this.MoveUp1 = new System.Windows.Forms.Button();
             this.MoveDown1 = new System.Windows.Forms.Button();
-            this.AddTeam = new System.Windows.Forms.Button();
             this.TeamSet1 = new System.Windows.Forms.ListBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -92,7 +91,6 @@ namespace CompetitionOrganizer.Forms.Team_Managers
             this.groupBox2.Controls.Add(this.Shuffle1);
             this.groupBox2.Controls.Add(this.MoveUp1);
             this.groupBox2.Controls.Add(this.MoveDown1);
-            this.groupBox2.Controls.Add(this.AddTeam);
             this.groupBox2.Controls.Add(this.TeamSet1);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.label1);
@@ -107,7 +105,7 @@ namespace CompetitionOrganizer.Forms.Team_Managers
             // 
             // Shuffle1
             // 
-            this.Shuffle1.Location = new System.Drawing.Point(206, 17);
+            this.Shuffle1.Location = new System.Drawing.Point(206, 43);
             this.Shuffle1.Name = "Shuffle1";
             this.Shuffle1.Size = new System.Drawing.Size(190, 23);
             this.Shuffle1.TabIndex = 23;
@@ -134,15 +132,6 @@ namespace CompetitionOrganizer.Forms.Team_Managers
             this.MoveDown1.Text = "↓";
             this.MoveDown1.UseVisualStyleBackColor = true;
             this.MoveDown1.Click += new System.EventHandler(this.MoveDown1_Click);
-            // 
-            // AddTeam
-            // 
-            this.AddTeam.Location = new System.Drawing.Point(206, 44);
-            this.AddTeam.Name = "AddTeam";
-            this.AddTeam.Size = new System.Drawing.Size(190, 23);
-            this.AddTeam.TabIndex = 17;
-            this.AddTeam.Text = "Добавить участника";
-            this.AddTeam.UseVisualStyleBackColor = true;
             // 
             // TeamSet1
             // 
@@ -209,6 +198,7 @@ namespace CompetitionOrganizer.Forms.Team_Managers
             this.EditTeamSet.TabIndex = 16;
             this.EditTeamSet.Text = "Изменить тройку";
             this.EditTeamSet.UseVisualStyleBackColor = true;
+            this.EditTeamSet.Click += new System.EventHandler(this.EditTeamSet_Click);
             // 
             // TeamSetEditor
             // 
@@ -246,7 +236,6 @@ namespace CompetitionOrganizer.Forms.Team_Managers
         private System.Windows.Forms.Button Submit;
         private System.Windows.Forms.Button DeleteTeamSet;
         private System.Windows.Forms.Button AddTeamSet;
-        private System.Windows.Forms.Button AddTeam;
         private System.Windows.Forms.Button MoveUp1;
         private System.Windows.Forms.Button MoveDown1;
         private System.Windows.Forms.Button Shuffle1;

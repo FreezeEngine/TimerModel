@@ -116,7 +116,7 @@ namespace TimerModel.Forms
                                 string model = Convert.ToString(Sheet.Cells[2, shift + 2].Value).Replace(".", " ");
                                 string pilot = Convert.ToString(Sheet.Cells[3, shift + 2].Value).Replace(".", " ");
                                 string mechanic = Convert.ToString(Sheet.Cells[4, shift + 2].Value).Replace(".", " ");
-                                double timev = Convert.ToDouble(Sheet.Cells[15, shift + 2].Value);
+                                int timev = Convert.ToInt32(Sheet.Cells[15, shift + 2].Value);
                                 double points = Convert.ToDouble(Sheet.Cells[15, shift + 6].Value.ToString().Replace(".", ","));
                                 //MessageBox.Show(model + " " + pilot + " " + mechanic + " R-" + round_num + " FM-" + overallfm+" P-"+points.ToString());
                                 var T = Teams.Find(delegate (Team T1) { return T1.Pilot.Name == pilot && T1.Mechanic.Name == mechanic && T1.ModelName == model; });
@@ -209,6 +209,17 @@ namespace TimerModel.Forms
         private void ReportPreview_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void ReportingTest_Click(object sender, EventArgs e)
+        {
+            var EndDialog = MessageBox.Show("Вы уверены? Это действие уничтожит данные о соревновании!", "Предупреждение", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (EndDialog == DialogResult.Yes)
+            {
+                Hide();
+                TimerSettings.Competition.FillOut();
+                TimerSettings.Competition.Finish();
+            }
         }
     }
 }

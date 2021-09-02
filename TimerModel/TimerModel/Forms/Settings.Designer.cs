@@ -31,6 +31,7 @@ namespace TimerModel.Forms
         {
             this.TestModeCheckBox = new System.Windows.Forms.CheckBox();
             this.DevGroupBox = new System.Windows.Forms.GroupBox();
+            this.MainControl = new System.Windows.Forms.CheckBox();
             this.MakeBlankReport = new System.Windows.Forms.Button();
             this.RecoverData = new System.Windows.Forms.Button();
             this.FileGeneration = new System.Windows.Forms.CheckBox();
@@ -44,7 +45,7 @@ namespace TimerModel.Forms
             this.label1 = new System.Windows.Forms.Label();
             this.ReportPreview = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.MainControl = new System.Windows.Forms.CheckBox();
+            this.ReportingTest = new System.Windows.Forms.Button();
             this.DevGroupBox.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -62,6 +63,7 @@ namespace TimerModel.Forms
             // 
             // DevGroupBox
             // 
+            this.DevGroupBox.Controls.Add(this.ReportingTest);
             this.DevGroupBox.Controls.Add(this.MainControl);
             this.DevGroupBox.Controls.Add(this.MakeBlankReport);
             this.DevGroupBox.Controls.Add(this.RecoverData);
@@ -75,6 +77,18 @@ namespace TimerModel.Forms
             this.DevGroupBox.TabIndex = 1;
             this.DevGroupBox.TabStop = false;
             this.DevGroupBox.Text = "Работа модулей";
+            // 
+            // MainControl
+            // 
+            this.MainControl.AutoSize = true;
+            this.MainControl.Checked = true;
+            this.MainControl.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.MainControl.Location = new System.Drawing.Point(208, 25);
+            this.MainControl.Name = "MainControl";
+            this.MainControl.Size = new System.Drawing.Size(167, 19);
+            this.MainControl.TabIndex = 7;
+            this.MainControl.Text = "Система конроля данных";
+            this.MainControl.UseVisualStyleBackColor = true;
             // 
             // MakeBlankReport
             // 
@@ -212,17 +226,15 @@ namespace TimerModel.Forms
             this.button1.Text = "Временно завершить соревнование";
             this.button1.UseVisualStyleBackColor = true;
             // 
-            // MainControl
+            // ReportingTest
             // 
-            this.MainControl.AutoSize = true;
-            this.MainControl.Checked = true;
-            this.MainControl.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.MainControl.Location = new System.Drawing.Point(208, 25);
-            this.MainControl.Name = "MainControl";
-            this.MainControl.Size = new System.Drawing.Size(167, 19);
-            this.MainControl.TabIndex = 7;
-            this.MainControl.Text = "Система конроля данных";
-            this.MainControl.UseVisualStyleBackColor = true;
+            this.ReportingTest.Location = new System.Drawing.Point(208, 50);
+            this.ReportingTest.Name = "ReportingTest";
+            this.ReportingTest.Size = new System.Drawing.Size(196, 23);
+            this.ReportingTest.TabIndex = 8;
+            this.ReportingTest.Text = "Заполнить соревнование";
+            this.ReportingTest.UseVisualStyleBackColor = true;
+            this.ReportingTest.Click += new System.EventHandler(this.ReportingTest_Click);
             // 
             // Settings
             // 
@@ -268,5 +280,6 @@ namespace TimerModel.Forms
         private System.Windows.Forms.Button ReportPreview;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.CheckBox MainControl;
+        private System.Windows.Forms.Button ReportingTest;
     }
 }

@@ -46,6 +46,8 @@ namespace TimerModel
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label6 = new System.Windows.Forms.Label();
             this.StartModelIndex = new System.Windows.Forms.ComboBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.LapsAmount)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -54,7 +56,7 @@ namespace TimerModel
             // 
             // Continue
             // 
-            this.Continue.Location = new System.Drawing.Point(12, 284);
+            this.Continue.Location = new System.Drawing.Point(12, 309);
             this.Continue.Name = "Continue";
             this.Continue.Size = new System.Drawing.Size(365, 35);
             this.Continue.TabIndex = 1;
@@ -214,11 +216,31 @@ namespace TimerModel
             this.StartModelIndex.TabIndex = 6;
             this.StartModelIndex.SelectedIndexChanged += new System.EventHandler(this.StartModelIndex_SelectedIndexChanged);
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(13, 285);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(134, 15);
+            this.label7.TabIndex = 18;
+            this.label7.Text = "Модель соревнования:";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(153, 281);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(224, 23);
+            this.button1.TabIndex = 19;
+            this.button1.Text = "Смотреть/редактировать";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
             // SetSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(389, 330);
+            this.ClientSize = new System.Drawing.Size(389, 356);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.CMName);
@@ -261,5 +283,7 @@ namespace TimerModel
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox StartModelIndex;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button button1;
     }
 }

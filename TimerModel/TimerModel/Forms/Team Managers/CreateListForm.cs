@@ -11,7 +11,7 @@ namespace TimerModel
     public partial class CreateListForm : Form
     {
         public bool SomethingChanged = false;
-        public CreateListForm(bool ChooseMode = false)
+        public CreateListForm(bool ChooseMode = false, bool ShowUnusedFirst = false)
         {
             InitializeComponent();
             TopMost = true;
@@ -24,6 +24,10 @@ namespace TimerModel
                 ChooseEmpty.Visible = true;
                 JustUse.Visible = false;
                 UpdateFlyModelsList();
+                if (ShowUnusedFirst)
+                {
+                    FlyModelsList.SelectedIndex = FlyModelsList.Items.Count - 1;
+                }
             }
             else
             {

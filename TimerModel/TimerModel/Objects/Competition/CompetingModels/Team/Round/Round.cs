@@ -14,7 +14,7 @@ namespace TimerModel
         public DateTime PreviousTime { get; set; }
 
         public double PointsD { get; set; }
-        public double TimeD { get; set; }
+        public int TimeD { get; set; }
 
         [JsonIgnore]
         public TimeSpan Time
@@ -140,6 +140,11 @@ namespace TimerModel
             //}
             return Points.ToString("0.00");
         }
+        public void RandomRound()
+        {
+            TimeD = new Random().Next(10, 200);
+            PointsD = TimeD;
+        }
         public string RoundTTime()
         {
             //if (TimeLabel == null)
@@ -156,7 +161,7 @@ namespace TimerModel
             //}
             if (TimeD != 0)
             {
-                return TimeD.ToString();
+                return new TimeSpan(0,0,TimeD).ToString(@"mm\,ss\,ff");
             }
             return Time.ToString(@"mm\,ss\,ff");
         }

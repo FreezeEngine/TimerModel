@@ -171,11 +171,17 @@ namespace CompetitionOrganizer.Forms.Team_Managers
         private void AddTeamSet_Click(object sender, System.EventArgs e)
         {
             //TimerSettings.Competition.Teams.TeamClumps[Model.SelectedIndex].TeamSets.Add
-
+            TeamSetCreator TSC = new TeamSetCreator();
+            TSC.Closing += (s, a) =>
+            {
+                TimerSettings.Competition.Teams.TeamClumps[Model.SelectedIndex].TeamSets.Add(TSC.teamSet);
+                UpdateLists();
+            };
+            TSC.Show();
         }
         private void DeleteTeamSet_Click(object sender, System.EventArgs e)
         {
-            
+
             //MessageBox.Show(V.ToString());
             TimerSettings.Competition.Teams.TeamClumps[Model.SelectedIndex].TeamSets.RemoveAt(TS1.SelectedIndex);
             //MessageBox.Show(T.ToString());
@@ -185,6 +191,17 @@ namespace CompetitionOrganizer.Forms.Team_Managers
         {
             TimerSettings.Competition.Teams.TeamClumps[Model.SelectedIndex].TeamSets[TS1.SelectedIndex].Shuffle();
             UpdateLists();
+        }
+
+        private void EditTeamSet_Click(object sender, System.EventArgs e)
+        {
+            TeamSetCreator TSC = new TeamSetCreator(TimerSettings.Competition.Teams.TeamClumps[Model.SelectedIndex].TeamSets[TS1.SelectedIndex]);
+            TSC.Closing += (s, a) =>
+            {
+                //TimerSettings.Competition.Teams.TeamClumps[Model.SelectedIndex].TeamSets.Add(TSC.teamSet);
+                UpdateLists();
+            };
+            TSC.Show();
         }
     }
 }

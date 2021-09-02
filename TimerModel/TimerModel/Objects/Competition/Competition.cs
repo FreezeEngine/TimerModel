@@ -48,10 +48,10 @@ namespace TimerModel
 
 
         //[JsonIgnore]
-        public byte Key1 { get; set; }
+        //public byte Key1 { get; set; }
 
         //[JsonIgnore]
-        public byte Key2 { get; set; }
+        //public byte Key2 { get; set; }
 
         public bool Finished { get; set; }
 
@@ -86,15 +86,15 @@ namespace TimerModel
         public Competition()
         {
             //AutoClosingMessageBox.Show("Test","Test", 4000);
-            Key1 = (byte)new Random().Next(0, 255);
-            Key2 = (byte)new Random().Next(0, 255);
+            //Key1 = (byte)new Random().Next(0, 255);
+            //Key2 = (byte)new Random().Next(0, 255);
             DateOfCreation = DateTime.Now.ToString("D") + " " + DateTime.Now.ToString("H-mm-ss");
             Teams = new TeamContainer(new List<Team>());
         }
         public Competition(List<Team> LTeams)
         {
-            Key1 = (byte)new Random().Next(0, 255);
-            Key2 = (byte)new Random().Next(0, 255);
+            //Key1 = (byte)new Random().Next(0, 255);
+            //Key2 = (byte)new Random().Next(0, 255);
             DateOfCreation = DateTime.Now.ToString("D") + " " + DateTime.Now.ToString("H-mm-ss");
             Teams = new TeamContainer(LTeams);
         }
@@ -122,7 +122,18 @@ namespace TimerModel
                     break;
             }
         }
-
+        public void FillOut()
+        {
+            foreach(var T in Teams.AllTeams)
+            {
+                foreach(var R in T.Rounds)
+                {
+                    R.RandomRound();
+                    R.Finished = true;
+                    R.BadFinish = false;
+                }
+            }
+        }
         public void Finish(bool Recover = false)
         {
             TimerSettings.Competition.Finished = true;
@@ -211,7 +222,7 @@ namespace TimerModel
                 return false;
             }
 
-            return (Mechanics.Equals(other.Mechanics) && Teams.Count.Equals(other.Teams.Count) && Teams.TeamClumps.Equals(other.Teams.TeamClumps) && Key1 == other.Key1 && Key2 == other.Key2);
+            return (Mechanics.Equals(other.Mechanics) && Teams.Count.Equals(other.Teams.Count) && Teams.TeamClumps.Equals(other.Teams.TeamClumps));
         }
     }
 

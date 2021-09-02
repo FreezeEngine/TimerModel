@@ -30,11 +30,11 @@ namespace CompetitionOrganizer.Forms.Team_Managers
         private void InitializeComponent()
         {
             this.N1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.N1B = new System.Windows.Forms.Button();
+            this.N2B = new System.Windows.Forms.Button();
+            this.N3B = new System.Windows.Forms.Button();
+            this.N2 = new System.Windows.Forms.Label();
+            this.N3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // N1
@@ -46,64 +46,68 @@ namespace CompetitionOrganizer.Forms.Team_Managers
             this.N1.TabIndex = 0;
             this.N1.Text = "Отсутсвует";
             // 
-            // button1
+            // N1B
             // 
-            this.button1.Location = new System.Drawing.Point(190, 13);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Выбрать";
-            this.button1.UseVisualStyleBackColor = true;
+            this.N1B.Location = new System.Drawing.Point(371, 12);
+            this.N1B.Name = "N1B";
+            this.N1B.Size = new System.Drawing.Size(75, 23);
+            this.N1B.TabIndex = 1;
+            this.N1B.Text = "Выбрать";
+            this.N1B.UseVisualStyleBackColor = true;
+            this.N1B.Click += new System.EventHandler(this.N1B_Click);
             // 
-            // button2
+            // N2B
             // 
-            this.button2.Location = new System.Drawing.Point(190, 42);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "Выбрать";
-            this.button2.UseVisualStyleBackColor = true;
+            this.N2B.Location = new System.Drawing.Point(371, 41);
+            this.N2B.Name = "N2B";
+            this.N2B.Size = new System.Drawing.Size(75, 23);
+            this.N2B.TabIndex = 2;
+            this.N2B.Text = "Выбрать";
+            this.N2B.UseVisualStyleBackColor = true;
+            this.N2B.Click += new System.EventHandler(this.N2B_Click);
             // 
-            // button3
+            // N3B
             // 
-            this.button3.Location = new System.Drawing.Point(190, 71);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 3;
-            this.button3.Text = "Выбрать";
-            this.button3.UseVisualStyleBackColor = true;
+            this.N3B.Location = new System.Drawing.Point(371, 70);
+            this.N3B.Name = "N3B";
+            this.N3B.Size = new System.Drawing.Size(75, 23);
+            this.N3B.TabIndex = 3;
+            this.N3B.Text = "Выбрать";
+            this.N3B.UseVisualStyleBackColor = true;
+            this.N3B.Click += new System.EventHandler(this.N3B_Click);
             // 
-            // label1
+            // N2
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 46);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(67, 15);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "Отсутсвует";
+            this.N2.AutoSize = true;
+            this.N2.Location = new System.Drawing.Point(13, 46);
+            this.N2.Name = "N2";
+            this.N2.Size = new System.Drawing.Size(67, 15);
+            this.N2.TabIndex = 4;
+            this.N2.Text = "Отсутсвует";
             // 
-            // label2
+            // N3
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 75);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(67, 15);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "Отсутсвует";
+            this.N3.AutoSize = true;
+            this.N3.Location = new System.Drawing.Point(13, 75);
+            this.N3.Name = "N3";
+            this.N3.Size = new System.Drawing.Size(67, 15);
+            this.N3.TabIndex = 5;
+            this.N3.Text = "Отсутсвует";
             // 
             // TeamSetCreator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(278, 105);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.ClientSize = new System.Drawing.Size(458, 105);
+            this.Controls.Add(this.N3);
+            this.Controls.Add(this.N2);
+            this.Controls.Add(this.N3B);
+            this.Controls.Add(this.N2B);
+            this.Controls.Add(this.N1B);
             this.Controls.Add(this.N1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "TeamSetCreator";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Редактор тройки";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -113,10 +117,10 @@ namespace CompetitionOrganizer.Forms.Team_Managers
         #endregion
 
         private System.Windows.Forms.Label N1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button N1B;
+        private System.Windows.Forms.Button N2B;
+        private System.Windows.Forms.Button N3B;
+        private System.Windows.Forms.Label N2;
+        private System.Windows.Forms.Label N3;
     }
 }

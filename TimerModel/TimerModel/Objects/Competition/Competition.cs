@@ -8,51 +8,10 @@ using TimerModel.Objects;
 
 namespace TimerModel
 {
-    static class IListExtention
-    {
-        /*public static void Shuffle<T>(this IList<T> list)
-        {
-            RNGCryptoServiceProvider provider = new RNGCryptoServiceProvider();
-            int n = list.Count;
-            if (n <= 1)
-            {
-                return;
-            }
-            while (n > 1)
-            {
-                byte[] box = new byte[1];
-                do
-                {
-                    provider.GetBytes(box);
-                }
-                while (!(box[0] < n * (Byte.MaxValue / n)));
-                int k = (box[0] % n);
-                n--;
-                T value = list[k];
-                list[k] = list[n];
-                list[n] = value;
-            }
-        }*/
-        public static void ShuffleTeamSet<T>(this IList<T> list)
-        {
-            T v = list[0];
-            list[0] = list[1];
-            list[1] = list[2];
-            list[2] = v;
-        }
-    }
 
     public class Competition : IEquatable<Competition>
     {
         //public static int Round { get; set; }
-
-
-        //[JsonIgnore]
-        //public byte Key1 { get; set; }
-
-        //[JsonIgnore]
-        //public byte Key2 { get; set; }
-
         public bool Finished { get; set; }
 
         public string DateOfCreation { get; set; }
@@ -86,15 +45,11 @@ namespace TimerModel
         public Competition()
         {
             //AutoClosingMessageBox.Show("Test","Test", 4000);
-            //Key1 = (byte)new Random().Next(0, 255);
-            //Key2 = (byte)new Random().Next(0, 255);
             DateOfCreation = DateTime.Now.ToString("D") + " " + DateTime.Now.ToString("H-mm-ss");
             Teams = new TeamContainer(new List<Team>());
         }
         public Competition(List<Team> LTeams)
         {
-            //Key1 = (byte)new Random().Next(0, 255);
-            //Key2 = (byte)new Random().Next(0, 255);
             DateOfCreation = DateTime.Now.ToString("D") + " " + DateTime.Now.ToString("H-mm-ss");
             Teams = new TeamContainer(LTeams);
         }

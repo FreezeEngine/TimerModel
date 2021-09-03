@@ -17,6 +17,21 @@ namespace TimerModel.Objects
 
         private byte _LapsCount = Rules.MinLaps;
         public byte LapsCount { get { return _LapsCount; } set { if (value <= Rules.MaxLaps && Rules.MinLaps <= value) { _LapsCount = value; } } }
+
+        private byte _MaxRoundsCount = Rules.MinLaps;
+        public byte MaxRoundsCount
+        {
+            get { return _MaxRoundsCount; }
+            set
+            {
+                if (value <= Rules.MaxRounds && Rules.MinRounds <= value)
+                {
+                    SetRoundsCount(value);
+                    _MaxRoundsCount = value;
+                }
+            }
+        }
+
         public string CompetingModel { get; set; }
 
         private List<TeamSet> _TeamSets;
@@ -51,10 +66,9 @@ namespace TimerModel.Objects
 
         public void GenerateTeamSets()
         {
-            //return;
+
             var TSS = new List<TeamSet>();
-            //TeamSets.Clear();
-            //TeamSets = new List<TeamSet>();
+
             var Ts = Teams();
             if (Ts.Count == 0)
                 return;
@@ -63,10 +77,10 @@ namespace TimerModel.Objects
             {
                 TSCount++;
             }
-            //MessageBox.Show(TSCount.ToString());
+
             if (TSCount == 0)
                 TSCount = 1;
-            //var TsC = Ts.Count;
+
             bool added = false;
             foreach (var T in Ts)
             {
@@ -83,8 +97,7 @@ namespace TimerModel.Objects
                         if (TS.isFull() | TS.ShareSamePerson(T) | added)
                             continue;
                         byte i = (byte)TS.GetAsList().FindIndex(delegate (Team Tf) { return !Tf.Enabled; });
-                        //MessageBox.Show("TT "+i);
-                        //if(i == null)
+
                         switch (i)
                         {
                             case 0:
@@ -111,14 +124,6 @@ namespace TimerModel.Objects
                 }
                 TeamSets = TSS;
             }
-
-            /*for (byte i = 0; i < TSCount; i++)
-            {
-                TSs.Add(new TeamSet(Ts, i));
-            }*/
-
-            //MessageBox.Show(TSCount.ToString());
-            //ReorderTeamsets()
         }
         public void ReorderTeamsets()
         {
@@ -146,7 +151,15 @@ namespace TimerModel.Objects
         }
         public CompetingModels()
         {
+            //SetRoundsCount(MaxRoundsCount);
             //GenerateTeamSets();
+        }
+        public void SetRoundsCount(byte count)
+        {
+            foreach (var T in Teams(TimerSettings.Competition != null ? TimerSettings.Competition : null))
+            {
+                T.SetRoundsCount(count);
+            }
         }
         public byte GetMaxRoundsCountForThisClass()
         {
@@ -199,7 +212,7 @@ namespace TimerModel.Objects
         {
             if (TimerSettings.Competition?.Teams.CurrentModel == null)
             {
-                string T = (AtSetup) ? (" | " + LapsCount) : ("");
+                string T = (AtSetup) ? (" | " + MaxRoundsCount + "/" + LapsCount) : ("");
                 return CompetingModel + T;
             }
             return CompetingModel;

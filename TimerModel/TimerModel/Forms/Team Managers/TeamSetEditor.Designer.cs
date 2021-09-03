@@ -34,7 +34,6 @@ namespace CompetitionOrganizer.Forms.Team_Managers
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.TeamSetsTree = new System.Windows.Forms.TreeView();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.Shuffle1 = new System.Windows.Forms.Button();
             this.MoveUp1 = new System.Windows.Forms.Button();
             this.MoveDown1 = new System.Windows.Forms.Button();
             this.TeamSet1 = new System.Windows.Forms.ListBox();
@@ -53,7 +52,7 @@ namespace CompetitionOrganizer.Forms.Team_Managers
             this.TS1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.TS1.Enabled = false;
             this.TS1.FormattingEnabled = true;
-            this.TS1.Location = new System.Drawing.Point(10, 97);
+            this.TS1.Location = new System.Drawing.Point(10, 70);
             this.TS1.Name = "TS1";
             this.TS1.Size = new System.Drawing.Size(386, 23);
             this.TS1.TabIndex = 0;
@@ -63,9 +62,9 @@ namespace CompetitionOrganizer.Forms.Team_Managers
             // 
             this.Model.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.Model.FormattingEnabled = true;
-            this.Model.Location = new System.Drawing.Point(10, 44);
+            this.Model.Location = new System.Drawing.Point(66, 22);
             this.Model.Name = "Model";
-            this.Model.Size = new System.Drawing.Size(190, 23);
+            this.Model.Size = new System.Drawing.Size(183, 23);
             this.Model.TabIndex = 1;
             this.Model.SelectedIndexChanged += new System.EventHandler(this.Model_SelectedIndexChanged);
             // 
@@ -74,7 +73,7 @@ namespace CompetitionOrganizer.Forms.Team_Managers
             this.groupBox1.Controls.Add(this.TeamSetsTree);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(439, 277);
+            this.groupBox1.Size = new System.Drawing.Size(439, 252);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Просмотр";
@@ -83,12 +82,11 @@ namespace CompetitionOrganizer.Forms.Team_Managers
             // 
             this.TeamSetsTree.Location = new System.Drawing.Point(7, 22);
             this.TeamSetsTree.Name = "TeamSetsTree";
-            this.TeamSetsTree.Size = new System.Drawing.Size(422, 244);
+            this.TeamSetsTree.Size = new System.Drawing.Size(422, 224);
             this.TeamSetsTree.TabIndex = 0;
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.Shuffle1);
             this.groupBox2.Controls.Add(this.MoveUp1);
             this.groupBox2.Controls.Add(this.MoveDown1);
             this.groupBox2.Controls.Add(this.TeamSet1);
@@ -98,24 +96,14 @@ namespace CompetitionOrganizer.Forms.Team_Managers
             this.groupBox2.Controls.Add(this.TS1);
             this.groupBox2.Location = new System.Drawing.Point(457, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(402, 195);
+            this.groupBox2.Size = new System.Drawing.Size(402, 171);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Параметры";
             // 
-            // Shuffle1
-            // 
-            this.Shuffle1.Location = new System.Drawing.Point(206, 43);
-            this.Shuffle1.Name = "Shuffle1";
-            this.Shuffle1.Size = new System.Drawing.Size(190, 23);
-            this.Shuffle1.TabIndex = 23;
-            this.Shuffle1.Text = "Перемешать";
-            this.Shuffle1.UseVisualStyleBackColor = true;
-            this.Shuffle1.Click += new System.EventHandler(this.Shuffle1_Click);
-            // 
             // MoveUp1
             // 
-            this.MoveUp1.Location = new System.Drawing.Point(10, 126);
+            this.MoveUp1.Location = new System.Drawing.Point(10, 99);
             this.MoveUp1.Name = "MoveUp1";
             this.MoveUp1.Size = new System.Drawing.Size(40, 26);
             this.MoveUp1.TabIndex = 22;
@@ -125,7 +113,7 @@ namespace CompetitionOrganizer.Forms.Team_Managers
             // 
             // MoveDown1
             // 
-            this.MoveDown1.Location = new System.Drawing.Point(10, 164);
+            this.MoveDown1.Location = new System.Drawing.Point(10, 137);
             this.MoveDown1.Name = "MoveDown1";
             this.MoveDown1.Size = new System.Drawing.Size(40, 25);
             this.MoveDown1.TabIndex = 19;
@@ -137,7 +125,7 @@ namespace CompetitionOrganizer.Forms.Team_Managers
             // 
             this.TeamSet1.FormattingEnabled = true;
             this.TeamSet1.ItemHeight = 15;
-            this.TeamSet1.Location = new System.Drawing.Point(56, 126);
+            this.TeamSet1.Location = new System.Drawing.Point(56, 99);
             this.TeamSet1.Name = "TeamSet1";
             this.TeamSet1.Size = new System.Drawing.Size(340, 64);
             this.TeamSet1.TabIndex = 7;
@@ -145,7 +133,7 @@ namespace CompetitionOrganizer.Forms.Team_Managers
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(10, 78);
+            this.label2.Location = new System.Drawing.Point(10, 51);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(46, 15);
             this.label2.TabIndex = 3;
@@ -162,7 +150,7 @@ namespace CompetitionOrganizer.Forms.Team_Managers
             // 
             // DeleteTeamSet
             // 
-            this.DeleteTeamSet.Location = new System.Drawing.Point(722, 213);
+            this.DeleteTeamSet.Location = new System.Drawing.Point(722, 188);
             this.DeleteTeamSet.Name = "DeleteTeamSet";
             this.DeleteTeamSet.Size = new System.Drawing.Size(137, 34);
             this.DeleteTeamSet.TabIndex = 15;
@@ -172,7 +160,7 @@ namespace CompetitionOrganizer.Forms.Team_Managers
             // 
             // AddTeamSet
             // 
-            this.AddTeamSet.Location = new System.Drawing.Point(457, 213);
+            this.AddTeamSet.Location = new System.Drawing.Point(457, 188);
             this.AddTeamSet.Name = "AddTeamSet";
             this.AddTeamSet.Size = new System.Drawing.Size(137, 34);
             this.AddTeamSet.TabIndex = 13;
@@ -182,9 +170,9 @@ namespace CompetitionOrganizer.Forms.Team_Managers
             // 
             // Submit
             // 
-            this.Submit.Location = new System.Drawing.Point(457, 252);
+            this.Submit.Location = new System.Drawing.Point(457, 228);
             this.Submit.Name = "Submit";
-            this.Submit.Size = new System.Drawing.Size(402, 38);
+            this.Submit.Size = new System.Drawing.Size(402, 36);
             this.Submit.TabIndex = 4;
             this.Submit.Text = "Применить";
             this.Submit.UseVisualStyleBackColor = true;
@@ -192,7 +180,7 @@ namespace CompetitionOrganizer.Forms.Team_Managers
             // 
             // EditTeamSet
             // 
-            this.EditTeamSet.Location = new System.Drawing.Point(600, 213);
+            this.EditTeamSet.Location = new System.Drawing.Point(600, 188);
             this.EditTeamSet.Name = "EditTeamSet";
             this.EditTeamSet.Size = new System.Drawing.Size(116, 34);
             this.EditTeamSet.TabIndex = 16;
@@ -205,7 +193,7 @@ namespace CompetitionOrganizer.Forms.Team_Managers
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ClientSize = new System.Drawing.Size(871, 296);
+            this.ClientSize = new System.Drawing.Size(871, 270);
             this.Controls.Add(this.EditTeamSet);
             this.Controls.Add(this.Submit);
             this.Controls.Add(this.AddTeamSet);
@@ -238,7 +226,6 @@ namespace CompetitionOrganizer.Forms.Team_Managers
         private System.Windows.Forms.Button AddTeamSet;
         private System.Windows.Forms.Button MoveUp1;
         private System.Windows.Forms.Button MoveDown1;
-        private System.Windows.Forms.Button Shuffle1;
         private System.Windows.Forms.Button EditTeamSet;
     }
 }

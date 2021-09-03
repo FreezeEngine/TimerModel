@@ -85,6 +85,7 @@ namespace TimerModel
         public Team(bool Enabled)
         {
             Rounds.Add(new Round());
+            SetRoundsCount(Rules.MinRounds);
             this.Enabled = Enabled;
         }
         public Team()

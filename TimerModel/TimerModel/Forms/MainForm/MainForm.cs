@@ -873,7 +873,7 @@ namespace TimerModel
         }
         private void ChangePilot(int ModelNum)
         {
-            CreateListForm LF = new CreateListForm(true);
+            TeamsListForm LF = new TeamsListForm(true);
             ChoosePilots();
             LF.Closing += (s, a) =>
             {

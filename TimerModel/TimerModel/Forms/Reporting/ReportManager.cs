@@ -38,8 +38,6 @@ namespace TimerModel.Forms
             ListOfReports.SelectedIndex = 0;
         }
 
-        public object MesageBox { get; private set; }
-
         private void ListOfReports_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdateData = false;

@@ -30,7 +30,7 @@ namespace TimerModel
         private void InitializeComponent()
         {
             this.Continue = new System.Windows.Forms.Button();
-            this.LapsAmount = new System.Windows.Forms.NumericUpDown();
+            this.LapsCount = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.FlyModelsList = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -47,11 +47,12 @@ namespace TimerModel
             this.label6 = new System.Windows.Forms.Label();
             this.StartModelIndex = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.LapsAmount)).BeginInit();
+            this.RoundsCount = new System.Windows.Forms.NumericUpDown();
+            ((System.ComponentModel.ISupportInitialize)(this.LapsCount)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.RoundsCount)).BeginInit();
             this.SuspendLayout();
             // 
             // Continue
@@ -64,15 +65,15 @@ namespace TimerModel
             this.Continue.UseVisualStyleBackColor = true;
             this.Continue.Click += new System.EventHandler(this.Continue_Click);
             // 
-            // LapsAmount
+            // LapsCount
             // 
-            this.LapsAmount.Location = new System.Drawing.Point(131, 55);
-            this.LapsAmount.Name = "LapsAmount";
-            this.LapsAmount.ReadOnly = true;
-            this.LapsAmount.Size = new System.Drawing.Size(58, 23);
-            this.LapsAmount.TabIndex = 4;
-            this.LapsAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.LapsAmount.ValueChanged += new System.EventHandler(this.LapAmount_ValueChanged);
+            this.LapsCount.Location = new System.Drawing.Point(131, 55);
+            this.LapsCount.Name = "LapsCount";
+            this.LapsCount.ReadOnly = true;
+            this.LapsCount.Size = new System.Drawing.Size(58, 23);
+            this.LapsCount.TabIndex = 4;
+            this.LapsCount.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.LapsCount.ValueChanged += new System.EventHandler(this.LapAmount_ValueChanged);
             // 
             // label2
             // 
@@ -104,12 +105,14 @@ namespace TimerModel
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.LapsAmount);
+            this.groupBox1.Controls.Add(this.RoundsCount);
+            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Controls.Add(this.LapsCount);
             this.groupBox1.Controls.Add(this.FlyModelsList);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Location = new System.Drawing.Point(12, 189);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(204, 89);
+            this.groupBox1.Size = new System.Drawing.Size(204, 114);
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Параметры";
@@ -219,28 +222,27 @@ namespace TimerModel
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(13, 285);
+            this.label7.Location = new System.Drawing.Point(13, 86);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(134, 15);
-            this.label7.TabIndex = 18;
-            this.label7.Text = "Модель соревнования:";
+            this.label7.Size = new System.Drawing.Size(106, 15);
+            this.label7.TabIndex = 6;
+            this.label7.Text = "Количество туров";
             // 
-            // button1
+            // RoundsCount
             // 
-            this.button1.Location = new System.Drawing.Point(153, 281);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(224, 23);
-            this.button1.TabIndex = 19;
-            this.button1.Text = "Смотреть/редактировать";
-            this.button1.UseVisualStyleBackColor = true;
+            this.RoundsCount.Location = new System.Drawing.Point(131, 83);
+            this.RoundsCount.Name = "RoundsCount";
+            this.RoundsCount.ReadOnly = true;
+            this.RoundsCount.Size = new System.Drawing.Size(58, 23);
+            this.RoundsCount.TabIndex = 7;
+            this.RoundsCount.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.RoundsCount.ValueChanged += new System.EventHandler(this.RoundsCount_ValueChanged);
             // 
             // SetSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(389, 356);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.label7);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.CMName);
@@ -253,13 +255,14 @@ namespace TimerModel
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Настройка";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SetSettings_FormClosing);
-            ((System.ComponentModel.ISupportInitialize)(this.LapsAmount)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.LapsCount)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.RoundsCount)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -267,7 +270,7 @@ namespace TimerModel
 
         #endregion
         private System.Windows.Forms.Button Continue;
-        private System.Windows.Forms.NumericUpDown LapsAmount;
+        private System.Windows.Forms.NumericUpDown LapsCount;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox FlyModelsList;
         private System.Windows.Forms.Label label1;
@@ -283,7 +286,7 @@ namespace TimerModel
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox StartModelIndex;
+        private System.Windows.Forms.NumericUpDown RoundsCount;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Button button1;
     }
 }

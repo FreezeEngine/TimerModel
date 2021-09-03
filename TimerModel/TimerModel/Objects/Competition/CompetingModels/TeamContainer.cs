@@ -154,7 +154,7 @@ namespace TimerModel.Objects
                     return 0;
                 if (TDr.ToString("0.00").Split(',')[1].Contains('0'))
                 {
-                    return 0;
+                    return 2;
                 }
                 if (TDr.ToString("0.00").Split(',')[1].Contains('3'))
                 {
@@ -162,7 +162,7 @@ namespace TimerModel.Objects
                 }
                 if (TDr.ToString("0.00").Split(',')[1].Contains('6'))
                 {
-                    return 2;
+                    return 0;
                 }
                 return 0;
             }

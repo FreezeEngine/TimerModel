@@ -63,7 +63,7 @@ namespace CompetitionOrganizer.Forms.Team_Managers
 
         private void ChangePilot(int ModelNum)
         {
-            CreateListForm LF = new CreateListForm(true, true);
+            TeamsListForm LF = new TeamsListForm(true);
             LF.Closing += (s, a) =>
             {
                 if (LF.Choosen_Team != null)

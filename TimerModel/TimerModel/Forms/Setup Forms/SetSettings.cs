@@ -21,9 +21,11 @@ namespace TimerModel
 
             UpdateFlyModelsList();
 
-            LapsAmount.Maximum = Rules.MaxLaps;
+            LapsCount.Maximum = Rules.MaxLaps;
+            LapsCount.Minimum = Rules.MinLaps;
 
-            LapsAmount.Minimum = Rules.MinLaps;
+            RoundsCount.Maximum = Rules.MaxRounds;
+            RoundsCount.Minimum = Rules.MinRounds;
         }
         private void UpdateFlyModelsList()
         {
@@ -38,7 +40,8 @@ namespace TimerModel
             FlyModelsList.Items[FlyModelsList.SelectedIndex] = TimerSettings.Competition.Teams.TeamClumps[FlyModelsList.SelectedIndex];
             StartModelIndex.Items[StartModelIndex.SelectedIndex] = TimerSettings.Competition.Teams.TeamClumps[StartModelIndex.SelectedIndex];
 
-            LapsAmount.Value = TimerSettings.Competition.Teams.TeamClumps[FlyModelsList.SelectedIndex].LapsCount;
+            LapsCount.Value = TimerSettings.Competition.Teams.TeamClumps[FlyModelsList.SelectedIndex].LapsCount;
+            RoundsCount.Value = TimerSettings.Competition.Teams.TeamClumps[FlyModelsList.SelectedIndex].MaxRoundsCount;
 
             UpdateControls = true;
         }
@@ -79,7 +82,7 @@ namespace TimerModel
             //UpdateFlyModelsList();
             if (UpdateControls)
             {
-                TimerSettings.Competition.Teams.TeamClumps[FlyModelsList.SelectedIndex].LapsCount = (byte)LapsAmount.Value;
+                TimerSettings.Competition.Teams.TeamClumps[FlyModelsList.SelectedIndex].LapsCount = (byte)LapsCount.Value;
                 UpdateFlyModelsList();
             }
         }
@@ -102,6 +105,15 @@ namespace TimerModel
         {
             if (UpdateControls)
                 UpdateFlyModelsList();
+        }
+
+        private void RoundsCount_ValueChanged(object sender, EventArgs e)
+        {
+            if (UpdateControls)
+            {
+                TimerSettings.Competition.Teams.TeamClumps[FlyModelsList.SelectedIndex].MaxRoundsCount = (byte)RoundsCount.Value;
+                UpdateFlyModelsList();
+            }
         }
     }
 }

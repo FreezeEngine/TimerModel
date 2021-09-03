@@ -69,40 +69,6 @@ namespace CompetitionOrganizer.Forms.Team_Managers
             TeamSet1.Items.AddRange(TimerSettings.Competition.Teams.TeamClumps[Model.SelectedIndex].TeamSets[TS1.SelectedIndex].GetAsList().ToArray());
         }
 
-        /*private void UpdateSets(bool Left = true)
-        {
-            if (Left)
-            {
-                List<Team> Ts = new List<Team>();
-                foreach (Team T in TeamSet1.Items)
-                {
-                    Ts.Add(T);
-                }
-                if (Ts.Count < 3)
-                {
-                    while (Ts.Count != 3)
-                        Ts.Add(TimerSettings.Competition.Teams._Disabled);
-                }
-                TimerSettings.Competition.Teams.TeamClumps[Model.SelectedIndex].TeamSets[TS1.SelectedIndex].Set = Ts.ToArray();
-                UpdateLists();
-            }
-            else
-            {
-                List<Team> Ts = new List<Team>();
-                foreach (Team T in TeamSet2.Items)
-                {
-                    Ts.Add(T);
-                }
-                if (Ts.Count < 3)
-                {
-                    while (Ts.Count != 3)
-                        Ts.Add(TimerSettings.Competition.Teams._Disabled);
-                }
-                TimerSettings.Competition.Teams.TeamClumps[Model2.SelectedIndex].TeamSets[TS2.SelectedIndex].Set = Ts.ToArray();
-                UpdateLists();
-            };
-        }*/
-
         private void MoveUp1_Click(object sender, System.EventArgs e)
         {
             if (TeamSet1.SelectedItem != null)
@@ -185,11 +151,6 @@ namespace CompetitionOrganizer.Forms.Team_Managers
             //MessageBox.Show(V.ToString());
             TimerSettings.Competition.Teams.TeamClumps[Model.SelectedIndex].TeamSets.RemoveAt(TS1.SelectedIndex);
             //MessageBox.Show(T.ToString());
-            UpdateLists();
-        }
-        private void Shuffle1_Click(object sender, System.EventArgs e)
-        {
-            TimerSettings.Competition.Teams.TeamClumps[Model.SelectedIndex].TeamSets[TS1.SelectedIndex].Shuffle();
             UpdateLists();
         }
 

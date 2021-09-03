@@ -13,10 +13,6 @@ namespace TimerModel.Objects
             get
             {
                 var TO = getOffset(0);
-                //if(TO != 0)
-                //{
-                    //MessageBox.Show("DD");
-                //}
                 if (Set[TO] == -1)
                 {
                     return new Team(false);
@@ -26,7 +22,6 @@ namespace TimerModel.Objects
             set
             {
                 var TO = getOffset(0);
-                //if (Set[0] == -1) {  }
                 if (value == null | !value.Enabled) { Set[TO] = -1; return; }
                 if (value == Second | value == Third && value.Enabled == true && !Updater) { SameTeamMessage(value); return; } else { Set[TO] = (sbyte)TimerSettings.Competition.Teams.AllTeams.FindIndex(delegate (Team fT) { return fT.Equals(value); }); }
             }
@@ -46,7 +41,6 @@ namespace TimerModel.Objects
             set
             {
                 var TO = getOffset(1);
-                //if (Set[0] == -1) {  }
                 if (value == null | !value.Enabled) { Set[TO] = -1; return; }
                 if (value == Second | value == Third && value.Enabled == true && !Updater) { SameTeamMessage(value); return; } else { Set[TO] = (sbyte)TimerSettings.Competition.Teams.AllTeams.FindIndex(delegate (Team fT) { return fT.Equals(value); }); }
             }
@@ -75,37 +69,7 @@ namespace TimerModel.Objects
         private byte getOffset(byte TeamNum)
         {
             var TO = TimerSettings.Competition.Teams.TeamOffset;
-            //MessageBox.Show((TeamNum == 0 ? TO : TeamNum == 1 ? TO == 0 ? 1 : TO == 1 ? 2 : TO == 2 ? 0 : 0 : TeamNum == 2 ? TO == 0 ? 2 : TO == 1 ? 0 : TO == 2 ? 1 : 0 : 0).ToString());
             return (byte)(TeamNum == 0 ? TO : TeamNum == 1 ? TO == 0 ? 1 : TO == 1 ? 2 : TO == 2 ? 0 : 0 : TeamNum == 2 ? TO == 0 ? 2 : TO == 1 ? 0 : TO == 2 ? 1 : 0 : 0);
-            /*switch (TeamNum)
-            {
-                case 0:
-                    return TimerSettings.Competition.Teams.TeamOffset;
-                    
-                case 1:
-                    switch (TimerSettings.Competition.Teams.TeamOffset)
-                    {
-                        case 0:
-                            return 1;
-                        case 1:
-                            return 2;
-                        case 2:
-                            return 0;
-                    }
-                    return 0;
-                case 2:
-                    switch (TimerSettings.Competition.Teams.TeamOffset)
-                    {
-                        case 0:
-                            return 2;
-                        case 1:
-                            return 0;
-                        case 2:
-                            return 1;
-                    }
-                    return 0;
-            }
-            return 0;*/
         }
         public bool isFull()
         {
@@ -126,13 +90,11 @@ namespace TimerModel.Objects
             }
             return false;
         }
-        //Fix null //= new Team(false);
         public sbyte[] Set { get; set; }
         public List<Team> GetAsList()
         {
             return new List<Team>() { First, Second, Third };
         }
-
         public void UpdateAsList(Team[] TST)
         {
             UpdateSets();
@@ -195,12 +157,6 @@ namespace TimerModel.Objects
                     }
                 }
             }
-
-            //Err
-        }
-        public void Shuffle()
-        {
-            Set.ShuffleTeamSet();
         }
         public override string ToString()
         {

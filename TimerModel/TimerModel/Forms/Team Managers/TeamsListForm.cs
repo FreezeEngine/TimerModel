@@ -8,33 +8,33 @@ using TimerModel.Objects;
 
 namespace TimerModel
 {
-    public partial class CreateListForm : Form
+    public partial class TeamsListForm : Form
     {
         public bool SomethingChanged = false;
-        public CreateListForm(bool ChooseMode = false, bool ShowUnusedFirst = false)
+        public TeamsListForm(bool ShowUnusedFirst = false)
         {
             InitializeComponent();
             TopMost = true;
 
-            if (ChooseMode)
+            //if (ChooseMode)
+            //{
+            //CreateAndUse.Visible = false;
+            //Choose.Visible = true;
+            //CreateExcelFile.Visible = false;
+            //ChooseEmpty.Visible = true;
+            //JustUse.Visible = false;
+            UpdateFlyModelsList();
+            if (ShowUnusedFirst)
             {
-                CreateAndUse.Visible = false;
-                Choose.Visible = true;
-                CreateExcelFile.Visible = false;
-                ChooseEmpty.Visible = true;
-                JustUse.Visible = false;
-                UpdateFlyModelsList();
-                if (ShowUnusedFirst)
-                {
-                    FlyModelsList.SelectedIndex = FlyModelsList.Items.Count - 1;
-                }
+                FlyModelsList.SelectedIndex = FlyModelsList.Items.Count - 1;
             }
-            else
-            {
-                new Competition();
-                Choose.Visible = false;
-                ChooseEmpty.Visible = false;
-            }
+            //}
+            //else
+            //{
+            //   new Competition();
+            //   Choose.Visible = false;
+            //   ChooseEmpty.Visible = false;
+            //}
         }
         private void UpdateFlyModelsList()
         {
@@ -205,17 +205,18 @@ namespace TimerModel
             {
                 Ts = TimerSettings.Competition.Teams.GetTeams();
             }
-            else if(FlyModelsList.SelectedIndex < TimerSettings.Competition.Teams.TeamClumps.Count)
+            else if (FlyModelsList.SelectedIndex < TimerSettings.Competition.Teams.TeamClumps.Count)
             {
                 Ts = TimerSettings.Competition.Teams.TeamClumps[FlyModelsList.SelectedIndex].Teams();
-            }else
+            }
+            else
             {
-                Ts = TimerSettings.Competition.Teams.AllTeams.FindAll(delegate (Team T) { return T.CM.TeamSets.Find(delegate(TeamSet tset) { return tset.ShareSamePerson(T); }) == null; });
+                Ts = TimerSettings.Competition.Teams.AllTeams.FindAll(delegate (Team T) { return T.CM.TeamSets.Find(delegate (TeamSet tset) { return tset.ShareSamePerson(T); }) == null; });
             }
             List<Team> TsFiltered;
             if (searchBox.Text != "")
             {
-                TsFiltered = Ts.FindAll(delegate (Team T) { return T.Pilot.Name.Contains(searchBox.Text)|T.Mechanic.Name.Contains(searchBox.Text); });
+                TsFiltered = Ts.FindAll(delegate (Team T) { return T.Pilot.Name.Contains(searchBox.Text) | T.Mechanic.Name.Contains(searchBox.Text); });
             }
             else
             {

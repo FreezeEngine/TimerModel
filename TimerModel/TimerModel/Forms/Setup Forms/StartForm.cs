@@ -34,10 +34,11 @@ namespace TimerModel
 
         private void CreateList_Click(object sender, EventArgs e)
         {
-            Hide();
-            CreateListForm ListGen = new CreateListForm();
-            ListGen.Closed += (s, args) => Show();
-            ListGen.Show();
+            //DEPRICATED?
+            //Hide();
+            //CreateListForm ListGen = new CreateListForm();
+            //ListGen.Closed += (s, args) => Show();
+            //ListGen.Show();
         }
 
         private void Settings_Click(object sender, EventArgs e)

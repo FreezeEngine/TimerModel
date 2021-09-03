@@ -1,7 +1,7 @@
 ﻿
 namespace TimerModel
 {
-    partial class CreateListForm
+    partial class TeamsListForm
     {
         /// <summary>
         /// Required designer variable.
@@ -32,14 +32,11 @@ namespace TimerModel
             this.ListOfTeams = new System.Windows.Forms.ListBox();
             this.Add = new System.Windows.Forms.Button();
             this.Remove = new System.Windows.Forms.Button();
-            this.CreateExcelFile = new System.Windows.Forms.Button();
-            this.CreateAndUse = new System.Windows.Forms.Button();
             this.Edit = new System.Windows.Forms.Button();
             this.Choose = new System.Windows.Forms.Button();
             this.OpenCompetitionManager = new System.Windows.Forms.Button();
             this.FlyModelsList = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.JustUse = new System.Windows.Forms.Button();
             this.ChooseEmpty = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.searchBox = new System.Windows.Forms.TextBox();
@@ -80,26 +77,6 @@ namespace TimerModel
             this.Remove.Text = "Удалить";
             this.Remove.UseVisualStyleBackColor = true;
             this.Remove.Click += new System.EventHandler(this.Remove_Click);
-            // 
-            // CreateExcelFile
-            // 
-            this.CreateExcelFile.Location = new System.Drawing.Point(14, 434);
-            this.CreateExcelFile.Name = "CreateExcelFile";
-            this.CreateExcelFile.Size = new System.Drawing.Size(132, 37);
-            this.CreateExcelFile.TabIndex = 3;
-            this.CreateExcelFile.Text = "Сохранить";
-            this.CreateExcelFile.UseVisualStyleBackColor = true;
-            this.CreateExcelFile.Click += new System.EventHandler(this.CreateExcelFile_ClickAsync);
-            // 
-            // CreateAndUse
-            // 
-            this.CreateAndUse.Location = new System.Drawing.Point(14, 477);
-            this.CreateAndUse.Name = "CreateAndUse";
-            this.CreateAndUse.Size = new System.Drawing.Size(133, 51);
-            this.CreateAndUse.TabIndex = 4;
-            this.CreateAndUse.Text = "Сохранить и использовать";
-            this.CreateAndUse.UseVisualStyleBackColor = true;
-            this.CreateAndUse.Click += new System.EventHandler(this.CreateAndUse_ClickAsync);
             // 
             // Edit
             // 
@@ -151,19 +128,9 @@ namespace TimerModel
             this.label1.TabIndex = 10;
             this.label1.Text = "Модель:";
             // 
-            // JustUse
-            // 
-            this.JustUse.Location = new System.Drawing.Point(14, 389);
-            this.JustUse.Name = "JustUse";
-            this.JustUse.Size = new System.Drawing.Size(133, 33);
-            this.JustUse.TabIndex = 11;
-            this.JustUse.Text = "Использовать";
-            this.JustUse.UseVisualStyleBackColor = true;
-            this.JustUse.Click += new System.EventHandler(this.JustUse_Click);
-            // 
             // ChooseEmpty
             // 
-            this.ChooseEmpty.Location = new System.Drawing.Point(14, 428);
+            this.ChooseEmpty.Location = new System.Drawing.Point(14, 434);
             this.ChooseEmpty.Name = "ChooseEmpty";
             this.ChooseEmpty.Size = new System.Drawing.Size(133, 43);
             this.ChooseEmpty.TabIndex = 12;
@@ -178,10 +145,7 @@ namespace TimerModel
             this.panel1.Controls.Add(this.searchBox);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.ChooseEmpty);
-            this.panel1.Controls.Add(this.CreateAndUse);
             this.panel1.Controls.Add(this.Add);
-            this.panel1.Controls.Add(this.CreateExcelFile);
-            this.panel1.Controls.Add(this.JustUse);
             this.panel1.Controls.Add(this.Remove);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.Edit);
@@ -226,7 +190,7 @@ namespace TimerModel
             this.tableLayoutPanel1.Size = new System.Drawing.Size(652, 543);
             this.tableLayoutPanel1.TabIndex = 14;
             // 
-            // CreateListForm
+            // TeamsListForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -236,7 +200,7 @@ namespace TimerModel
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(653, 582);
-            this.Name = "CreateListForm";
+            this.Name = "TeamsListForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Редактировать список";
             this.panel1.ResumeLayout(false);
@@ -251,14 +215,11 @@ namespace TimerModel
         private System.Windows.Forms.ListBox ListOfTeams;
         private System.Windows.Forms.Button Add;
         private System.Windows.Forms.Button Remove;
-        private System.Windows.Forms.Button CreateExcelFile;
-        private System.Windows.Forms.Button CreateAndUse;
         private System.Windows.Forms.Button Edit;
         private System.Windows.Forms.Button Choose;
         private System.Windows.Forms.Button OpenCompetitionManager;
         private System.Windows.Forms.ComboBox FlyModelsList;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button JustUse;
         private System.Windows.Forms.Button ChooseEmpty;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;

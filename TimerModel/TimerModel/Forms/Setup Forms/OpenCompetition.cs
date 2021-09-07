@@ -135,7 +135,7 @@ namespace CompetitionOrganizer.Forms.Setup_Forms
             }
             if (ProjectsList.SelectedIndex != -1)
             {
-                
+
                 CompetitionLabel.Enabled = true;
             }
             UpdateData();

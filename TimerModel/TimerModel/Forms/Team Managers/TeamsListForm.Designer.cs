@@ -96,7 +96,6 @@ namespace TimerModel
             this.Choose.TabIndex = 7;
             this.Choose.Text = "Выбрать";
             this.Choose.UseVisualStyleBackColor = true;
-            this.Choose.Visible = false;
             this.Choose.Click += new System.EventHandler(this.Choose_Click);
             // 
             // OpenCompetitionManager
@@ -136,7 +135,6 @@ namespace TimerModel
             this.ChooseEmpty.TabIndex = 12;
             this.ChooseEmpty.Text = "Отключить команду";
             this.ChooseEmpty.UseVisualStyleBackColor = true;
-            this.ChooseEmpty.Visible = false;
             this.ChooseEmpty.Click += new System.EventHandler(this.ChooseEmpty_Click);
             // 
             // panel1

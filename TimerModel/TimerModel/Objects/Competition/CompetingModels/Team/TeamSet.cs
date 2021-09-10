@@ -66,7 +66,7 @@ namespace TimerModel.Objects
                 if (value == Second | value == Third && value.Enabled == true && !Updater) { SameTeamMessage(value); return; } else { Set[TO] = (sbyte)TimerSettings.Competition.Teams.AllTeams.FindIndex(delegate (Team fT) { return fT.Equals(value); }); }
             }
         }
-        private byte getOffset(byte TeamNum)
+        public byte getOffset(byte TeamNum)
         {
             var TO = TimerSettings.Competition.Teams.TeamOffset;
             return (byte)(TeamNum == 0 ? TO : TeamNum == 1 ? TO == 0 ? 1 : TO == 1 ? 2 : TO == 2 ? 0 : 0 : TeamNum == 2 ? TO == 0 ? 2 : TO == 1 ? 0 : TO == 2 ? 1 : 0 : 0);

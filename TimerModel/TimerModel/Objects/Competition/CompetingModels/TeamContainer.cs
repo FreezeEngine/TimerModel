@@ -149,7 +149,12 @@ namespace TimerModel.Objects
 
             get
             {
+                if(GlobalRound == 0)//DUMSHIT
+                {
+                    GlobalRound = 1;
+                }
                 double TDr = GlobalRound / 3d;
+                //MessageBox.Show(GlobalRound.ToString()+TDr.ToString());
                 if (TDr == 0)
                     return 0;
                 if (TDr.ToString("0.00").Split(',')[1].Contains('0'))

@@ -48,7 +48,7 @@ namespace TimerModel
             onTeamsFailed += () =>
             {
                 LoadingStatusLabel.SetPropertyThreadSafe(() => LoadingStatusLabel.Text, "Ошибка загрузки!");
-                MessageBox.Show("Команд не найдено!");
+                
                 Invoke((MethodInvoker)delegate ()
                 {
                     Close();

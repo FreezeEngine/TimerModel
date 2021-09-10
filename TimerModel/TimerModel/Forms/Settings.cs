@@ -1,5 +1,6 @@
 ﻿using CompetitionOrganizer.Forms.Team_Managers;
 using CompetitionOrganizer.Objects;
+using CompetitionOrganizer.Objects.Reporting;
 using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
@@ -220,6 +221,23 @@ namespace TimerModel.Forms
                 TimerSettings.Competition.FillOut();
                 TimerSettings.Competition.Finish();
             }
+        }
+
+        private void SaveData_Click(object sender, EventArgs e)
+        {
+            BGSaver.SaveData();
+        }
+
+        private void TemporerelyFinish_Click(object sender, EventArgs e)
+        {
+            var EndDialog = MessageBox.Show("Завершить соревнование?", "Предупреждение", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (EndDialog == DialogResult.Yes)
+            {
+                Hide();
+                TimerSettings.Competition.Finish(false, false);
+                Close();
+            }
+
         }
     }
 }

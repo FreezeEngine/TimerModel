@@ -1,4 +1,5 @@
 ﻿using CompetitionOrganizer.Objects;
+using CompetitionOrganizer.Objects.Reporting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -89,13 +90,14 @@ namespace TimerModel
                 }
             }
         }
-        public void Finish(bool Recover = false)
+        public void Finish(bool Recover = false, bool FinishEntirely = true)
         {
-            TimerSettings.Competition.Finished = true;
+            BGSaver.SaveData();
+            TimerSettings.Competition.Finished = FinishEntirely;
             //onCompetitionFinished();
             //return; //FIX
             //List<byte> MinRounds = new List<byte>();
-            foreach (var T in TimerSettings.Competition.Teams.AllTeams)
+            /*foreach (var T in TimerSettings.Competition.Teams.AllTeams)
             {
                 //var Rc = 
                 var BR = T.Rounds.FindAll(delegate (Round R) { return !R.Finished; });
@@ -104,7 +106,7 @@ namespace TimerModel
                     T.Rounds.Remove(R);
                 }
                 //MinRounds.Add((byte)T.Rounds.Count);
-            }
+            }*/
             //byte minr = MinRounds.ToArray().Min();
             if (!Recover)
             {

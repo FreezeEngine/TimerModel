@@ -34,6 +34,7 @@ namespace TimerModel
             };
             TimerSettings.Competition.Teams.onTeamNewCycle += () =>
             {
+                //UpdateRounds();
                 UpdateRoundCounters = false;
 
                 if (RoundNum.Value + 1 > RoundNum.Maximum)
@@ -54,13 +55,18 @@ namespace TimerModel
             TimeSpanTable3.BackColor = SystemColors.GrayText;
 
             UpdateTeamsData();
+            UpdateRounds();
         }
 
         private void UpdateRounds()
         {
-            TimerSettings.Competition.Teams.First.SelectRound((byte)M1Round.Value);
-            TimerSettings.Competition.Teams.Second.SelectRound((byte)M2Round.Value);
-            TimerSettings.Competition.Teams.Third.SelectRound((byte)M3Round.Value);
+            var C = TimerSettings.Competition;
+            if (C.Teams.First.Enabled)
+                C.Teams.First.SelectRound(TimerSettings.Competition.Teams.First.CM.Round);
+            if (C.Teams.Second.Enabled)
+                C.Teams.Second.SelectRound(TimerSettings.Competition.Teams.Second.CM.Round);
+            if (C.Teams.Third.Enabled)
+                C.Teams.Third.SelectRound(TimerSettings.Competition.Teams.Third.CM.Round);
         }
         private void UpdateTabels()
         {
@@ -70,7 +76,8 @@ namespace TimerModel
             TimeSpanTable3.Controls.Clear();
             LapTable.Controls.Clear();
 
-            RoundNum.Maximum = Rules.MaxRounds;
+            RoundNum.Maximum = TimerSettings.Competition.Teams.CurrentModel.MaxRoundsCount;
+            //RoundNum.Value = 
 
             int M1c = (TimerSettings.Competition.Teams.First.CM != null) ? (TimerSettings.Competition.Teams.First.CM.LapsCount) : (Rules.MinLaps);
             int M2c = (TimerSettings.Competition.Teams.Second.CM != null) ? (TimerSettings.Competition.Teams.Second.CM.LapsCount) : (Rules.MinLaps);
@@ -355,7 +362,13 @@ namespace TimerModel
         }
         private void UpdateTeamsData()
         {
+            
             //MessageBox.Show(Environment.StackTrace.ToString());
+            //UpdateRoundCounters = true;
+            //justSetRoundNum = false;
+            //RoundNum.Value = TimerSettings.Competition.Teams.GlobalRound;
+            //UpdateRoundCounters = true;
+            //justSetRoundNum = false;
             NT1.Text = "";
             NT2.Text = "";
             NT3.Text = "";
@@ -702,7 +715,6 @@ namespace TimerModel
                 }
             }
         }
-
         private void CloseProtection(Object sender, FormClosingEventArgs e)
         {
             var Close = MessageBox.Show("Вы уверены что хотите закрыть приложение?", "Предупреждение", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -920,7 +932,6 @@ namespace TimerModel
 
             Stop.Enabled = false;
             StopTimer();
-            //Start.Enabled = false;
             if (T1.Enabled)
                 if (T1.CurrentRound.Laps.Count - 1 < T1.CM.LapsCount && T1.Enabled)
                 {
@@ -958,44 +969,28 @@ namespace TimerModel
         {
             if (justSetRoundNum)
                 return;
-            var RoundSwitchingDialog = MessageBox.Show("Вы уверены что хотите сменить тур?", "Предупреждение", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (RoundSwitchingDialog == DialogResult.Yes)
+            if (UpdateRoundCounters)
             {
-                if (UpdateRoundCounters)
+                TimerSettings.Competition.Teams.GlobalRound = (byte)(RoundNum.Value);
+                UpdateRoundCounters = false;
+                if (RoundNum.Value <= M1Round.Maximum)
                 {
-                    //NO-NO
-                    TimerSettings.Competition.Teams.GlobalRound = (byte)(RoundNum.Value);
-                    //foreach (var TS in TimerSettings.Competition.Teams.CurrentModel.TeamSets)
-                    //{
-                    //    TS.Shuffle();
-                    //}
-
-                    //TimerSettings.Competition.Teams.ReloadTeamSet();
-
-                    UpdateRoundCounters = false;
-                    if (RoundNum.Value <= M1Round.Maximum)
-                    {
-                        M1Round.Value = RoundNum.Value;
-                    }
-                    if (RoundNum.Value <= M2Round.Maximum)
-                    {
-                        M2Round.Value = RoundNum.Value;
-                    }
-                    if (RoundNum.Value <= M3Round.Maximum)
-                    {
-                        M3Round.Value = RoundNum.Value;
-                    }
-                    UpdateRoundCounters = true;
-                    RoundValueChanged(1, false);
-                    RoundValueChanged(2, false);
-                    RoundValueChanged(3, false);
-
-                    //TimerSettings.Competition.Teams.CurrentModel.CurrentTeamset.First.CurrentRoundNum = 
+                    M1Round.Value = RoundNum.Value;
                 }
+                if (RoundNum.Value <= M2Round.Maximum)
+                {
+                    M2Round.Value = RoundNum.Value;
+                }
+                if (RoundNum.Value <= M3Round.Maximum)
+                {
+                    M3Round.Value = RoundNum.Value;
+                }
+                UpdateRoundCounters = true;
+                RoundValueChanged(1, false);
+                RoundValueChanged(2, false);
+                RoundValueChanged(3, false);
                 StopTimer();
                 ChoosePilots(true);
-                //ClearTimer();
-                //MessageBox.Show("D");
                 UpdateTeamsData();
                 return;
             }
@@ -1017,36 +1012,18 @@ namespace TimerModel
         }
         private void RoundValueChanged(byte rNum, bool updateTables = true)
         {
-            //if all ==  then main round is that num too
-            //()&&()&&()
-
-            if (((M1Round.Enabled && (M1Round.Value == M2Round.Value | !M2Round.Enabled) && (M1Round.Value == M3Round.Value | !M3Round.Enabled)) | !M1Round.Enabled)
+            if (UpdateRoundCounters)
+            {
+                TimerSettings.Competition.Teams.AllTeams.ForEach(delegate (Team T) { T.SelectRound((byte)(M1Round.Value)); });
+                if (((M1Round.Enabled && (M1Round.Value == M2Round.Value | !M2Round.Enabled) && (M1Round.Value == M3Round.Value | !M3Round.Enabled)) | !M1Round.Enabled)
                 && ((M2Round.Enabled && (M2Round.Value == M1Round.Value | !M1Round.Enabled) && (M2Round.Value == M3Round.Value | !M3Round.Enabled)) | !M2Round.Enabled)
                 && ((M3Round.Enabled && (M3Round.Value == M2Round.Value | !M2Round.Enabled) && (M1Round.Value == M3Round.Value | !M1Round.Enabled)) | !M3Round.Enabled))
-            {
-                justSetRoundNum = true;
-                RoundNum.Value = M1Round.Enabled ? M1Round.Value : M2Round.Enabled ? M2Round.Value : M3Round.Enabled ? M3Round.Value : 1;
-                justSetRoundNum = false;
-            }
-
-            bool isCounterEnabled = rNum == 1 ? M1Round.Enabled : rNum == 2 ? M2Round.Enabled : rNum == 3 ? M3Round.Enabled : false;
-
-            if (UpdateRoundCounters && isCounterEnabled)
-            {
-                //AllowRerun = true;
-                switch (rNum)
                 {
-                    case 1:
-                        TimerSettings.Competition.Teams.First.SelectRound((byte)M1Round.Value);
-                        break;
-                    case 2:
-                        TimerSettings.Competition.Teams.Second.SelectRound((byte)M2Round.Value);
-                        break;
-                    case 3:
-                        TimerSettings.Competition.Teams.Third.SelectRound((byte)M3Round.Value);
-                        break;
+                    justSetRoundNum = true;
+                    RoundNum.Value = M1Round.Enabled ? M1Round.Value : M2Round.Enabled ? M2Round.Value : M3Round.Enabled ? M3Round.Value : 1;
+
+                    justSetRoundNum = false;
                 }
-                //MessageBox.Show("D");
                 if (updateTables)
                 {
                     UpdateTeamsData();

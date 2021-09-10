@@ -151,6 +151,7 @@ namespace TimerModel.Objects
         }
         public CompetingModels()
         {
+            Round = 1;
             //SetRoundsCount(MaxRoundsCount);
             //GenerateTeamSets();
         }

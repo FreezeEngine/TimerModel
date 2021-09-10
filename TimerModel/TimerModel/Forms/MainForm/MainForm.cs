@@ -13,7 +13,7 @@ namespace TimerModel
     public partial class MainForm : Form
     {
         //private bool Printed = false;
-        private bool AutoStart = false;
+        private bool AutoStart = true;
 
         public MainForm()
         {
@@ -362,7 +362,7 @@ namespace TimerModel
         }
         private void UpdateTeamsData()
         {
-            
+
             //MessageBox.Show(Environment.StackTrace.ToString());
             //UpdateRoundCounters = true;
             //justSetRoundNum = false;
@@ -596,6 +596,7 @@ namespace TimerModel
 
             void HandleButton(int ModelNum)
             {
+                
                 Team Team = GetTeam(ModelNum);
                 if (!Team.Enabled)
                 {
@@ -605,7 +606,7 @@ namespace TimerModel
                 {
                     return;
                 }
-
+                
                 void R()
                 {
                     string Points = Team.CurrentRound.RoundPoints();
@@ -683,11 +684,23 @@ namespace TimerModel
                     }
                 }
             }
+            /*if (!Stopwatch.Started)
+            {
+                StartTimer();
+            }*/
             if ((!Stopwatch.Started && AutoStart) && !(!T1.Enabled && !T2.Enabled && !T3.Enabled) && (e.KeyChar == '1' | e.KeyChar == '2' | e.KeyChar == '3'))
             {
-                //AutoStart = false;
+                if (T1.CurrentRound.Finished | T2.CurrentRound.Finished | T3.CurrentRound.Finished)
+                {
+                    var HasData = MessageBox.Show("В текущей тройке есть данные, стереть их и начать заного?", "Предупреждение", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (HasData == DialogResult.No)
+                    {
+                        return;
+                    }
+                }
+                AutoStart = false;
                 //AllowRerun = false;
-
+                ResetTeamProgress();
                 ClearTimer();
                 StopTimer();
 
@@ -783,6 +796,7 @@ namespace TimerModel
                 Stop.Enabled = false;
                 Reset.Enabled = false;
                 ChoosePilots(true);
+                AutoStart = true;
                 return;
             }
         }
@@ -1037,6 +1051,7 @@ namespace TimerModel
             if (ResetDialog == DialogResult.Yes)
             {
                 NewSetOfTeams();
+                AutoStart = true;
                 //TimerSettings.Competition.Teams.NextRound();
             }
         }
@@ -1050,12 +1065,19 @@ namespace TimerModel
                 {
                     TimerSettings.Competition.Teams.CurrentModel = (CompetingModels)CMSwitcher.SelectedItem;
                     TimerSettings.Competition.Teams.NextTeamSet(true);
+                    AutoStart = true;
+
                 }
                 else
                 {
                     CMSwitcher.SelectedItem = TimerSettings.Competition.Teams.CurrentModel;
                 }
             }
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

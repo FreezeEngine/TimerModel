@@ -24,7 +24,7 @@ namespace CompetitionOrganizer.Objects
         public string ShortenName()
         {
             string ShortenName = "";
-            if(Name == null)
+            if (Name == null)
             {
                 return null;
             }
@@ -66,7 +66,7 @@ namespace CompetitionOrganizer.Objects
         }
         public bool Equals(Participant other)
         {
-            if (other == null|other.Name == null| Name == null)
+            if (other == null | other.Name == null | Name == null)
             {
                 return false;
             }

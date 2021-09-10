@@ -22,10 +22,10 @@ namespace TimerModel
             get
             {
                 var t = CurrentTime - RoundStart;
-                if (t.TotalSeconds > 200|t.TotalSeconds<0)
+                if (t.TotalSeconds > 200 | t.TotalSeconds < 0)
                 {
                     //return new TimeSpan();
-                    return new TimeSpan(0,0,200);
+                    return new TimeSpan(0, 0, 200);
                 }
                 return t;
             }
@@ -161,7 +161,7 @@ namespace TimerModel
             //}
             if (TimeD != 0)
             {
-                return new TimeSpan(0,0,TimeD).ToString(@"mm\,ss\,ff");
+                return new TimeSpan(0, 0, TimeD).ToString(@"mm\,ss\,ff");
             }
             return Time.ToString(@"mm\,ss\,ff");
         }

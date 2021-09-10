@@ -3,7 +3,6 @@ using CompetitionOrganizer.Objects.Reporting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Text.Json.Serialization;
 using TimerModel.Objects;
 
@@ -80,9 +79,9 @@ namespace TimerModel
         }
         public void FillOut()
         {
-            foreach(var T in Teams.AllTeams)
+            foreach (var T in Teams.AllTeams)
             {
-                foreach(var R in T.Rounds)
+                foreach (var R in T.Rounds)
                 {
                     R.RandomRound();
                     R.Finished = true;
@@ -142,8 +141,8 @@ namespace TimerModel
                     }
                 }
             }
-            if(onCompetitionFinished != null)
-            onCompetitionFinished();
+            if (onCompetitionFinished != null)
+                onCompetitionFinished();
         }
 
         public override string ToString()

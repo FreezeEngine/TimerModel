@@ -124,7 +124,7 @@ namespace TimerModel.Objects.Reporting
                                             Sheet.Cells[r, c].Value = Team.CurrentRound.RoundPoints();
                                             break;
                                         case "T":
-                                            Sheet.Cells[r, c].Value = Team.CurrentRound.RoundTime();
+                                            Sheet.Cells[r, c].Value = Team.CurrentRound.RoundTime() + (Team.CurrentRound.BadFinish ? " X|" : "");
                                             break;
                                     }
                                     continue;

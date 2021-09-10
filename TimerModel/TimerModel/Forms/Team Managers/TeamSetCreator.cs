@@ -27,7 +27,7 @@ namespace CompetitionOrganizer.Forms.Team_Managers
             var tripoint = "...";
             var trim = 63;
             var t1 = teamSet.First.ToString();
-            if(t1.Length > trim)
+            if (t1.Length > trim)
             {
                 t1 = t1.Remove(trim) + tripoint;
             }
@@ -35,7 +35,7 @@ namespace CompetitionOrganizer.Forms.Team_Managers
             var t2 = teamSet.Second.ToString();
             if (t2.Length > trim)
             {
-                t2 = t2.Remove(trim)+ tripoint;
+                t2 = t2.Remove(trim) + tripoint;
             }
             N2.Text = t2;
             var t3 = teamSet.Third.ToString();

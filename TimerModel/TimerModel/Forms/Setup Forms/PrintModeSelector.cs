@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CompetitionOrganizer.Forms.Printing;
+using System;
 using System.Windows.Forms;
 using TimerModel.Objects.PrintMode;
 
@@ -50,6 +51,29 @@ namespace TimerModel.Forms.Setup_Forms
         {
             Hide();
             Close();
+        }
+
+        private void ReflyM1_CheckedChanged(object sender, EventArgs e)
+        {
+            TimerSettings.Competition.Teams.CurrentModel.CurrentTeamset.First.CurrentRound.BadFinish = ReflyM1.Checked;
+        }
+
+        private void ReflyM2_CheckedChanged(object sender, EventArgs e)
+        {
+            TimerSettings.Competition.Teams.CurrentModel.CurrentTeamset.Second.CurrentRound.BadFinish = ReflyM2.Checked;
+        }
+
+        private void ReflyM3_CheckedChanged(object sender, EventArgs e)
+        {
+            TimerSettings.Competition.Teams.CurrentModel.CurrentTeamset.Third.CurrentRound.BadFinish = ReflyM3.Checked;
+        }
+
+        private void EditPrintData_Click(object sender, EventArgs e)
+        {
+            var PrePrintFrom1 = new PrePrintForm();
+            PrePrintFrom1.Show();
+            Hide();
+            PrePrintFrom1.FormClosing += (a,s)=> { Show(); };
         }
     }
 }

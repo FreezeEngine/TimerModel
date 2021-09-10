@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using TimerModel;
+﻿using TimerModel;
 
 namespace CompetitionOrganizer.Objects
 {

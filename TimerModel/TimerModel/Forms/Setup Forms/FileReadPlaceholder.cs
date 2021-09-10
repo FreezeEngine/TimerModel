@@ -23,7 +23,7 @@ namespace TimerModel
         {
             InitializeComponent();
             TopMost = true;
-            Loader = new Thread(new ThreadStart(() => { var F = File.OpenRead(FilePath); ExcelFile = new ExcelPackage(F); UpdateTeams(); }));
+            Loader = new Thread(new ThreadStart(() => { using (var F = File.OpenRead(FilePath)) { using (ExcelFile = new ExcelPackage(F)) { UpdateTeams(); } } }));
             Loader.IsBackground = true;
             Loader.Start();
 
@@ -48,7 +48,7 @@ namespace TimerModel
             onTeamsFailed += () =>
             {
                 LoadingStatusLabel.SetPropertyThreadSafe(() => LoadingStatusLabel.Text, "Ошибка загрузки!");
-                
+
                 Invoke((MethodInvoker)delegate ()
                 {
                     Close();

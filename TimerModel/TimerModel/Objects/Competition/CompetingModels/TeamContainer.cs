@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json.Serialization;
-using System.Windows.Forms;
 using TimerModel.Forms.Setup_Forms;
 
 namespace TimerModel.Objects
@@ -86,7 +85,7 @@ namespace TimerModel.Objects
         {
             get
             {
-                if(CurrentModel == null)
+                if (CurrentModel == null)
                 {
                     return _Disabled;
                 }
@@ -145,11 +144,12 @@ namespace TimerModel.Objects
         }
         public byte GlobalRound { get; set; }
         [JsonIgnore]
-        public byte TeamOffset {
+        public byte TeamOffset
+        {
 
             get
             {
-                if(GlobalRound == 0)//DUMSHIT
+                if (GlobalRound == 0)//DUMSHIT
                 {
                     GlobalRound = 1;
                 }
@@ -296,7 +296,7 @@ namespace TimerModel.Objects
             //GenerateTeamSets();
 
 
-            
+
             TeamClumps.ForEach(delegate (CompetingModels CM)
             {
                 while (CM.TeamSets.Find(delegate (TeamSet TS) { return TS.Set.ToList().Contains(teamIndex); }) != null)

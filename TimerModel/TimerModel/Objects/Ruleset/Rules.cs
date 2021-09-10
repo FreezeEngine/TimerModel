@@ -2,7 +2,7 @@
 {
     class Rules
     {
-        public static byte MaxRounds = 12;//12
+        public static byte MaxRounds = 16;//16
         public static byte MinRounds = 6;//6
 
         public static byte MaxLaps = 12;//12

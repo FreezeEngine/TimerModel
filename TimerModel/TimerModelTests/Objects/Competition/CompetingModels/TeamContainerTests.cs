@@ -1,8 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using TimerModel.Objects;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace TimerModel.Objects.Tests
 {
